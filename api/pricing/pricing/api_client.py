@@ -24,7 +24,7 @@ import six
 from six.moves.urllib.parse import quote
 
 from api.pricing.pricing.configuration import Configuration
-import pricing.models
+import api.pricing.pricing.models
 from api.pricing.pricing import rest
 from api.pricing.pricing.exceptions import ApiValueError
 

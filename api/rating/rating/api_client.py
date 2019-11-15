@@ -24,7 +24,7 @@ import six
 from six.moves.urllib.parse import quote
 
 from api.rating.rating.configuration import Configuration
-import rating.models
+import api.rating.rating.models
 from api.rating.rating import rest
 from api.rating.rating.exceptions import ApiValueError
 

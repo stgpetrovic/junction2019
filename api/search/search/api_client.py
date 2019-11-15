@@ -24,7 +24,7 @@ import six
 from six.moves.urllib.parse import quote
 
 from api.search.search.configuration import Configuration
-import search.models
+import api.search.search.models
 from api.search.search import rest
 from api.search.search.exceptions import ApiValueError
 
