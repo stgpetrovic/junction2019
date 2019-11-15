@@ -17,8 +17,8 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 
-from pricing.api_client import ApiClient
-from pricing.exceptions import (
+from api.pricing.pricing.api_client import ApiClient
+from api.pricing.pricing.exceptions import (
     ApiTypeError,
     ApiValueError
 )

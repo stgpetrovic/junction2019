@@ -17,8 +17,8 @@ import re  # noqa: F401
 # python 2 and python 3 compatibility library
 import six
 
-from search.api_client import ApiClient
-from search.exceptions import (
+from api.search.search.api_client import ApiClient
+from api.search.search.exceptions import (
     ApiTypeError,
     ApiValueError
 )

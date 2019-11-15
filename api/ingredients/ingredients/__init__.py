@@ -17,17 +17,17 @@ from __future__ import absolute_import
 __version__ = "1.0.0"
 
 # import apis into sdk package
-from ingredients.api.departments_api import DepartmentsApi
-from ingredients.api.ingredients_api import IngredientsApi
-from ingredients.api.segments_api import SegmentsApi
+from api.ingredients.ingredients.api.departments_api import DepartmentsApi
+from api.ingredients.ingredients.api.ingredients_api import IngredientsApi
+from api.ingredients.ingredients.api.segments_api import SegmentsApi
 
 # import ApiClient
-from ingredients.api_client import ApiClient
-from ingredients.configuration import Configuration
-from ingredients.exceptions import OpenApiException
-from ingredients.exceptions import ApiTypeError
-from ingredients.exceptions import ApiValueError
-from ingredients.exceptions import ApiKeyError
-from ingredients.exceptions import ApiException
+from api.ingredients.ingredients.api_client import ApiClient
+from api.ingredients.ingredients.configuration import Configuration
+from api.ingredients.ingredients.exceptions import OpenApiException
+from api.ingredients.ingredients.exceptions import ApiTypeError
+from api.ingredients.ingredients.exceptions import ApiValueError
+from api.ingredients.ingredients.exceptions import ApiKeyError
+from api.ingredients.ingredients.exceptions import ApiException
 # import models into sdk package
 

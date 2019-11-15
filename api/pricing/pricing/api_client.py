@@ -23,10 +23,10 @@ import tempfile
 import six
 from six.moves.urllib.parse import quote
 
-from pricing.configuration import Configuration
+from api.pricing.pricing.configuration import Configuration
 import pricing.models
-from pricing import rest
-from pricing.exceptions import ApiValueError
+from api.pricing.pricing import rest
+from api.pricing.pricing.exceptions import ApiValueError
 
 
 class ApiClient(object):

@@ -23,10 +23,10 @@ import tempfile
 import six
 from six.moves.urllib.parse import quote
 
-from ingredients.configuration import Configuration
-import ingredients.models
-from ingredients import rest
-from ingredients.exceptions import ApiValueError
+from api.ingredients.ingredients.configuration import Configuration
+import api.ingredients.ingredients.models
+from api.ingredients.ingredients import rest
+from api.ingredients.ingredients.exceptions import ApiValueError
 
 
 class ApiClient(object):

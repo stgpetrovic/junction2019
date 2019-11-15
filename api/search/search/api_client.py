@@ -23,10 +23,10 @@ import tempfile
 import six
 from six.moves.urllib.parse import quote
 
-from search.configuration import Configuration
+from api.search.search.configuration import Configuration
 import search.models
-from search import rest
-from search.exceptions import ApiValueError
+from api.search.search import rest
+from api.search.search.exceptions import ApiValueError
 
 
 class ApiClient(object):

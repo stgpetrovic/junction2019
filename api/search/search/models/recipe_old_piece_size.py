@@ -15,7 +15,7 @@ import re  # noqa: F401
 
 import six
 
-from search.configuration import Configuration
+from api.search.search.configuration import Configuration
 
 
 class RecipeOldPieceSize(object):

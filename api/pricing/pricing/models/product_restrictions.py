@@ -15,7 +15,7 @@ import re  # noqa: F401
 
 import six
 
-from pricing.configuration import Configuration
+from api.pricing.pricing.configuration import Configuration
 
 
 class ProductRestrictions(object):
