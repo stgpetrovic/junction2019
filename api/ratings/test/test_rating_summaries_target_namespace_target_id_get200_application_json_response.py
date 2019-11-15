@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.rating_summaries_target_namespace_target_id_get200_application_json_response import RatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse  # noqa: E501
-from openapi_client.rest import ApiException
+import rating
+from rating.models.rating_summaries_target_namespace_target_id_get200_application_json_response import RatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse  # noqa: E501
+from rating.rest import ApiException
 
 
 class TestRatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestRatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse(un
     def testRatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse(self):
         """Test RatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.rating_summaries_target_namespace_target_id_get200_application_json_response.RatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse()  # noqa: E501
+        # model = rating.models.rating_summaries_target_namespace_target_id_get200_application_json_response.RatingSummariesTargetNamespaceTargetIdGet200ApplicationJsonResponse()  # noqa: E501
         pass
 
 

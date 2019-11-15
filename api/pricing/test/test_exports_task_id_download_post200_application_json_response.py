@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.exports_task_id_download_post200_application_json_response import ExportsTaskIdDownloadPost200ApplicationJsonResponse  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.exports_task_id_download_post200_application_json_response import ExportsTaskIdDownloadPost200ApplicationJsonResponse  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestExportsTaskIdDownloadPost200ApplicationJsonResponse(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestExportsTaskIdDownloadPost200ApplicationJsonResponse(unittest.TestCase)
     def testExportsTaskIdDownloadPost200ApplicationJsonResponse(self):
         """Test ExportsTaskIdDownloadPost200ApplicationJsonResponse"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.exports_task_id_download_post200_application_json_response.ExportsTaskIdDownloadPost200ApplicationJsonResponse()  # noqa: E501
+        # model = pricing.models.exports_task_id_download_post200_application_json_response.ExportsTaskIdDownloadPost200ApplicationJsonResponse()  # noqa: E501
         pass
 
 

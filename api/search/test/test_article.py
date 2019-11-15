@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.article import Article  # noqa: E501
-from openapi_client.rest import ApiException
+import search
+from search.models.article import Article  # noqa: E501
+from search.rest import ApiException
 
 
 class TestArticle(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestArticle(unittest.TestCase):
     def testArticle(self):
         """Test Article"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.article.Article()  # noqa: E501
+        # model = search.models.article.Article()  # noqa: E501
         pass
 
 

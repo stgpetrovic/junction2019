@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.payload_all_of_view import PayloadAllOfView  # noqa: E501
-from openapi_client.rest import ApiException
+import search
+from search.models.payload_all_of_view import PayloadAllOfView  # noqa: E501
+from search.rest import ApiException
 
 
 class TestPayloadAllOfView(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestPayloadAllOfView(unittest.TestCase):
     def testPayloadAllOfView(self):
         """Test PayloadAllOfView"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.payload_all_of_view.PayloadAllOfView()  # noqa: E501
+        # model = search.models.payload_all_of_view.PayloadAllOfView()  # noqa: E501
         pass
 
 

@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.item_basket_response_basket_items import ItemBasketResponseBasketItems  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.item_basket_response_basket_items import ItemBasketResponseBasketItems  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestItemBasketResponseBasketItems(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestItemBasketResponseBasketItems(unittest.TestCase):
     def testItemBasketResponseBasketItems(self):
         """Test ItemBasketResponseBasketItems"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.item_basket_response_basket_items.ItemBasketResponseBasketItems()  # noqa: E501
+        # model = pricing.models.item_basket_response_basket_items.ItemBasketResponseBasketItems()  # noqa: E501
         pass
 
 

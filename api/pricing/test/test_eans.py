@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.eans import Eans  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.eans import Eans  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestEans(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestEans(unittest.TestCase):
     def testEans(self):
         """Test Eans"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.eans.Eans()  # noqa: E501
+        # model = pricing.models.eans.Eans()  # noqa: E501
         pass
 
 

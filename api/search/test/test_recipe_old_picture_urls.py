@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.recipe_old_picture_urls import RecipeOldPictureUrls  # noqa: E501
-from openapi_client.rest import ApiException
+import search
+from search.models.recipe_old_picture_urls import RecipeOldPictureUrls  # noqa: E501
+from search.rest import ApiException
 
 
 class TestRecipeOldPictureUrls(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestRecipeOldPictureUrls(unittest.TestCase):
     def testRecipeOldPictureUrls(self):
         """Test RecipeOldPictureUrls"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.recipe_old_picture_urls.RecipeOldPictureUrls()  # noqa: E501
+        # model = search.models.recipe_old_picture_urls.RecipeOldPictureUrls()  # noqa: E501
         pass
 
 

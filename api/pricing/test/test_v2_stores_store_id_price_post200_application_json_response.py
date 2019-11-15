@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.v2_stores_store_id_price_post200_application_json_response import V2StoresStoreIdPricePost200ApplicationJsonResponse  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.v2_stores_store_id_price_post200_application_json_response import V2StoresStoreIdPricePost200ApplicationJsonResponse  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestV2StoresStoreIdPricePost200ApplicationJsonResponse(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestV2StoresStoreIdPricePost200ApplicationJsonResponse(unittest.TestCase):
     def testV2StoresStoreIdPricePost200ApplicationJsonResponse(self):
         """Test V2StoresStoreIdPricePost200ApplicationJsonResponse"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.v2_stores_store_id_price_post200_application_json_response.V2StoresStoreIdPricePost200ApplicationJsonResponse()  # noqa: E501
+        # model = pricing.models.v2_stores_store_id_price_post200_application_json_response.V2StoresStoreIdPricePost200ApplicationJsonResponse()  # noqa: E501
         pass
 
 

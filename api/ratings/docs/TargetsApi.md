@@ -1,4 +1,4 @@
-# openapi_client.TargetsApi
+# rating.TargetsApi
 
 All URIs are relative to *https://kesko.azure-api.net/ratings*
 
@@ -20,15 +20,15 @@ Lists all targets currently in the database.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -37,7 +37,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.TargetsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.TargetsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 offset = 0 # int | Offset for pagination. Default is **0**. When using this parameter, specify `limit` explicitly. The defaults might change.  (optional) (default to 0)
 limit = 56 # int | Limit of returned items. By default, there is no limit as we need all targets in the UI.  (optional)
@@ -57,15 +57,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -74,7 +74,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.TargetsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.TargetsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 offset = 0 # int | Offset for pagination. Default is **0**. When using this parameter, specify `limit` explicitly. The defaults might change.  (optional) (default to 0)
 limit = 56 # int | Limit of returned items. By default, there is no limit as we need all targets in the UI.  (optional)

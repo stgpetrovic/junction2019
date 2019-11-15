@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.recipe_old_sub_heading_alternatives import RecipeOldSubHeadingAlternatives  # noqa: E501
-from openapi_client.rest import ApiException
+import search
+from search.models.recipe_old_sub_heading_alternatives import RecipeOldSubHeadingAlternatives  # noqa: E501
+from search.rest import ApiException
 
 
 class TestRecipeOldSubHeadingAlternatives(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestRecipeOldSubHeadingAlternatives(unittest.TestCase):
     def testRecipeOldSubHeadingAlternatives(self):
         """Test RecipeOldSubHeadingAlternatives"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.recipe_old_sub_heading_alternatives.RecipeOldSubHeadingAlternatives()  # noqa: E501
+        # model = search.models.recipe_old_sub_heading_alternatives.RecipeOldSubHeadingAlternatives()  # noqa: E501
         pass
 
 

@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.session_info_info_target_namespaces import SessionInfoInfoTargetNamespaces  # noqa: E501
-from openapi_client.rest import ApiException
+import rating
+from rating.models.session_info_info_target_namespaces import SessionInfoInfoTargetNamespaces  # noqa: E501
+from rating.rest import ApiException
 
 
 class TestSessionInfoInfoTargetNamespaces(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestSessionInfoInfoTargetNamespaces(unittest.TestCase):
     def testSessionInfoInfoTargetNamespaces(self):
         """Test SessionInfoInfoTargetNamespaces"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.session_info_info_target_namespaces.SessionInfoInfoTargetNamespaces()  # noqa: E501
+        # model = rating.models.session_info_info_target_namespaces.SessionInfoInfoTargetNamespaces()  # noqa: E501
         pass
 
 

@@ -1,4 +1,4 @@
-# openapi_client.StoreApi
+# pricing.StoreApi
 
 All URIs are relative to *https://kesko.azure-api.net*
 
@@ -21,15 +21,15 @@ Get info for multiple stores.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -38,7 +38,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.StoreApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.StoreApi(pricing.ApiClient(configuration))
 ids = 'ids_example' # str | Store ids. (optional)
 limit = 20 # int | Limit for the quantity of returned results. Default: 20.  (optional) (default to 20)
 offset = 0 # int | Offset for the current \"page\" ie. how many results to skip and when to start returning new results up to the defined limit. Default: 0.  (optional) (default to 0)
@@ -56,15 +56,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -73,7 +73,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.StoreApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.StoreApi(pricing.ApiClient(configuration))
 ids = 'ids_example' # str | Store ids. (optional)
 limit = 20 # int | Limit for the quantity of returned results. Default: 20.  (optional) (default to 20)
 offset = 0 # int | Offset for the current \"page\" ie. how many results to skip and when to start returning new results up to the defined limit. Default: 0.  (optional) (default to 0)
@@ -130,15 +130,15 @@ Get info for a single store.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -147,7 +147,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.StoreApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.StoreApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 
 try:
@@ -162,15 +162,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -179,7 +179,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.StoreApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.StoreApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 
 try:

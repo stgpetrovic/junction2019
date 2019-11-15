@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.promotion_v4_all_of1_baskets import PromotionV4AllOf1Baskets  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.promotion_v4_all_of1_baskets import PromotionV4AllOf1Baskets  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestPromotionV4AllOf1Baskets(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestPromotionV4AllOf1Baskets(unittest.TestCase):
     def testPromotionV4AllOf1Baskets(self):
         """Test PromotionV4AllOf1Baskets"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.promotion_v4_all_of1_baskets.PromotionV4AllOf1Baskets()  # noqa: E501
+        # model = pricing.models.promotion_v4_all_of1_baskets.PromotionV4AllOf1Baskets()  # noqa: E501
         pass
 
 

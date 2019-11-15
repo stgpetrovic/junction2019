@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.promotion_v3 import PromotionV3  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.promotion_v3 import PromotionV3  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestPromotionV3(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestPromotionV3(unittest.TestCase):
     def testPromotionV3(self):
         """Test PromotionV3"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.promotion_v3.PromotionV3()  # noqa: E501
+        # model = pricing.models.promotion_v3.PromotionV3()  # noqa: E501
         pass
 
 

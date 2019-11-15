@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.login import Login  # noqa: E501
-from openapi_client.rest import ApiException
+import rating
+from rating.models.login import Login  # noqa: E501
+from rating.rest import ApiException
 
 
 class TestLogin(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestLogin(unittest.TestCase):
     def testLogin(self):
         """Test Login"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.login.Login()  # noqa: E501
+        # model = rating.models.login.Login()  # noqa: E501
         pass
 
 

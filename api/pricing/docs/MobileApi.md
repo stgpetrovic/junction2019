@@ -1,4 +1,4 @@
-# openapi_client.MobileApi
+# pricing.MobileApi
 
 All URIs are relative to *https://kesko.azure-api.net*
 
@@ -29,15 +29,15 @@ Delete shopping basket.    ** NOTE: This endpoint retuns the \"token\", which mu
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -46,7 +46,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
 
@@ -61,15 +61,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -78,7 +78,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
 
@@ -130,15 +130,15 @@ Remove item from shopping basket.    ** NOTE: This endpoint retuns the \"token\"
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -147,7 +147,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 item_id = 56 # int | Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first. 
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token from basket creation response
@@ -165,15 +165,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -182,7 +182,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 item_id = 56 # int | Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first. 
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token from basket creation response
@@ -238,15 +238,15 @@ Get shopping basket information with long id.    ** NOTE: This endpoint retuns t
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -255,7 +255,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token 
 include_promotion_details = True # bool |  (optional)
@@ -272,15 +272,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -289,7 +289,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token 
 include_promotion_details = True # bool |  (optional)
@@ -344,15 +344,15 @@ Get shopping basket information for store with short id.    ** NOTE: This endpoi
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -361,7 +361,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 short_basket_id = 'short_basket_id_example' # str | Short id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
@@ -379,15 +379,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -396,7 +396,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 short_basket_id = 'short_basket_id_example' # str | Short id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
@@ -453,15 +453,15 @@ Get info for a single product.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -470,7 +470,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 ean = 'ean_example' # str | EAN code of the product
 
@@ -486,15 +486,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -503,7 +503,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 ean = 'ean_example' # str | EAN code of the product
 
@@ -557,15 +557,15 @@ Update an item in shopping basket.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -574,12 +574,12 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 item_id = 56 # int | Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first. 
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token, returned from basket creation request
 include_promotion_details = True # bool |  (optional)
-item = openapi_client.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
+item = pricing.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
 
 try:
     # Update an item in shopping basket.
@@ -593,15 +593,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -610,12 +610,12 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 item_id = 56 # int | Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first. 
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token, returned from basket creation request
 include_promotion_details = True # bool |  (optional)
-item = openapi_client.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
+item = pricing.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
 
 try:
     # Update an item in shopping basket.
@@ -668,15 +668,15 @@ Body of the request should be empty. The basket is deleted after 24 hours!    **
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -685,7 +685,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 include_promotion_details = True # bool |  (optional)
 
@@ -701,15 +701,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -718,7 +718,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 include_promotion_details = True # bool |  (optional)
 
@@ -770,15 +770,15 @@ Get information for multiple products at once.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -787,9 +787,9 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
-eans = openapi_client.Eans() # Eans |  (optional)
+eans = pricing.Eans() # Eans |  (optional)
 
 try:
     # Get information for multiple products at once.
@@ -803,15 +803,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -820,9 +820,9 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
-eans = openapi_client.Eans() # Eans |  (optional)
+eans = pricing.Eans() # Eans |  (optional)
 
 try:
     # Get information for multiple products at once.
@@ -874,15 +874,15 @@ Sets an array of items as the content of the basket. The first item in the array
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -891,11 +891,11 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
 include_promotion_details = True # bool |  (optional)
-payload = openapi_client.Payload() # Payload | Bulk item object containing multiple partial basket item objects.   (optional)
+payload = pricing.Payload() # Payload | Bulk item object containing multiple partial basket item objects.   (optional)
 
 try:
     # Add multiple items to the shopping basket at once.
@@ -909,15 +909,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -926,11 +926,11 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
 include_promotion_details = True # bool |  (optional)
-payload = openapi_client.Payload() # Payload | Bulk item object containing multiple partial basket item objects.   (optional)
+payload = pricing.Payload() # Payload | Bulk item object containing multiple partial basket item objects.   (optional)
 
 try:
     # Add multiple items to the shopping basket at once.
@@ -984,15 +984,15 @@ It is up to the client to generate and handle the basket item id.    ** NOTE: Th
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -1001,12 +1001,12 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 item_id = 56 # int | Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first. 
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
 include_promotion_details = True # bool |  (optional)
-item = openapi_client.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
+item = pricing.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
 
 try:
     # Create a new item to shopping basket.
@@ -1020,15 +1020,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -1037,12 +1037,12 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.MobileApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.MobileApi(pricing.ApiClient(configuration))
 long_basket_id = 'long_basket_id_example' # str | Long id of the shopping basket
 item_id = 56 # int | Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first. 
 x_basket_token = 'x_basket_token_example' # str | Basket authorization token
 include_promotion_details = True # bool |  (optional)
-item = openapi_client.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
+item = pricing.Item() # Item | Item object. This object also specifies the multiplier of items added.   (optional)
 
 try:
     # Create a new item to shopping basket.

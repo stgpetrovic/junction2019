@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.rating_summaries_api import RatingSummariesApi  # noqa: E501
-from openapi_client.rest import ApiException
+import rating
+from rating.api.rating_summaries_api import RatingSummariesApi  # noqa: E501
+from rating.rest import ApiException
 
 
 class TestRatingSummariesApi(unittest.TestCase):
     """RatingSummariesApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.rating_summaries_api.RatingSummariesApi()  # noqa: E501
+        self.api = rating.api.rating_summaries_api.RatingSummariesApi()  # noqa: E501
 
     def tearDown(self):
         pass

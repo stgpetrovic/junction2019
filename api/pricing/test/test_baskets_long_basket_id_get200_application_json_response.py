@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.baskets_long_basket_id_get200_application_json_response import BasketsLongBasketIdGet200ApplicationJsonResponse  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.baskets_long_basket_id_get200_application_json_response import BasketsLongBasketIdGet200ApplicationJsonResponse  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestBasketsLongBasketIdGet200ApplicationJsonResponse(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestBasketsLongBasketIdGet200ApplicationJsonResponse(unittest.TestCase):
     def testBasketsLongBasketIdGet200ApplicationJsonResponse(self):
         """Test BasketsLongBasketIdGet200ApplicationJsonResponse"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.baskets_long_basket_id_get200_application_json_response.BasketsLongBasketIdGet200ApplicationJsonResponse()  # noqa: E501
+        # model = pricing.models.baskets_long_basket_id_get200_application_json_response.BasketsLongBasketIdGet200ApplicationJsonResponse()  # noqa: E501
         pass
 
 

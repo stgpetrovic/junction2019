@@ -14,16 +14,16 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.api.health_api import HealthApi  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.api.health_api import HealthApi  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestHealthApi(unittest.TestCase):
     """HealthApi unit test stubs"""
 
     def setUp(self):
-        self.api = openapi_client.api.health_api.HealthApi()  # noqa: E501
+        self.api = pricing.api.health_api.HealthApi()  # noqa: E501
 
     def tearDown(self):
         pass

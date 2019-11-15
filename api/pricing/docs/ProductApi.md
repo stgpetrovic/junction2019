@@ -1,4 +1,4 @@
-# openapi_client.ProductApi
+# pricing.ProductApi
 
 All URIs are relative to *https://kesko.azure-api.net*
 
@@ -23,15 +23,15 @@ Returns the `pricingUnit` and availability of given products in all stores. If a
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -40,7 +40,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 ean = 'ean_example' # str | 
 
 try:
@@ -55,15 +55,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -72,7 +72,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 ean = 'ean_example' # str | 
 
 try:
@@ -123,15 +123,15 @@ This endpoint is used to fetch product details for a specific store. Multiple st
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -140,7 +140,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 ean = 'ean_example' # str | An EAN code or multiple EAN codes to return details for.  (optional)
 limit = 20 # int | Limit for the quantity of returned results. Default: 20.  (optional) (default to 20)
@@ -159,15 +159,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -176,7 +176,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 ean = 'ean_example' # str | An EAN code or multiple EAN codes to return details for.  (optional)
 limit = 20 # int | Limit for the quantity of returned results. Default: 20.  (optional) (default to 20)
@@ -236,15 +236,15 @@ Calculate price for each individual EAN row and the total for the requested EANs
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -253,10 +253,10 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 plussa = False # bool |  (optional) (default to False)
-products = openapi_client.Products() # Products | An object containing the products for which the prices are fetched. Keys are EANs and values are quantity.   (optional)
+products = pricing.Products() # Products | An object containing the products for which the prices are fetched. Keys are EANs and values are quantity.   (optional)
 
 try:
     # Calculate price for each individual EAN row and the total for the requested EANs. 
@@ -270,15 +270,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -287,10 +287,10 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 plussa = False # bool |  (optional) (default to False)
-products = openapi_client.Products() # Products | An object containing the products for which the prices are fetched. Keys are EANs and values are quantity.   (optional)
+products = pricing.Products() # Products | An object containing the products for which the prices are fetched. Keys are EANs and values are quantity.   (optional)
 
 try:
     # Calculate price for each individual EAN row and the total for the requested EANs. 
@@ -343,15 +343,15 @@ Fetch individual product prices and gather promotion information. This endpoint 
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -360,10 +360,10 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 plussa = False # bool |  (optional) (default to False)
-eans = openapi_client.Eans() # Eans |  (optional)
+eans = pricing.Eans() # Eans |  (optional)
 
 try:
     # Get individual product prices with promotion information.
@@ -377,15 +377,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import pricing
+from pricing.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = pricing.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -394,10 +394,10 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net
 configuration.host = "https://kesko.azure-api.net"
 # Create an instance of the API class
-api_instance = openapi_client.ProductApi(openapi_client.ApiClient(configuration))
+api_instance = pricing.ProductApi(pricing.ApiClient(configuration))
 store_id = 'store_id_example' # str | Store id, for example C122.
 plussa = False # bool |  (optional) (default to False)
-eans = openapi_client.Eans() # Eans |  (optional)
+eans = pricing.Eans() # Eans |  (optional)
 
 try:
     # Get individual product prices with promotion information.

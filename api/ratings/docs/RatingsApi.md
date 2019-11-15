@@ -1,4 +1,4 @@
-# openapi_client.RatingsApi
+# rating.RatingsApi
 
 All URIs are relative to *https://kesko.azure-api.net/ratings*
 
@@ -24,15 +24,15 @@ Delete rating.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -41,7 +41,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 id = 'id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
@@ -58,15 +58,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -75,7 +75,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 id = 'id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
@@ -130,15 +130,15 @@ List ratings in a given target namespace. If requesting as a service user, unpub
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -147,7 +147,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.  (optional)
 author_id = 'author_id_example' # str | Search based on one or more authorIds. (optional)
@@ -177,15 +177,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -194,7 +194,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.  (optional)
 author_id = 'author_id_example' # str | Search based on one or more authorIds. (optional)
@@ -274,15 +274,15 @@ Get rating.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -291,7 +291,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 id = 'id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
@@ -309,15 +309,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -326,7 +326,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 id = 'id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
@@ -382,15 +382,15 @@ The service needs authorId to prevent users from creating more than one rating f
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -399,11 +399,11 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
 x_author_id = 'x_author_id_example' # str | **Warning:** this ID should be SAME across all services using this rating service. Tells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`. This value is important and should always be included, but isn't strictly required by the API.  (optional)
-rating = openapi_client.Rating() # Rating | Rating object (optional)
+rating = rating.Rating() # Rating | Rating object (optional)
 
 try:
     # Create rating.
@@ -417,15 +417,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -434,11 +434,11 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
 x_author_id = 'x_author_id_example' # str | **Warning:** this ID should be SAME across all services using this rating service. Tells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`. This value is important and should always be included, but isn't strictly required by the API.  (optional)
-rating = openapi_client.Rating() # Rating | Rating object (optional)
+rating = rating.Rating() # Rating | Rating object (optional)
 
 try:
     # Create rating.
@@ -490,15 +490,15 @@ Body of the request should be a full rating object.  **Note:** `targetNamespace`
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -507,12 +507,12 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 id = 'id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
 x_author_id = 'x_author_id_example' # str | **Warning:** this ID should be SAME across all services using this rating service. Tells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`. This value is important and should always be included, but isn't strictly required by the API.  (optional)
-rating = openapi_client.Rating() # Rating | Rating object (optional)
+rating = rating.Rating() # Rating | Rating object (optional)
 
 try:
     # Update rating.
@@ -526,15 +526,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -543,12 +543,12 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingsApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingsApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 id = 'id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
 x_author_id = 'x_author_id_example' # str | **Warning:** this ID should be SAME across all services using this rating service. Tells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`. This value is important and should always be included, but isn't strictly required by the API.  (optional)
-rating = openapi_client.Rating() # Rating | Rating object (optional)
+rating = rating.Rating() # Rating | Rating object (optional)
 
 try:
     # Update rating.

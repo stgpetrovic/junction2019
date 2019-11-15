@@ -1,4 +1,4 @@
-# openapi_client.RatingSummariesApi
+# rating.RatingSummariesApi
 
 All URIs are relative to *https://kesko.azure-api.net/ratings*
 
@@ -22,15 +22,15 @@ List rating summaries in a given target namespace.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -39,7 +39,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingSummariesApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingSummariesApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.  (optional)
 category = 'category_example' # str | Search based on one or more categories. (optional)
@@ -62,15 +62,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -79,7 +79,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingSummariesApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingSummariesApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.  (optional)
 category = 'category_example' # str | Search based on one or more categories. (optional)
@@ -145,15 +145,15 @@ Return single rating summary.
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -162,7 +162,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingSummariesApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingSummariesApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
@@ -180,15 +180,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -197,7 +197,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingSummariesApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingSummariesApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Target ID
 x_ip_address = 'x_ip_address_example' # str | Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses). This value is important and should always be included, but isn't strictly required by the API.  (optional)
@@ -254,15 +254,15 @@ Exactly the same as `GET /rating-summaries/:targetNamespace` with the exception 
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -271,7 +271,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingSummariesApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingSummariesApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.  (optional)
 category = 'category_example' # str | Search based on one or more categories. (optional)
@@ -294,15 +294,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import rating
+from rating.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = rating.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -311,7 +311,7 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/ratings
 configuration.host = "https://kesko.azure-api.net/ratings"
 # Create an instance of the API class
-api_instance = openapi_client.RatingSummariesApi(openapi_client.ApiClient(configuration))
+api_instance = rating.RatingSummariesApi(rating.ApiClient(configuration))
 target_namespace = 'target_namespace_example' # str | Target namespace
 target_id = 'target_id_example' # str | Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.  (optional)
 category = 'category_example' # str | Search based on one or more categories. (optional)

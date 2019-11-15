@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.product_v3 import ProductV3  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.product_v3 import ProductV3  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestProductV3(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestProductV3(unittest.TestCase):
     def testProductV3(self):
         """Test ProductV3"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.product_v3.ProductV3()  # noqa: E501
+        # model = pricing.models.product_v3.ProductV3()  # noqa: E501
         pass
 
 

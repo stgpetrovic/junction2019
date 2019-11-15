@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.promotion_v4_all_of import PromotionV4AllOf  # noqa: E501
-from openapi_client.rest import ApiException
+import pricing
+from pricing.models.promotion_v4_all_of import PromotionV4AllOf  # noqa: E501
+from pricing.rest import ApiException
 
 
 class TestPromotionV4AllOf(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestPromotionV4AllOf(unittest.TestCase):
     def testPromotionV4AllOf(self):
         """Test PromotionV4AllOf"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.promotion_v4_all_of.PromotionV4AllOf()  # noqa: E501
+        # model = pricing.models.promotion_v4_all_of.PromotionV4AllOf()  # noqa: E501
         pass
 
 

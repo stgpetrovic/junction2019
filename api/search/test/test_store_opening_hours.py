@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.store_opening_hours import StoreOpeningHours  # noqa: E501
-from openapi_client.rest import ApiException
+import search
+from search.models.store_opening_hours import StoreOpeningHours  # noqa: E501
+from search.rest import ApiException
 
 
 class TestStoreOpeningHours(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestStoreOpeningHours(unittest.TestCase):
     def testStoreOpeningHours(self):
         """Test StoreOpeningHours"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.store_opening_hours.StoreOpeningHours()  # noqa: E501
+        # model = search.models.store_opening_hours.StoreOpeningHours()  # noqa: E501
         pass
 
 

@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.product_attributes import ProductAttributes  # noqa: E501
-from openapi_client.rest import ApiException
+import search
+from search.models.product_attributes import ProductAttributes  # noqa: E501
+from search.rest import ApiException
 
 
 class TestProductAttributes(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestProductAttributes(unittest.TestCase):
     def testProductAttributes(self):
         """Test ProductAttributes"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.product_attributes.ProductAttributes()  # noqa: E501
+        # model = search.models.product_attributes.ProductAttributes()  # noqa: E501
         pass
 
 

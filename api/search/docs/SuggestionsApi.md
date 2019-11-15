@@ -1,4 +1,4 @@
-# openapi_client.SuggestionsApi
+# search.SuggestionsApi
 
 All URIs are relative to *https://kesko.azure-api.net/v1*
 
@@ -23,15 +23,15 @@ Endpoint for search autocomplete, which returns list of possible complete word s
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -40,8 +40,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Article suggestions (autocomplete)
@@ -55,15 +55,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -72,8 +72,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Article suggestions (autocomplete)
@@ -124,15 +124,15 @@ Endpoint for search autocomplete, which returns list of possible complete word s
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -141,8 +141,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Product suggestions (autocomplete)
@@ -156,15 +156,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -173,8 +173,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Product suggestions (autocomplete)
@@ -225,15 +225,15 @@ Endpoint for search autocomplete, which returns list of possible complete word s
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -242,8 +242,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Recipe suggestions (autocomplete)
@@ -257,15 +257,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -274,8 +274,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Recipe suggestions (autocomplete)
@@ -326,15 +326,15 @@ Endpoint for search autocomplete, which returns list of possible complete word s
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -343,8 +343,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Store suggestions (autocomplete)
@@ -358,15 +358,15 @@ except ApiException as e:
 ```python
 from __future__ import print_function
 import time
-import openapi_client
-from openapi_client.rest import ApiException
+import search
+from search.rest import ApiException
 from pprint import pprint
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyHeader
 configuration.api_key['Ocp-Apim-Subscription-Key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 # configuration.api_key_prefix['Ocp-Apim-Subscription-Key'] = 'Bearer'
-configuration = openapi_client.Configuration()
+configuration = search.Configuration()
 # Configure API key authorization: apiKeyQuery
 configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
@@ -375,8 +375,8 @@ configuration.api_key['subscription-key'] = 'YOUR_API_KEY'
 # Defining host is optional and default to https://kesko.azure-api.net/v1
 configuration.host = "https://kesko.azure-api.net/v1"
 # Create an instance of the API class
-api_instance = openapi_client.SuggestionsApi(openapi_client.ApiClient(configuration))
-payload = openapi_client.Payload() # Payload | JSON payload similar to a normal search request. (optional)
+api_instance = search.SuggestionsApi(search.ApiClient(configuration))
+payload = search.Payload() # Payload | JSON payload similar to a normal search request. (optional)
 
 try:
     # Store suggestions (autocomplete)

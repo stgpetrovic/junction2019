@@ -14,9 +14,9 @@ from __future__ import absolute_import
 
 import unittest
 
-import openapi_client
-from openapi_client.models.rating_response_all_of import RatingResponseAllOf  # noqa: E501
-from openapi_client.rest import ApiException
+import rating
+from rating.models.rating_response_all_of import RatingResponseAllOf  # noqa: E501
+from rating.rest import ApiException
 
 
 class TestRatingResponseAllOf(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestRatingResponseAllOf(unittest.TestCase):
     def testRatingResponseAllOf(self):
         """Test RatingResponseAllOf"""
         # FIXME: construct object with mandatory attributes with example values
-        # model = openapi_client.models.rating_response_all_of.RatingResponseAllOf()  # noqa: E501
+        # model = rating.models.rating_response_all_of.RatingResponseAllOf()  # noqa: E501
         pass
 
 
