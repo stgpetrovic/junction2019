@@ -42,33 +42,33 @@ class RecipeOldRecipeUse(object):
         'value': '$'
     }
 
-    def __init__(self, =None, value=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, x=None, value=None, local_vars_configuration=None):  # noqa: E501
         """RecipeOldRecipeUse - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration()
         self.local_vars_configuration = local_vars_configuration
 
-        self._ = None
+        self._x = None
         self._value = None
         self.discriminator = None
 
-        if  is not None:
-            self. = 
+        if x is not None:
+            self._x = x
         if value is not None:
             self.value = value
 
     @property
-    def (self):
+    def x(self):
         """Gets the  of this RecipeOldRecipeUse.  # noqa: E501
 
 
         :return: The  of this RecipeOldRecipeUse.  # noqa: E501
         :rtype: str
         """
-        return self._
+        return self._x
 
-    @.setter
-    def (self, ):
+    @x.setter
+    def x(self, x):
         """Sets the  of this RecipeOldRecipeUse.
 
 
@@ -76,7 +76,7 @@ class RecipeOldRecipeUse(object):
         :type: str
         """
 
-        self._ = 
+        self._x = x
 
     @property
     def value(self):
