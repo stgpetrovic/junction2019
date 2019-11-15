@@ -1,0 +1,2830 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ratings API",
+    "version": "1.0",
+    "description": "Service which holds ratings of various targets, like recipes."
+  },
+  "host": "kesko.azure-api.net",
+  "basePath": "/ratings",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "paths": {
+    "/ratings/{targetNamespace}": {
+      "post": {
+        "description": "The service needs authorId to prevent users from creating more than one rating for same target and also for other restrictions.\r\n",
+        "operationId": "post-ratings-targetnamespace",
+        "summary": "Create rating.",
+        "tags": [
+          "ratings"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Rating"
+            },
+            "description": "Rating object"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Rating object",
+            "schema": {
+              "$ref": "#/definitions/RatingsTargetNamespacePost200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "description": "List ratings in a given target namespace. If requesting as a service user, unpublished ratings will not be returned.\r\n",
+        "operationId": "get-ratings-targetnamespace",
+        "summary": "List ratings in a given target namespace.",
+        "tags": [
+          "ratings"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "targetId",
+            "in": "query",
+            "description": "Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.\n",
+            "type": "string"
+          },
+          {
+            "name": "authorId",
+            "in": "query",
+            "description": "Search based on one or more authorIds.",
+            "type": "string"
+          },
+          {
+            "name": "authorRole",
+            "in": "query",
+            "description": "Search based on one or more authorRoles. **(only for above service role)**\n",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Search based on one or more categories.",
+            "type": "string"
+          },
+          {
+            "name": "subCategory",
+            "in": "query",
+            "description": "Search based on one or more sub categories.",
+            "type": "string"
+          },
+          {
+            "name": "hasRating",
+            "in": "query",
+            "description": "Search based on if the rating has a numeric rating or not. If `true`, only ratings with a numeric rating are returned.\n",
+            "type": "boolean"
+          },
+          {
+            "name": "hasComment",
+            "in": "query",
+            "description": "Search based on if the rating has a comment or not. If true, only ratings with comment are returned.\n",
+            "type": "boolean"
+          },
+          {
+            "name": "replyRequested",
+            "in": "query",
+            "description": "Search based on if the rating's author wants a reply for their comment. **(only for above service role)**\n",
+            "type": "boolean"
+          },
+          {
+            "name": "moderated",
+            "in": "query",
+            "description": "Search based on if the rating is moderated or not. **(only for above service role)**\n",
+            "type": "boolean"
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "description": "Search based on if the rating is published or not. **(only for above service role)**\n",
+            "type": "boolean"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort based on given field. Format: `attribute:direction`. `direction` is optional, default is **asc**. For example: `createdAt`, `updatedAt:desc`, `updatedAt:asc`.\n",
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset for pagination. Default is **0**.\nWhen using this parameter, specify `limit` explicitly. The defaults might change.\n",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit of returned items. Default is **10**.",
+            "type": "integer",
+            "default": "10"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of ratings or an empty list if none were found.",
+            "schema": {
+              "$ref": "#/definitions/RatingsTargetNamespaceGet200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/ratings/{targetNamespace}/{id}": {
+      "delete": {
+        "description": "**Authorization:** Author x can't delete author y's rating.\r\n",
+        "operationId": "delete-ratings-targetnamespace-id",
+        "summary": "Delete rating.",
+        "tags": [
+          "ratings"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Target ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "description": "**Note:** Response is cached, but the cache is invalidated if the target's rating is modified in some way: update, delete or new rating. In practice this means that this endpoint returns up-to-date data.\r\n",
+        "operationId": "get-ratings-targetnamespace-id",
+        "summary": "Get rating.",
+        "tags": [
+          "ratings"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Target ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rating object",
+            "schema": {
+              "$ref": "#/definitions/RatingsTargetNamespaceIdGet200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "put": {
+        "description": "Body of the request should be a full rating object.\r\n**Note:** `targetNamespace` is being pulled from request body instead of url. That way it's also possible to update `targetNamespace`.\r\n**Authorization:** Author x can't update author y's rating.\r\n**Warning: You must send the full object on each PUT request. Fields which are not sent, will be considered as \"removed\" fields!**\r\n",
+        "operationId": "put-ratings-targetnamespace-id",
+        "summary": "Update rating.",
+        "tags": [
+          "ratings"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Target ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "rating",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Rating"
+            },
+            "description": "Rating object"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Rating object",
+            "schema": {
+              "$ref": "#/definitions/RatingsTargetNamespaceIdPut200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/rating-summaries/{targetNamespace}": {
+      "get": {
+        "description": "**Notes:**\r\n  * Rating summaries are **updated every 10 minutes.**\r\n  This must be done to keep the endpoint performant enough.\r\n  Use the single rating summary endpoint to return latest data.\r\n  * This endpoint does not send `x-total-count` header.\r\n  * The results are not necessarily in the same order as\r\n  the targetId parameters.\r\n  * There might be less items in the array then requested.\r\n\r\nIf there are a lot of query parameters and the length of the URL gets very long, please consider using the POST version of this API instead.\r\n",
+        "operationId": "get-rating-summaries-targetnamespace",
+        "summary": "List rating summaries in a given target namespace.",
+        "tags": [
+          "rating-summaries"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "targetId",
+            "in": "query",
+            "description": "Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.\n",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Search based on one or more categories.",
+            "type": "string"
+          },
+          {
+            "name": "subCategory",
+            "in": "query",
+            "description": "Search based on one or more sub categories.",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort based on given field. Format: `attribute:direction`. `direction` is optional. For example: `average`, `distribution.usefulness.5:desc:desc`. Default: `average:asc`.\n",
+            "type": "string",
+            "default": "average:asc"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset for pagination. Default is **0**.\nWhen using this parameter, specify `limit` explicitly. The defaults might change.\n",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit of returned items. Default is **10**.",
+            "type": "integer",
+            "default": "10"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of rating summaries or an empty list if none were found.\r\n",
+            "schema": {
+              "$ref": "#/definitions/Rating-summariesTargetNamespaceGet200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "post": {
+        "description": "Exactly the same as `GET /rating-summaries/:targetNamespace` with the exception that parameters which haven't been supplied as query parameters are searched from the body of the request instead. Therefore makes it possible to send longer parameter lists.\r\n",
+        "operationId": "post-rating-summaries-targetnamespace",
+        "summary": "List rating summaries in a given target namespace.",
+        "tags": [
+          "rating-summaries"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "targetId",
+            "in": "query",
+            "description": "Search based on one or more targetIds. For example requesting targets [1,2] would be *?targetId=1&targetId=2*.\n",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Search based on one or more categories.",
+            "type": "string"
+          },
+          {
+            "name": "subCategory",
+            "in": "query",
+            "description": "Search based on one or more sub categories.",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort based on given field. Format: `attribute:direction`. `direction` is optional. For example: `average`, `distribution.usefulness.5:desc:desc`. Default: `average:asc`.\n",
+            "type": "string",
+            "default": "average:asc"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset for pagination. Default is **0**.\nWhen using this parameter, specify `limit` explicitly. The defaults might change.\n",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit of returned items. Default is **10**.",
+            "type": "integer",
+            "default": "10"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of rating summaries or an empty list if none were found.\r\n",
+            "schema": {
+              "$ref": "#/definitions/Rating-summariesTargetNamespacePost200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/targets/{targetNamespace}": {
+      "get": {
+        "description": "Lists all targets currently in the database.",
+        "operationId": "get-targets-targetnamespace",
+        "summary": "Lists all targets currently in the database.",
+        "tags": [
+          "targets"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset for pagination. Default is **0**.\nWhen using this parameter, specify `limit` explicitly. The defaults might change.\n",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit of returned items. By default, there is no limit as we need all targets in the UI.\n",
+            "type": "integer"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort based on given field. Format: `attribute:direction`. `direction` is optional, default is **asc**. For example: `createdAt`, `updatedAt:desc`, `updatedAt:asc`.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of targets or an empty list if none were found.\r\n",
+            "schema": {
+              "$ref": "#/definitions/TargetsTargetNamespaceGet200TextCsvResponse"
+            }
+          }
+        },
+        "produces": [
+          "text/csv"
+        ]
+      }
+    },
+    "/rating-summaries/{targetNamespace}/{targetId}": {
+      "get": {
+        "description": "**Note:** Summary for single is cached but the cache is invalidated if the target's rating is modified in some way: update, delete or new rating. In practice this means that this endpoint returns up-to-date data.\r\n",
+        "operationId": "get-rating-summaries-targetnamespace-targetid",
+        "summary": "Return single rating summary.",
+        "tags": [
+          "rating-summaries"
+        ],
+        "parameters": [
+          {
+            "name": "targetNamespace",
+            "in": "path",
+            "description": "Target namespace",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "targetId",
+            "in": "path",
+            "description": "Target ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-ip-address",
+            "in": "header",
+            "description": "Tells the original requester's IP address to this API. It is needed for moderation purposes. Explained more in [the IP addresses section of the API documentation](../docs/API#ip-addresses).\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          },
+          {
+            "name": "x-author-id",
+            "in": "header",
+            "description": "**Warning:** this ID should be SAME across all services using this rating service.\nTells the original requester's user ID. This is used to restrict some actions. For example author with ID `265` should not be able to modify rating created by user with ID `318`.\nThis value is important and should always be included, but isn't strictly required by the API.\n",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rating found\r\n",
+            "schema": {
+              "$ref": "#/definitions/Rating-summariesTargetNamespaceTargetIdGet200ApplicationJsonResponse"
+            }
+          },
+          "404": {
+            "description": "No ratings have been created for the target. *The behavior is unfortunate but rating service doesn't know any of the targets before the first rating is given for them.*\r\n"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Simple health check.",
+        "operationId": "get-health",
+        "summary": "Simple health check.",
+        "tags": [
+          "health"
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation",
+            "schema": {
+              "$ref": "#/definitions/HealthGet200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Rating": {
+      "type": "object",
+      "description": "Core rating object, sent to APIs as a part of a request.",
+      "required": [
+        "targetId",
+        "targetNamespace",
+        "authorRole"
+      ],
+      "properties": {
+        "targetId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+          "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+          "description": "Id of the rated object. This id is the external id of the other service.\n"
+        },
+        "targetNamespace": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "recipe",
+          "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2014-12-28T23:11:57.056Z",
+          "description": "Generated, date when rating was created"
+        },
+        "rating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "example": 5,
+          "description": "Rating of the rated object. You must define either `rating`, `comment` or both.\n"
+        },
+        "ratings": {
+          "type": "object",
+          "required": [
+            "main"
+          ],
+          "properties": {
+            "main": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "example": 5
+            },
+            "hilarity": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "example": 5
+            },
+            "usefulness": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "example": 5
+            }
+          }
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "example": "This cake was very good.",
+          "description": "Comment for the object. You must define either `rating`, `comment` or both.\n"
+        },
+        "authorName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "example": "Jane Janders",
+          "description": "Name of the user who created the rating."
+        },
+        "authorRole": {
+          "type": "string",
+          "pattern": "[a-z]",
+          "enum": [
+            "anonymous",
+            "registered",
+            "moderator"
+          ],
+          "example": "registered",
+          "description": "Role of the rating's author."
+        },
+        "replyRequested": {
+          "type": "boolean",
+          "default": false,
+          "description": "Does the author want a reply for their comment. When no comment is given, this should be `false`. Default: `false`.\n"
+        },
+        "published": {
+          "type": "boolean",
+          "description": "**Only for moderators+** Indicates if the rating has been published or not.\nIf a rating has been published, it will show up in rating listings. Otherwise the item won't be returned from the API at all. This value is not returned for normal services. Only moderators and admin roles will see it.\nTrying to get unpublished rating directly will result to 404.\n"
+        },
+        "moderated": {
+          "type": "boolean",
+          "description": "**Only for moderators+** Indicates if the rating has been moderated or not.\nIf rating has been moderated, this value will be set to `true`. This value is not returned for normal services. Only moderators and admin roles will see it.\n"
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "recipe",
+          "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+        },
+        "subCategory": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "desserts",
+          "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+        },
+        "url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+          "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+        }
+      }
+    },
+    "Rating (response)": {
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": 1,
+              "description": "Generated, id of a rating. This id is internal id of the rating in this service.\n"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2015-06-18T13:51:55.178Z",
+              "description": "Generated, date when rating was last updated"
+            },
+            "ipAddress": {
+              "type": "string",
+              "example": "80.0.0.0",
+              "description": "IP address of the creator.\nThis value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "authorId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9]",
+              "example": "09d43868-af64-c47c-8588-c67ee2e0f2db",
+              "description": "Id of the user who created the rating. This is the user's id in the external service.\n"
+            },
+            "reportCount": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Generated, represents how many times the rating has been reported as spam/bad content.\n"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Core rating object, sent to APIs as a part of a request.",
+          "required": [
+            "targetId",
+            "targetNamespace",
+            "authorRole"
+          ],
+          "properties": {
+            "targetId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+              "description": "Id of the rated object. This id is the external id of the other service.\n"
+            },
+            "targetNamespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2014-12-28T23:11:57.056Z",
+              "description": "Generated, date when rating was created"
+            },
+            "rating": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "example": 5,
+              "description": "Rating of the rated object. You must define either `rating`, `comment` or both.\n"
+            },
+            "ratings": {
+              "type": "object",
+              "required": [
+                "main"
+              ],
+              "properties": {
+                "main": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "hilarity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "usefulness": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                }
+              }
+            },
+            "comment": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "example": "This cake was very good.",
+              "description": "Comment for the object. You must define either `rating`, `comment` or both.\n"
+            },
+            "authorName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "example": "Jane Janders",
+              "description": "Name of the user who created the rating."
+            },
+            "authorRole": {
+              "type": "string",
+              "pattern": "[a-z]",
+              "enum": [
+                "anonymous",
+                "registered",
+                "moderator"
+              ],
+              "example": "registered",
+              "description": "Role of the rating's author."
+            },
+            "replyRequested": {
+              "type": "boolean",
+              "default": false,
+              "description": "Does the author want a reply for their comment. When no comment is given, this should be `false`. Default: `false`.\n"
+            },
+            "published": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been published or not.\nIf a rating has been published, it will show up in rating listings. Otherwise the item won't be returned from the API at all. This value is not returned for normal services. Only moderators and admin roles will see it.\nTrying to get unpublished rating directly will result to 404.\n"
+            },
+            "moderated": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been moderated or not.\nIf rating has been moderated, this value will be set to `true`. This value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "category": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "subCategory": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "desserts",
+              "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+              "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            }
+          }
+        },
+        {
+          "required": [
+            "id",
+            "createdAt",
+            "updatedAt",
+            "targetId",
+            "targetNamespace",
+            "authorId",
+            "authorRole"
+          ]
+        },
+        {
+          "description": "Extended rating object returned from API requests."
+        }
+      ]
+    },
+    "RatingSummary": {
+      "type": "object",
+      "description": "Summary of ratings for the given target.",
+      "required": [
+        "targetId",
+        "targetNamespace",
+        "commentCount",
+        "average",
+        "distribution"
+      ],
+      "properties": {
+        "targetId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+          "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+          "description": "Id of the rated object. This id is the external id of the other service.\n"
+        },
+        "targetNamespace": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "recipe",
+          "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "recipe",
+          "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+        },
+        "subCategory": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "desserts",
+          "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+        },
+        "commentCount": {
+          "type": "integer",
+          "example": 24,
+          "description": "Total number of published comments given to the given target, includes only published comments.\n"
+        },
+        "totalCommentCount": {
+          "type": "integer",
+          "example": 30,
+          "description": "Total number of comments given to the given target, includes published and unpublished comments.\n"
+        },
+        "average": {
+          "type": "number",
+          "format": "double",
+          "example": 2.13,
+          "description": "Average rating of the rated object."
+        },
+        "averages": {
+          "description": "Various average ratings.",
+          "type": "object",
+          "properties": {
+            "main": {
+              "type": "number",
+              "format": "double",
+              "example": 2.13,
+              "description": "Average rating of the rated object."
+            },
+            "hilarity": {
+              "type": "number",
+              "format": "double",
+              "example": 2.13,
+              "description": "Average rating of the rated object."
+            },
+            "usefulness": {
+              "type": "number",
+              "format": "double",
+              "example": 2.13,
+              "description": "Average rating of the rated object."
+            }
+          }
+        },
+        "distribution": {
+          "description": "Distribution of ratings among possible values.",
+          "type": "object",
+          "properties": {
+            "1": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "2": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "3": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "4": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "5": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "distributions": {
+          "description": "Various rating distributions.",
+          "type": "object",
+          "properties": {
+            "main": {
+              "description": "Distribution of ratings among possible values.",
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "2": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "3": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "4": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "5": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "hilarity": {
+              "description": "Distribution of ratings among possible values.",
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "2": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "3": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "4": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "5": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "usefulness": {
+              "description": "Distribution of ratings among possible values.",
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "2": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "3": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "4": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "5": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Target": {
+      "type": "object",
+      "description": "Rating target",
+      "required": [
+        "externalId",
+        "namespace",
+        "name",
+        "url"
+      ],
+      "properties": {
+        "externalId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+          "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+          "description": "Id of the rated object. This id is the external id of the other service.\n"
+        },
+        "namespace": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "recipe",
+          "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+        },
+        "url": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+          "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+        }
+      }
+    },
+    "GlobalSetting": {
+      "type": "object",
+      "description": "Global settings object",
+      "properties": {
+        "reportCountHideEnabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "reportCountHideThreshold": {
+          "type": "integer",
+          "example": 3
+        },
+        "publishAutomatically": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "SessionInfo": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "object",
+          "description": "An array of available target namespaces. Only moderators and admin roles will see it.\n",
+          "properties": {
+            "targetNamespaces": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "[A-Za-z0-9\\-_]",
+                    "example": "recipe",
+                    "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "example": "token"
+        },
+        "userRole": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    },
+    "HealthGet200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "required": [
+        "username",
+        "password"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "test.user@futurice.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "password_as_plaintext"
+        }
+      }
+    },
+    "SessionPost200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "object",
+          "description": "An array of available target namespaces. Only moderators and admin roles will see it.\n",
+          "properties": {
+            "targetNamespaces": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "[A-Za-z0-9\\-_]",
+                    "example": "recipe",
+                    "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "example": "token"
+        },
+        "userRole": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    },
+    "SessionPost400ApplicationJsonResponse": {
+      "type": "string",
+      "example": "Unauthorized"
+    },
+    "SessionGet200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "object",
+          "description": "An array of available target namespaces. Only moderators and admin roles will see it.\n",
+          "properties": {
+            "targetNamespaces": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "[A-Za-z0-9\\-_]",
+                    "example": "recipe",
+                    "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "example": "token"
+        },
+        "userRole": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    },
+    "SessionDelete200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "RatingsTargetNamespaceGet200ApplicationJsonResponse": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+                "example": 1,
+                "description": "Generated, id of a rating. This id is internal id of the rating in this service.\n"
+              },
+              "updatedAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2015-06-18T13:51:55.178Z",
+                "description": "Generated, date when rating was last updated"
+              },
+              "ipAddress": {
+                "type": "string",
+                "example": "80.0.0.0",
+                "description": "IP address of the creator.\nThis value is not returned for normal services. Only moderators and admin roles will see it.\n"
+              },
+              "authorId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "[A-Za-z0-9]",
+                "example": "09d43868-af64-c47c-8588-c67ee2e0f2db",
+                "description": "Id of the user who created the rating. This is the user's id in the external service.\n"
+              },
+              "reportCount": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Generated, represents how many times the rating has been reported as spam/bad content.\n"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "description": "Core rating object, sent to APIs as a part of a request.",
+            "required": [
+              "targetId",
+              "targetNamespace",
+              "authorRole"
+            ],
+            "properties": {
+              "targetId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+                "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+                "description": "Id of the rated object. This id is the external id of the other service.\n"
+              },
+              "targetNamespace": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "[A-Za-z0-9\\-_]",
+                "example": "recipe",
+                "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time",
+                "example": "2014-12-28T23:11:57.056Z",
+                "description": "Generated, date when rating was created"
+              },
+              "rating": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "example": 5,
+                "description": "Rating of the rated object. You must define either `rating`, `comment` or both.\n"
+              },
+              "ratings": {
+                "type": "object",
+                "required": [
+                  "main"
+                ],
+                "properties": {
+                  "main": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "example": 5
+                  },
+                  "hilarity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "example": 5
+                  },
+                  "usefulness": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 5,
+                    "example": 5
+                  }
+                }
+              },
+              "comment": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "example": "This cake was very good.",
+                "description": "Comment for the object. You must define either `rating`, `comment` or both.\n"
+              },
+              "authorName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "example": "Jane Janders",
+                "description": "Name of the user who created the rating."
+              },
+              "authorRole": {
+                "type": "string",
+                "pattern": "[a-z]",
+                "enum": [
+                  "anonymous",
+                  "registered",
+                  "moderator"
+                ],
+                "example": "registered",
+                "description": "Role of the rating's author."
+              },
+              "replyRequested": {
+                "type": "boolean",
+                "default": false,
+                "description": "Does the author want a reply for their comment. When no comment is given, this should be `false`. Default: `false`.\n"
+              },
+              "published": {
+                "type": "boolean",
+                "description": "**Only for moderators+** Indicates if the rating has been published or not.\nIf a rating has been published, it will show up in rating listings. Otherwise the item won't be returned from the API at all. This value is not returned for normal services. Only moderators and admin roles will see it.\nTrying to get unpublished rating directly will result to 404.\n"
+              },
+              "moderated": {
+                "type": "boolean",
+                "description": "**Only for moderators+** Indicates if the rating has been moderated or not.\nIf rating has been moderated, this value will be set to `true`. This value is not returned for normal services. Only moderators and admin roles will see it.\n"
+              },
+              "category": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "[A-Za-z0-9\\-_]",
+                "example": "recipe",
+                "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+              },
+              "subCategory": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64,
+                "pattern": "[A-Za-z0-9\\-_]",
+                "example": "desserts",
+                "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+                "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+              }
+            }
+          },
+          {
+            "required": [
+              "id",
+              "createdAt",
+              "updatedAt",
+              "targetId",
+              "targetNamespace",
+              "authorId",
+              "authorRole"
+            ]
+          },
+          {
+            "description": "Extended rating object returned from API requests."
+          }
+        ]
+      }
+    },
+    "RatingsTargetNamespacePost200ApplicationJsonResponse": {
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": 1,
+              "description": "Generated, id of a rating. This id is internal id of the rating in this service.\n"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2015-06-18T13:51:55.178Z",
+              "description": "Generated, date when rating was last updated"
+            },
+            "ipAddress": {
+              "type": "string",
+              "example": "80.0.0.0",
+              "description": "IP address of the creator.\nThis value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "authorId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9]",
+              "example": "09d43868-af64-c47c-8588-c67ee2e0f2db",
+              "description": "Id of the user who created the rating. This is the user's id in the external service.\n"
+            },
+            "reportCount": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Generated, represents how many times the rating has been reported as spam/bad content.\n"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Core rating object, sent to APIs as a part of a request.",
+          "required": [
+            "targetId",
+            "targetNamespace",
+            "authorRole"
+          ],
+          "properties": {
+            "targetId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+              "description": "Id of the rated object. This id is the external id of the other service.\n"
+            },
+            "targetNamespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2014-12-28T23:11:57.056Z",
+              "description": "Generated, date when rating was created"
+            },
+            "rating": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "example": 5,
+              "description": "Rating of the rated object. You must define either `rating`, `comment` or both.\n"
+            },
+            "ratings": {
+              "type": "object",
+              "required": [
+                "main"
+              ],
+              "properties": {
+                "main": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "hilarity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "usefulness": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                }
+              }
+            },
+            "comment": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "example": "This cake was very good.",
+              "description": "Comment for the object. You must define either `rating`, `comment` or both.\n"
+            },
+            "authorName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "example": "Jane Janders",
+              "description": "Name of the user who created the rating."
+            },
+            "authorRole": {
+              "type": "string",
+              "pattern": "[a-z]",
+              "enum": [
+                "anonymous",
+                "registered",
+                "moderator"
+              ],
+              "example": "registered",
+              "description": "Role of the rating's author."
+            },
+            "replyRequested": {
+              "type": "boolean",
+              "default": false,
+              "description": "Does the author want a reply for their comment. When no comment is given, this should be `false`. Default: `false`.\n"
+            },
+            "published": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been published or not.\nIf a rating has been published, it will show up in rating listings. Otherwise the item won't be returned from the API at all. This value is not returned for normal services. Only moderators and admin roles will see it.\nTrying to get unpublished rating directly will result to 404.\n"
+            },
+            "moderated": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been moderated or not.\nIf rating has been moderated, this value will be set to `true`. This value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "category": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "subCategory": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "desserts",
+              "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+              "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            }
+          }
+        },
+        {
+          "required": [
+            "id",
+            "createdAt",
+            "updatedAt",
+            "targetId",
+            "targetNamespace",
+            "authorId",
+            "authorRole"
+          ]
+        },
+        {
+          "description": "Extended rating object returned from API requests."
+        }
+      ]
+    },
+    "RatingsTargetNamespaceIdGet200ApplicationJsonResponse": {
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": 1,
+              "description": "Generated, id of a rating. This id is internal id of the rating in this service.\n"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2015-06-18T13:51:55.178Z",
+              "description": "Generated, date when rating was last updated"
+            },
+            "ipAddress": {
+              "type": "string",
+              "example": "80.0.0.0",
+              "description": "IP address of the creator.\nThis value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "authorId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9]",
+              "example": "09d43868-af64-c47c-8588-c67ee2e0f2db",
+              "description": "Id of the user who created the rating. This is the user's id in the external service.\n"
+            },
+            "reportCount": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Generated, represents how many times the rating has been reported as spam/bad content.\n"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Core rating object, sent to APIs as a part of a request.",
+          "required": [
+            "targetId",
+            "targetNamespace",
+            "authorRole"
+          ],
+          "properties": {
+            "targetId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+              "description": "Id of the rated object. This id is the external id of the other service.\n"
+            },
+            "targetNamespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2014-12-28T23:11:57.056Z",
+              "description": "Generated, date when rating was created"
+            },
+            "rating": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "example": 5,
+              "description": "Rating of the rated object. You must define either `rating`, `comment` or both.\n"
+            },
+            "ratings": {
+              "type": "object",
+              "required": [
+                "main"
+              ],
+              "properties": {
+                "main": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "hilarity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "usefulness": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                }
+              }
+            },
+            "comment": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "example": "This cake was very good.",
+              "description": "Comment for the object. You must define either `rating`, `comment` or both.\n"
+            },
+            "authorName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "example": "Jane Janders",
+              "description": "Name of the user who created the rating."
+            },
+            "authorRole": {
+              "type": "string",
+              "pattern": "[a-z]",
+              "enum": [
+                "anonymous",
+                "registered",
+                "moderator"
+              ],
+              "example": "registered",
+              "description": "Role of the rating's author."
+            },
+            "replyRequested": {
+              "type": "boolean",
+              "default": false,
+              "description": "Does the author want a reply for their comment. When no comment is given, this should be `false`. Default: `false`.\n"
+            },
+            "published": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been published or not.\nIf a rating has been published, it will show up in rating listings. Otherwise the item won't be returned from the API at all. This value is not returned for normal services. Only moderators and admin roles will see it.\nTrying to get unpublished rating directly will result to 404.\n"
+            },
+            "moderated": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been moderated or not.\nIf rating has been moderated, this value will be set to `true`. This value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "category": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "subCategory": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "desserts",
+              "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+              "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            }
+          }
+        },
+        {
+          "required": [
+            "id",
+            "createdAt",
+            "updatedAt",
+            "targetId",
+            "targetNamespace",
+            "authorId",
+            "authorRole"
+          ]
+        },
+        {
+          "description": "Extended rating object returned from API requests."
+        }
+      ]
+    },
+    "RatingsTargetNamespaceIdPut200ApplicationJsonResponse": {
+      "type": "object",
+      "allOf": [
+        {
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": 1,
+              "description": "Generated, id of a rating. This id is internal id of the rating in this service.\n"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2015-06-18T13:51:55.178Z",
+              "description": "Generated, date when rating was last updated"
+            },
+            "ipAddress": {
+              "type": "string",
+              "example": "80.0.0.0",
+              "description": "IP address of the creator.\nThis value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "authorId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9]",
+              "example": "09d43868-af64-c47c-8588-c67ee2e0f2db",
+              "description": "Id of the user who created the rating. This is the user's id in the external service.\n"
+            },
+            "reportCount": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Generated, represents how many times the rating has been reported as spam/bad content.\n"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Core rating object, sent to APIs as a part of a request.",
+          "required": [
+            "targetId",
+            "targetNamespace",
+            "authorRole"
+          ],
+          "properties": {
+            "targetId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+              "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+              "description": "Id of the rated object. This id is the external id of the other service.\n"
+            },
+            "targetNamespace": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2014-12-28T23:11:57.056Z",
+              "description": "Generated, date when rating was created"
+            },
+            "rating": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "example": 5,
+              "description": "Rating of the rated object. You must define either `rating`, `comment` or both.\n"
+            },
+            "ratings": {
+              "type": "object",
+              "required": [
+                "main"
+              ],
+              "properties": {
+                "main": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "hilarity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                },
+                "usefulness": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 5,
+                  "example": 5
+                }
+              }
+            },
+            "comment": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "example": "This cake was very good.",
+              "description": "Comment for the object. You must define either `rating`, `comment` or both.\n"
+            },
+            "authorName": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "example": "Jane Janders",
+              "description": "Name of the user who created the rating."
+            },
+            "authorRole": {
+              "type": "string",
+              "pattern": "[a-z]",
+              "enum": [
+                "anonymous",
+                "registered",
+                "moderator"
+              ],
+              "example": "registered",
+              "description": "Role of the rating's author."
+            },
+            "replyRequested": {
+              "type": "boolean",
+              "default": false,
+              "description": "Does the author want a reply for their comment. When no comment is given, this should be `false`. Default: `false`.\n"
+            },
+            "published": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been published or not.\nIf a rating has been published, it will show up in rating listings. Otherwise the item won't be returned from the API at all. This value is not returned for normal services. Only moderators and admin roles will see it.\nTrying to get unpublished rating directly will result to 404.\n"
+            },
+            "moderated": {
+              "type": "boolean",
+              "description": "**Only for moderators+** Indicates if the rating has been moderated or not.\nIf rating has been moderated, this value will be set to `true`. This value is not returned for normal services. Only moderators and admin roles will see it.\n"
+            },
+            "category": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "recipe",
+              "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "subCategory": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "[A-Za-z0-9\\-_]",
+              "example": "desserts",
+              "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200,
+              "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+              "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+            }
+          }
+        },
+        {
+          "required": [
+            "id",
+            "createdAt",
+            "updatedAt",
+            "targetId",
+            "targetNamespace",
+            "authorId",
+            "authorRole"
+          ]
+        },
+        {
+          "description": "Extended rating object returned from API requests."
+        }
+      ]
+    },
+    "Rating-summariesTargetNamespaceGet200ApplicationJsonResponse": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "Summary of ratings for the given target.",
+        "required": [
+          "targetId",
+          "targetNamespace",
+          "commentCount",
+          "average",
+          "distribution"
+        ],
+        "properties": {
+          "targetId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+            "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+            "description": "Id of the rated object. This id is the external id of the other service.\n"
+          },
+          "targetNamespace": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_]",
+            "example": "recipe",
+            "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_]",
+            "example": "recipe",
+            "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+          },
+          "subCategory": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_]",
+            "example": "desserts",
+            "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+          },
+          "commentCount": {
+            "type": "integer",
+            "example": 24,
+            "description": "Total number of published comments given to the given target, includes only published comments.\n"
+          },
+          "totalCommentCount": {
+            "type": "integer",
+            "example": 30,
+            "description": "Total number of comments given to the given target, includes published and unpublished comments.\n"
+          },
+          "average": {
+            "type": "number",
+            "format": "double",
+            "example": 2.13,
+            "description": "Average rating of the rated object."
+          },
+          "averages": {
+            "description": "Various average ratings.",
+            "type": "object",
+            "properties": {
+              "main": {
+                "type": "number",
+                "format": "double",
+                "example": 2.13,
+                "description": "Average rating of the rated object."
+              },
+              "hilarity": {
+                "type": "number",
+                "format": "double",
+                "example": 2.13,
+                "description": "Average rating of the rated object."
+              },
+              "usefulness": {
+                "type": "number",
+                "format": "double",
+                "example": 2.13,
+                "description": "Average rating of the rated object."
+              }
+            }
+          },
+          "distribution": {
+            "description": "Distribution of ratings among possible values.",
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "2": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "3": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "4": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "5": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "distributions": {
+            "description": "Various rating distributions.",
+            "type": "object",
+            "properties": {
+              "main": {
+                "description": "Distribution of ratings among possible values.",
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "2": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "3": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "4": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "5": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "hilarity": {
+                "description": "Distribution of ratings among possible values.",
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "2": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "3": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "4": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "5": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "usefulness": {
+                "description": "Distribution of ratings among possible values.",
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "2": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "3": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "4": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "5": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Rating-summariesTargetNamespacePost200ApplicationJsonResponse": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "Summary of ratings for the given target.",
+        "required": [
+          "targetId",
+          "targetNamespace",
+          "commentCount",
+          "average",
+          "distribution"
+        ],
+        "properties": {
+          "targetId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+            "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+            "description": "Id of the rated object. This id is the external id of the other service.\n"
+          },
+          "targetNamespace": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_]",
+            "example": "recipe",
+            "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_]",
+            "example": "recipe",
+            "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+          },
+          "subCategory": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_]",
+            "example": "desserts",
+            "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+          },
+          "commentCount": {
+            "type": "integer",
+            "example": 24,
+            "description": "Total number of published comments given to the given target, includes only published comments.\n"
+          },
+          "totalCommentCount": {
+            "type": "integer",
+            "example": 30,
+            "description": "Total number of comments given to the given target, includes published and unpublished comments.\n"
+          },
+          "average": {
+            "type": "number",
+            "format": "double",
+            "example": 2.13,
+            "description": "Average rating of the rated object."
+          },
+          "averages": {
+            "description": "Various average ratings.",
+            "type": "object",
+            "properties": {
+              "main": {
+                "type": "number",
+                "format": "double",
+                "example": 2.13,
+                "description": "Average rating of the rated object."
+              },
+              "hilarity": {
+                "type": "number",
+                "format": "double",
+                "example": 2.13,
+                "description": "Average rating of the rated object."
+              },
+              "usefulness": {
+                "type": "number",
+                "format": "double",
+                "example": 2.13,
+                "description": "Average rating of the rated object."
+              }
+            }
+          },
+          "distribution": {
+            "description": "Distribution of ratings among possible values.",
+            "type": "object",
+            "properties": {
+              "1": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "2": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "3": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "4": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "5": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "distributions": {
+            "description": "Various rating distributions.",
+            "type": "object",
+            "properties": {
+              "main": {
+                "description": "Distribution of ratings among possible values.",
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "2": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "3": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "4": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "5": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "hilarity": {
+                "description": "Distribution of ratings among possible values.",
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "2": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "3": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "4": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "5": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              },
+              "usefulness": {
+                "description": "Distribution of ratings among possible values.",
+                "type": "object",
+                "properties": {
+                  "1": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "2": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "3": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "4": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "5": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Rating-summariesTargetNamespaceTargetIdGet200ApplicationJsonResponse": {
+      "type": "object",
+      "description": "Summary of ratings for the given target.",
+      "required": [
+        "targetId",
+        "targetNamespace",
+        "commentCount",
+        "average",
+        "distribution"
+      ],
+      "properties": {
+        "targetId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+          "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+          "description": "Id of the rated object. This id is the external id of the other service.\n"
+        },
+        "targetNamespace": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "recipe",
+          "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "recipe",
+          "description": "Category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+        },
+        "subCategory": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "[A-Za-z0-9\\-_]",
+          "example": "desserts",
+          "description": "Sub category of the rated object.\nThe external service should have a subset of given categories. These are not designed to be user-speficied categories. For example category with special characters (e.g. Jälkiruoka) does not work.\n"
+        },
+        "commentCount": {
+          "type": "integer",
+          "example": 24,
+          "description": "Total number of published comments given to the given target, includes only published comments.\n"
+        },
+        "totalCommentCount": {
+          "type": "integer",
+          "example": 30,
+          "description": "Total number of comments given to the given target, includes published and unpublished comments.\n"
+        },
+        "average": {
+          "type": "number",
+          "format": "double",
+          "example": 2.13,
+          "description": "Average rating of the rated object."
+        },
+        "averages": {
+          "description": "Various average ratings.",
+          "type": "object",
+          "properties": {
+            "main": {
+              "type": "number",
+              "format": "double",
+              "example": 2.13,
+              "description": "Average rating of the rated object."
+            },
+            "hilarity": {
+              "type": "number",
+              "format": "double",
+              "example": 2.13,
+              "description": "Average rating of the rated object."
+            },
+            "usefulness": {
+              "type": "number",
+              "format": "double",
+              "example": 2.13,
+              "description": "Average rating of the rated object."
+            }
+          }
+        },
+        "distribution": {
+          "description": "Distribution of ratings among possible values.",
+          "type": "object",
+          "properties": {
+            "1": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "2": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "3": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "4": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "5": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "distributions": {
+          "description": "Various rating distributions.",
+          "type": "object",
+          "properties": {
+            "main": {
+              "description": "Distribution of ratings among possible values.",
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "2": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "3": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "4": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "5": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "hilarity": {
+              "description": "Distribution of ratings among possible values.",
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "2": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "3": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "4": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "5": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
+            "usefulness": {
+              "description": "Distribution of ratings among possible values.",
+              "type": "object",
+              "properties": {
+                "1": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "2": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "3": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "4": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "5": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "TargetsTargetNamespaceGet200TextCsvResponse": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "Rating target",
+        "required": [
+          "externalId",
+          "namespace",
+          "name",
+          "url"
+        ],
+        "properties": {
+          "externalId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_.()!@:/]",
+            "example": "d1bccb8a-6aff-eb91-fbbd-1a048afa1a94",
+            "description": "Id of the rated object. This id is the external id of the other service.\n"
+          },
+          "namespace": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "[A-Za-z0-9\\-_]",
+            "example": "recipe",
+            "description": "Namespace of the rating targets. This is provided because external services might have targets with collisioning IDs. For example service A might have product with id 1, and service B product with also id 1. This attribute makes it possible to separate those two products.\nAll external service which use this API should agree on unique namespaces. For example all food products register could have namespace: `food-products`.\n"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "description": "Name of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "pattern": "[A-Za-z0-9\\-._~:/?#[]@!$&'()+,;=]*",
+            "description": "URL of the rated object. For moderation purposes. Only moderators and admin roles will see it.\n"
+          }
+        }
+      }
+    },
+    "SettingsKeyGet200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "Value": {
+      "type": "object"
+    },
+    "SettingsGlobalGet200ApplicationJsonResponse": {
+      "type": "object",
+      "description": "Global settings object",
+      "properties": {
+        "reportCountHideEnabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "reportCountHideThreshold": {
+          "type": "integer",
+          "example": 3
+        },
+        "publishAutomatically": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "SettingsGlobalPatch200ApplicationJsonResponse": {
+      "type": "object",
+      "description": "Global settings object",
+      "properties": {
+        "reportCountHideEnabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "reportCountHideThreshold": {
+          "type": "integer",
+          "example": 3
+        },
+        "publishAutomatically": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "health",
+      "description": "Health check"
+    },
+    {
+      "name": "rating-summaries",
+      "description": "Rating summaries"
+    },
+    {
+      "name": "ratings",
+      "description": "Ratings"
+    },
+    {
+      "name": "reports",
+      "description": "Reports"
+    },
+    {
+      "name": "session",
+      "description": "Session"
+    },
+    {
+      "name": "settings",
+      "description": "Settings"
+    },
+    {
+      "name": "spam-reports",
+      "description": "Spam reports"
+    },
+    {
+      "name": "targets",
+      "description": "Targets"
+    },
+    {
+      "name": "userdata",
+      "description": "GDPR user data"
+    }
+  ]
+}

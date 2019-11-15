@@ -1,0 +1,4436 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Pricing & Availability API",
+    "version": "1.0",
+    "description": "Pricing & Availability API is a REST-like API which integrates to POS and knows up to date pricing and product availability data for each store. This service can also be used to create and fill temporary shopping baskets, that are kept for 24 hours before they are automatically deleted.\r\n\r\n**NOTE:** The API returns money in the responses. You should NOT use that data for actual payment transactions. They are only meant for displaying purposes, but they should work well enough for hackathon purposes.\r\n\r\nAPI requests are only served over HTTPS, using TLS 1.0, 1.1, and 1.2. Requests will not be honored over plaintext HTTP.\r\n\r\nUse of `accept: application/json` and `content-type: application/json` headers is required when applicable.\r\n\r\nThe API uses UTF-8 character encoding for all responses. Some fields may include characters that are not in the ASCII range.\r\n\r\nAuthentication is accomplished by providing `Ocp-Apim-Subscription-Key` header with your subscription key as the value."
+  },
+  "host": "kesko.azure-api.net",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "apiKeyHeader": {
+      "type": "apiKey",
+      "name": "Ocp-Apim-Subscription-Key",
+      "in": "header"
+    },
+    "apiKeyQuery": {
+      "type": "apiKey",
+      "name": "subscription-key",
+      "in": "query"
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ],
+  "paths": {
+    "/baskets/{longBasketId}/items": {
+      "put": {
+        "description": "Sets an array of items as the content of the basket. The first item in the array will have an item id of 0, the second one will have 1 and so on.\r\nExisting items in the basket are replaced if a supplied item has the same id, but otherwise items already existing in the basket will not be touched.\r\nEndpoint validation allows for items with empty EAN-codes or items with multipliers of zero. Such items won't be added to the basket and will be skipped and logged.\r\n\r\n** NOTE: This endpoint retuns the \"token\", which must be used in subsequent basket requests as the `x-basket-token` header value. Otherwise the API will return 403 error. ***",
+        "operationId": "put-baskets-longbasketid-items",
+        "summary": "Add multiple items to the shopping basket at once.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "longBasketId",
+            "in": "path",
+            "description": "Long id of the shopping basket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includePromotionDetails",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "x-basket-token",
+            "in": "header",
+            "description": "Basket authorization token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "payload",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Payload"
+            },
+            "description": "Bulk item object containing multiple partial basket item objects.\r\n"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Basket object. The new state of shopping basket is returned.\r\n",
+            "schema": {
+              "$ref": "#/definitions/BasketsLongBasketIdItemsPut200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Validation error / Too many items being added at once"
+          },
+          "404": {
+            "description": "Basket not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v2/stores/{storeId}/price": {
+      "post": {
+        "description": "Calculate price for each individual EAN row and the total for the requested EANs.\r\n",
+        "operationId": "post-v2-stores-storeid-price",
+        "summary": "Calculate price for each individual EAN row and the total for the requested EANs.\n",
+        "tags": [
+          "product"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "plussa",
+            "in": "query",
+            "type": "boolean",
+            "default": "False"
+          },
+          {
+            "name": "products",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Products"
+            },
+            "description": "An object containing the products for which the prices are fetched. Keys are EANs and values are quantity.\r\n"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object containing prices for the individual products as well as the total price. Product keys are EANs and values are prices.\r\n",
+            "schema": {
+              "$ref": "#/definitions/V2StoresStoreIdPricePost200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Store not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/baskets/{longBasketId}/items/{itemId}": {
+      "put": {
+        "description": "It is up to the client to generate and handle the basket item id.\r\n\r\n** NOTE: This endpoint requires `x-basket-token` header value. The token is returned by the basket creation request. Otherwise the API will return 403 error. ***\r\n",
+        "operationId": "put-baskets-longbasketid-items-itemid",
+        "summary": "Create a new item to shopping basket.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "longBasketId",
+            "in": "path",
+            "description": "Long id of the shopping basket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first.\n",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "includePromotionDetails",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "x-basket-token",
+            "in": "header",
+            "description": "Basket authorization token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            },
+            "description": "Item object. This object also specifies the multiplier of items added.\r\n"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Basket object. The new state of shopping basket is returned.\r\n",
+            "schema": {
+              "$ref": "#/definitions/BasketsLongBasketIdItemsItemIdPut200ApplicationJsonResponse"
+            }
+          },
+          "406": {
+            "description": "Basket is full and item couldn't be added."
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "delete": {
+        "description": "Remove item from shopping basket.\r\n\r\n** NOTE: This endpoint retuns the \"token\", which must be used in subsequent basket requests as the `x-basket-token` header value. Otherwise the API will return 403 error. ***",
+        "operationId": "delete-baskets-longbasketid-items-itemid",
+        "summary": "Remove item from shopping basket.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "longBasketId",
+            "in": "path",
+            "description": "Long id of the shopping basket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first.\n",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "includePromotionDetails",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "x-basket-token",
+            "in": "header",
+            "description": "Basket authorization token from basket creation response",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Basket object. The new state of shopping basket is returned.\r\n",
+            "schema": {
+              "$ref": "#/definitions/BasketsLongBasketIdItemsItemIdDelete200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "patch": {
+        "description": "** NOTE: This endpoint retuns the \"token\", which must be used in subsequent basket requests as the `x-basket-token` header value. Otherwise the API will return 403 error. ***\r\n\r\nThis can be used to update the meta data of an item in basket. You are not allowed to change the actual content of the item. That is enforced by allowing only partial basket item objects in write operations.\r\n",
+        "operationId": "patch-baskets-longbasketid-items-itemid",
+        "summary": "Update an item in shopping basket.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "longBasketId",
+            "in": "path",
+            "description": "Long id of the shopping basket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "itemId",
+            "in": "path",
+            "description": "Id of the basket item. **Note:** This should be an integer value and basket items are sorted based on this value, lowest id first.\n",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "includePromotionDetails",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "x-basket-token",
+            "in": "header",
+            "description": "Basket authorization token, returned from basket creation request",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Item"
+            },
+            "description": "Item object. This object also specifies the multiplier of items added.\r\n"
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Basket object. The new state of shopping basket is returned.\r\n",
+            "schema": {
+              "$ref": "#/definitions/BasketsLongBasketIdItemsItemIdPatch200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/baskets/{longBasketId}": {
+      "delete": {
+        "description": "Delete shopping basket.\r\n\r\n** NOTE: This endpoint retuns the \"token\", which must be used in subsequent basket requests as the `x-basket-token` header value. Otherwise the API will return 403 error. ***",
+        "operationId": "delete-baskets-longbasketid",
+        "summary": "Delete shopping basket.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "longBasketId",
+            "in": "path",
+            "description": "Long id of the shopping basket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-basket-token",
+            "in": "header",
+            "description": "Basket authorization token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Basket was not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      },
+      "get": {
+        "description": "Get shopping basket information with long id.\r\n\r\n** NOTE: This endpoint retuns the \"token\", which must be used in subsequent basket requests as the `x-basket-token` header value. Otherwise the API will return 403 error. ***",
+        "operationId": "get-baskets-longbasketid",
+        "summary": "Get shopping basket information with long id.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "longBasketId",
+            "in": "path",
+            "description": "Long id of the shopping basket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includePromotionDetails",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "x-basket-token",
+            "in": "header",
+            "description": "Basket authorization token ",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Basket object",
+            "schema": {
+              "$ref": "#/definitions/BasketsLongBasketIdGet200ApplicationJsonResponse"
+            }
+          },
+          "404": {
+            "description": "Basket was not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v2/stores/{storeId}/product-pricing": {
+      "post": {
+        "description": "Fetch individual product prices and gather promotion information. This endpoint converts the raw data in to a format utilized by mobile client details view.\r\n",
+        "operationId": "post-v2-stores-storeid-product-pricing",
+        "summary": "Get individual product prices with promotion information.",
+        "tags": [
+          "product"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "plussa",
+            "in": "query",
+            "type": "boolean",
+            "default": "False"
+          },
+          {
+            "name": "eans",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Eans"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Found store object",
+            "schema": {
+              "$ref": "#/definitions/V2StoresStoreIdProduct-pricingPost200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Store not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v2/stores/{storeId}": {
+      "get": {
+        "description": "Get info for a single store.",
+        "operationId": "get-v2-stores-storeid",
+        "summary": "Get info for a single store.",
+        "tags": [
+          "store"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found store object",
+            "schema": {
+              "$ref": "#/definitions/V2StoresStoreIdGet200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v2/stores": {
+      "get": {
+        "description": "Get info for multiple stores.",
+        "operationId": "get-v2-stores",
+        "summary": "Get info for multiple stores.",
+        "tags": [
+          "store"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "Store ids.",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit for the quantity of returned results. Default: 20.\n",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset for the current \"page\" ie. how many results to skip and when to start returning new results up to the defined limit. Default: 0.\n",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "lastSeen",
+            "in": "query",
+            "description": "Last seen EAN.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An object where keys are store ids and values are Store objects.",
+            "schema": {
+              "$ref": "#/definitions/V2StoresGet200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad query parameters"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/products/{storeId}": {
+      "post": {
+        "description": "Get information for multiple products at once.",
+        "operationId": "post-products-storeid",
+        "summary": "Get information for multiple products at once.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "eans",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Eans"
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object where keys are EANs and values are Product objects.",
+            "schema": {
+              "$ref": "#/definitions/ProductsStoreIdPost200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Store not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v2/products": {
+      "get": {
+        "description": "Returns the `pricingUnit` and availability of given products in all stores. If a store is returned in `stores` array, the product should be available in that physical store. If the store also has `web` flag set to true, the product is also available for web sales.\r\n<br><br>[Search API](https://kesko.portal.azure-api.net/docs/services/search/) uses this endpoint check if products are available during indexing process. If you want to check product for availability in your UI, you likely want to use Search APIs availability data.\r\n",
+        "operationId": "get-v2-products-ean-ean",
+        "summary": "Get availability information for products.",
+        "tags": [
+          "product"
+        ],
+        "parameters": [
+          {
+            "name": "ean",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An array containing product info objects.\r\n",
+            "schema": {
+              "$ref": "#/definitions/V2ProductsGet200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/v4/stores/{storeId}/products": {
+      "get": {
+        "description": "This endpoint is used to fetch product details for a specific store. Multiple stores can have the same products with the same EAN codes, but all stores can have independent pricing and promotion details related to the same products, so this information is fetched on a store by store basis.\r\n<br><br>Product details can be queried for specific EAN codes or all of the available products can be queried in a paged manner. Paging is implemented by providing limit and offset attributes.\r\n<br><br>V4 endpoint adds proper support for basket sale sets. Previously the API just returned the number of baskets related to the promotion, but the V4 endpoint returns the basket details instead.\r\n<br><br>Product objects have quite a few optional attributes. Below there are a few examples of different types of products.\r\n<br>Products can have additional texts attached to them:<br><br>\r\n```\r\n{\r\n  \"711719870746\": {\r\n    \"ean\": \"711719870746\",\r\n    \"baseEan\": \"0711719870746\",\r\n    \"name\": \"PlayStation 4 1000Gt + 2 Ohjainta\",\r\n    \"group\": \"18950\",\r\n    \"price\": 180,\r\n    \"pricingUnit\": \"kpl\",\r\n    \"vat\": 24,\r\n    \"packageSize\": \"1.00\",\r\n    \"packageUnit\": \"kpl\",\r\n    \"packageType\": \"kpl\",\r\n    \"costCenterId\": \"KÄ01\",\r\n    \"plussaLimited\": false,\r\n    \"discountLimited\": false,\r\n    \"type\": \"UTILITY_GOOD\",\r\n    \"totalPrice\": 180,\r\n    \"texts\": [\r\n      {\r\n        \"type\": \"warranty\",\r\n        \"text\": \"\\\"Tuotteella on 12 kk takuu\\\"\"\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n<br>Products can consist of multiple `components`, have active `promotions` or `restrictions`. Promotions can affect the price returned by the api, and are automatically calculated:<br><br>\r\n```\r\n{\r\n  \"8594404005409\": {\r\n    \"ean\": \"8594404005409\",\r\n    \"baseEan\": \"8594404005409\",\r\n    \"name\": \"Pilsner Urquell 4,4% 0,5l tlk 4-pack\",\r\n    \"group\": \"15243\",\r\n    \"price\": 9.8,\r\n    \"pricingUnit\": \"kpl\",\r\n    \"vat\": 24,\r\n    \"packageSize\": \"2.00\",\r\n    \"packageUnit\": \"l\",\r\n    \"packageType\": \"pakkaus\",\r\n    \"costCenterId\": \"PA01\",\r\n    \"plussaLimited\": true,\r\n    \"discountLimited\": true,\r\n    \"type\": \"CONSUMER_GOOD\",\r\n    \"components\": [\r\n      {\r\n        \"baseEan\": \"2000973900008\",\r\n        \"name\": \"Tölkkipantti 0,15 0,33l-0,5l\",\r\n        \"group\": \"15300\",\r\n        \"price\": 0.15,\r\n        \"pricingUnit\": \"kpl\",\r\n        \"vat\": 24,\r\n        \"packageSize\": \"1.00\",\r\n        \"packageUnit\": \"kpl\",\r\n        \"packageType\": \"kpl\",\r\n        \"costCenterId\": \"PM02\",\r\n        \"plussaLimited\": false,\r\n        \"discountLimited\": true,\r\n        \"type\": \"CONSUMER_GOOD\",\r\n        \"totalPrice\": 0.6,\r\n        \"multiplier\": 4\r\n      }\r\n    ],\r\n    \"totalPrice\": 10.4,\r\n    \"restrictions\": {\r\n      \"cashierVerifyRequired\": true,\r\n      \"ageVerificationRequired\": true,\r\n      \"limitedSalesTime\": true\r\n    },\r\n    \"promotions\": [\r\n      {\r\n        \"id\": \"8594404005401000000012100001\",\r\n        \"type\": 121,\r\n        \"startDate\": \"2018-08-27\",\r\n        \"endDate\": \"2019-01-02\",\r\n        \"plussa\": false,\r\n        \"pricingMethod\": \"net\",\r\n        \"price\": 9.8,\r\n        \"rule\": \"simple\"\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n<br>Products can have multiplier immutability flag set. If the flag is set, you cannot modify the multiplier of these items:<br><br>\r\n```\r\n{\r\n  \"2000518600004\": {\r\n    \"ean\": \"2000518600004\",\r\n    \"baseEan\": \"2000518600004\",\r\n    \"name\": \"Omena Royal Gala\",\r\n    \"group\": \"11523\",\r\n    \"price\": 2.59,\r\n    \"pricingUnit\": \"kg\",\r\n    \"vat\": 14,\r\n    \"packageSize\": \"0.00\",\r\n    \"packageUnit\": \"kg\",\r\n    \"packageType\": \"kilo\",\r\n    \"costCenterId\": \"HE01\",\r\n    \"plussaLimited\": false,\r\n    \"discountLimited\": false,\r\n    \"type\": \"CONSUMER_GOOD\",\r\n    \"restrictions\": {\r\n      \"multiplierImmutable\": true\r\n    },\r\n    \"totalPrice\": 2.59,\r\n    \"scaleNumber\": \"67\",\r\n    \"texts\": [\r\n      {\r\n        \"type\": \"originCountry\",\r\n        \"text\": \"ITALIA\"\r\n      },\r\n      {\r\n        \"type\": \"productClass\",\r\n        \"text\": \"1LK\"\r\n      }\r\n    ]\r\n  }\r\n}\r\n```\r\n<br>Some products are sold by their weight. In that case the price is stored as part of the EAN, and baseEan returns the product ean without price:<br><br>\r\n```\r\n{\r\n  \"2000708404321\": {\r\n    \"ean\": \"2000708404321\",\r\n    \"baseEan\": \"2000708400001\",\r\n    \"name\": \"Palvikinkku\",\r\n    \"group\": \"11206\",\r\n    \"price\": 4.32,\r\n    \"pricingUnit\": \"kg\",\r\n    \"vat\": 14,\r\n    \"packageSize\": \"0.00\",\r\n    \"packageUnit\": \"kg\",\r\n    \"packageType\": \"kilo\",\r\n    \"costCenterId\": \"LJ01\",\r\n    \"plussaLimited\": false,\r\n    \"discountLimited\": false,\r\n    \"type\": \"CONSUMER_GOOD\",\r\n    \"restrictions\": {\r\n      \"multiplierImmutable\": true\r\n    },\r\n    \"unitPrice\": 0,\r\n    \"totalPrice\": 4.32\r\n  }\r\n}\r\n```\r\n",
+        "operationId": "get-v4-stores-storeid-products",
+        "summary": "Get product details (pricing, promotions) for a specific store.",
+        "tags": [
+          "product"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ean",
+            "in": "query",
+            "description": "An EAN code or multiple EAN codes to return details for.\n",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit for the quantity of returned results. Default: 20.\n",
+            "type": "integer",
+            "default": "20"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Offset for the current \"page\" ie. how many results to skip and when to start returning new results up to the defined limit. Default: 0.\n",
+            "type": "integer",
+            "default": "0"
+          },
+          {
+            "name": "lastSeen",
+            "in": "query",
+            "description": "Last seen EAN.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "An object where keys are EANs and values are Product objects with added promotion info.\r\n",
+            "schema": {
+              "$ref": "#/definitions/V4StoresStoreIdProductsGet200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Store not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/baskets/store/{storeId}/{shortBasketId}": {
+      "get": {
+        "description": "Get shopping basket information for store with short id.\r\n\r\n** NOTE: This endpoint retuns the \"token\", which must be used in subsequent basket requests as the `x-basket-token` header value. Otherwise the API will return 403 error. ***",
+        "operationId": "get-baskets-store-storeid-shortbasketid",
+        "summary": "Get shopping basket information for store with short id.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "shortBasketId",
+            "in": "path",
+            "description": "Short id of the shopping basket",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includePromotionDetails",
+            "in": "query",
+            "type": "boolean"
+          },
+          {
+            "name": "x-basket-token",
+            "in": "header",
+            "description": "Basket authorization token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Basket object",
+            "schema": {
+              "$ref": "#/definitions/BasketsStoreStoreIdShortBasketIdGet200ApplicationJsonResponse"
+            }
+          },
+          "404": {
+            "description": "Basket was not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Runs dummy queries on the database and caches.\r\n",
+        "operationId": "get-health",
+        "summary": "Simple health check.",
+        "tags": [
+          "health"
+        ],
+        "responses": {
+          "200": {
+            "description": "Confirmation",
+            "schema": {
+              "$ref": "#/definitions/HealthGet200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/baskets/{storeId}": {
+      "post": {
+        "description": "Body of the request should be empty. The basket is deleted after 24 hours!\r\n\r\n** NOTE: This endpoint retuns the \"token\", which must be used in subsequent basket requests as the `x-basket-token` header value. Otherwise the API will return 403 error. ***\r\n",
+        "operationId": "post-baskets-storeid",
+        "summary": "Creates a new shopping basket for a certain store.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "includePromotionDetails",
+            "in": "query",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty basket object with no items in it.",
+            "schema": {
+              "$ref": "#/definitions/BasketsStoreIdPost200ApplicationJsonResponse"
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/products/{storeId}/{ean}": {
+      "get": {
+        "description": "Get info for a single product.",
+        "operationId": "get-products-storeid-ean",
+        "summary": "Get info for a single product.",
+        "tags": [
+          "mobile"
+        ],
+        "parameters": [
+          {
+            "name": "storeId",
+            "in": "path",
+            "description": "Store id, for example C122.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ean",
+            "in": "path",
+            "description": "EAN code of the product",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product object",
+            "schema": {
+              "$ref": "#/definitions/ProductsStoreIdEanGet200ApplicationJsonResponse"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "404": {
+            "description": "Store not found"
+          }
+        },
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Partial basket item": {
+      "type": "object",
+      "description": "Client should send the basket item object in the partial format to server.\n**Note:** in PATCH request, you can only modify the `multiplier` attribute.\n",
+      "properties": {
+        "multiplier": {
+          "type": "number",
+          "example": 1,
+          "minimum": 0
+        },
+        "item": {
+          "type": "string",
+          "example": "291828880199",
+          "minLength": 0
+        }
+      }
+    },
+    "Basket item": {
+      "type": "object",
+      "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+      "properties": {
+        "multiplier": {
+          "type": "number",
+          "example": 1
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 2.1
+        },
+        "type": {
+          "type": "string",
+          "example": "product"
+        },
+        "item": {
+          "type": "object",
+          "properties": {
+            "ean": {
+              "type": "string",
+              "example": "291828880199"
+            },
+            "name": {
+              "type": "string",
+              "example": "Coca-Cola"
+            },
+            "price": {
+              "type": "number",
+              "example": 1.9
+            },
+            "totalPrice": {
+              "type": "number",
+              "example": 2.1
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Pantti 0.5l"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 0.2
+                  },
+                  "multiplier": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Basket": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ItemBasketResponse": {
+      "type": "object",
+      "properties": {
+        "Basket": {
+          "type": "object",
+          "properties": {
+            "BasketId": {
+              "type": "string",
+              "example": "1234567890"
+            },
+            "BasketShortId": {
+              "type": "string",
+              "example": "1234"
+            },
+            "Date": {
+              "type": "string",
+              "example": "2015-09-29"
+            },
+            "Time": {
+              "type": "string",
+              "example": "12:34:56"
+            },
+            "Store": {
+              "type": "object",
+              "properties": {
+                "StoreCode": {
+                  "type": "string",
+                  "example": "C624"
+                },
+                "StoreName": {
+                  "type": "string",
+                  "example": "K-Market Näätämö"
+                }
+              }
+            },
+            "Items": {
+              "type": "object",
+              "properties": {
+                "Item": {
+                  "type": "object",
+                  "properties": {
+                    "SeqNbr": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "ScanCode": {
+                      "type": "string",
+                      "example": "2000988012345"
+                    },
+                    "Multiplier": {
+                      "type": "number",
+                      "example": 2
+                    },
+                    "Description": {
+                      "type": "string",
+                      "example": "Banaani"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "IN_QUEUE",
+            "PROCESSING",
+            "DONE",
+            "ERROR"
+          ],
+          "description": "Task status",
+          "example": "IN_QUEUE"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Updated at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        }
+      }
+    },
+    "Promotion v2": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "startDate",
+        "endDate"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "0000040052441000000012100001"
+        },
+        "type": {
+          "type": "integer",
+          "example": 121
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2017-09-04T00:00:00Z"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2017-10-01T00:00:00Z"
+        },
+        "price": {
+          "type": "number",
+          "example": 0.85
+        },
+        "max": {
+          "type": "number"
+        },
+        "basket": {
+          "type": "string"
+        },
+        "baskets": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "batchPrice": {
+          "type": "number",
+          "example": 2
+        },
+        "batchSize": {
+          "type": "number",
+          "example": 3
+        },
+        "discountPercentage": {
+          "type": "number"
+        }
+      }
+    },
+    "Promotion v3": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "startDate",
+        "endDate",
+        "plussa"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "0000040052441000000012100001"
+        },
+        "type": {
+          "type": "integer",
+          "example": 121
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2017-09-04T00:00:00Z"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2017-10-01T00:00:00Z"
+        },
+        "plussa": {
+          "type": "boolean"
+        },
+        "pricingMethod": {
+          "type": "string",
+          "enum": [
+            "percentage",
+            "net"
+          ]
+        },
+        "price": {
+          "type": "number",
+          "example": 0.85
+        },
+        "size": {
+          "type": "number"
+        },
+        "rule": {
+          "type": "string",
+          "enum": [
+            "min",
+            "max",
+            "simple",
+            "batch",
+            "set"
+          ]
+        },
+        "basket": {
+          "type": "string"
+        },
+        "baskets": {
+          "type": "number",
+          "example": 1,
+          "description": "Basket count"
+        }
+      }
+    },
+    "Promotion Basket": {
+      "type": "object",
+      "description": "Contains details on promotion baskets. Baskets have a size and either EAN-codes or product groups that they can contain.\n",
+      "required": [
+        "size"
+      ],
+      "properties": {
+        "size": {
+          "type": "number",
+          "description": "Basket size ie. how many items from this basket should be bought for promotion to be valid.\n",
+          "example": 2
+        },
+        "baseEans": {
+          "type": "array",
+          "description": "Array of base EAN codes included in the basket",
+          "items": {
+            "type": "string",
+            "example": "4050795742742"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "description": "Array of product groups included in the basket",
+          "items": {
+            "type": "string",
+            "example": "17110"
+          }
+        }
+      }
+    },
+    "Promotion v4": {
+      "allOf": [
+        {
+          "type": "object",
+          "required": [
+            "id",
+            "type",
+            "startDate",
+            "endDate",
+            "plussa"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "0000040052441000000012100001"
+            },
+            "type": {
+              "type": "integer",
+              "example": 121
+            },
+            "startDate": {
+              "type": "string",
+              "format": "date",
+              "example": "2017-09-04T00:00:00Z"
+            },
+            "endDate": {
+              "type": "string",
+              "format": "date",
+              "example": "2017-10-01T00:00:00Z"
+            },
+            "plussa": {
+              "type": "boolean"
+            },
+            "pricingMethod": {
+              "type": "string",
+              "enum": [
+                "percentage",
+                "net"
+              ]
+            },
+            "price": {
+              "type": "number",
+              "example": 0.85
+            },
+            "size": {
+              "type": "number"
+            },
+            "rule": {
+              "type": "string",
+              "enum": [
+                "min",
+                "max",
+                "simple",
+                "batch",
+                "set"
+              ]
+            },
+            "basket": {
+              "type": "string"
+            },
+            "baskets": {
+              "type": "number",
+              "example": 1,
+              "description": "Basket count"
+            }
+          }
+        },
+        {
+          "properties": {
+            "baskets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "Contains details on promotion baskets. Baskets have a size and either EAN-codes or product groups that they can contain.\n",
+                "required": [
+                  "size"
+                ],
+                "properties": {
+                  "size": {
+                    "type": "number",
+                    "description": "Basket size ie. how many items from this basket should be bought for promotion to be valid.\n",
+                    "example": 2
+                  },
+                  "baseEans": {
+                    "type": "array",
+                    "description": "Array of base EAN codes included in the basket",
+                    "items": {
+                      "type": "string",
+                      "example": "4050795742742"
+                    }
+                  },
+                  "groups": {
+                    "type": "array",
+                    "description": "Array of product groups included in the basket",
+                    "items": {
+                      "type": "string",
+                      "example": "17110"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Product": {
+      "type": "object",
+      "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+      "required": [
+        "ean",
+        "name"
+      ],
+      "properties": {
+        "ean": {
+          "type": "string",
+          "example": "291828880199"
+        },
+        "name": {
+          "type": "string",
+          "example": "HK Kabanossi"
+        },
+        "price": {
+          "type": "number",
+          "example": 2.3
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 2.3
+        },
+        "unitPrice": {
+          "type": "number",
+          "example": 2.3
+        },
+        "pricingUnit": {
+          "type": "string",
+          "description": "Unit for the product price",
+          "enum": [
+            "kg",
+            "m",
+            "l",
+            "kpl",
+            "g",
+            "dl",
+            "cl",
+            "ml",
+            "tlk"
+          ],
+          "example": "kg"
+        },
+        "packageUnit": {
+          "type": "string",
+          "description": "Unit for packaging size",
+          "enum": [
+            "kg",
+            "m",
+            "l",
+            "kpl",
+            "g",
+            "dl",
+            "cl",
+            "ml",
+            "tlk"
+          ],
+          "example": "kg"
+        },
+        "packageSize": {
+          "type": "string",
+          "description": "Package size, numeric value returned as a string",
+          "example": "0.01"
+        },
+        "packageType": {
+          "type": "string",
+          "description": "Freeform field describing the package type",
+          "example": "kpl"
+        },
+        "costCenterId": {
+          "type": "string",
+          "description": "Cost center ID for the product",
+          "example": "TE01"
+        },
+        "discountLimited": {
+          "type": "boolean",
+          "description": "Is the product exempt from discounts",
+          "example": false
+        },
+        "plussaLimited": {
+          "type": "boolean",
+          "description": "Is the product exempt from Plussa discounts",
+          "example": true
+        },
+        "type": {
+          "type": "string",
+          "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+          "example": "CONSUMER_GOOD",
+          "enum": [
+            "CONSUMER_GOOD",
+            "UTILITY_GOOD"
+          ]
+        },
+        "vat": {
+          "type": "number",
+          "example": 24
+        },
+        "group": {
+          "type": "string",
+          "example": "14250"
+        },
+        "size": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "example": 0.312
+            },
+            "unit": {
+              "type": "string",
+              "example": "kg"
+            }
+          }
+        },
+        "texts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "SOME_CONSTANT"
+              },
+              "text": {
+                "type": "string",
+                "example": "Takuu 12kk"
+              }
+            }
+          }
+        },
+        "restrictions": {
+          "type": "object",
+          "properties": {
+            "cashierVerifyRequired": {
+              "type": "boolean",
+              "example": true
+            },
+            "multiplierImmutable": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Pantti 0.5l"
+              },
+              "price": {
+                "type": "number",
+                "example": 0.2
+              },
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "Product v3": {
+      "allOf": [
+        {
+          "type": "object",
+          "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+          "required": [
+            "ean",
+            "name"
+          ],
+          "properties": {
+            "ean": {
+              "type": "string",
+              "example": "291828880199"
+            },
+            "name": {
+              "type": "string",
+              "example": "HK Kabanossi"
+            },
+            "price": {
+              "type": "number",
+              "example": 2.3
+            },
+            "totalPrice": {
+              "type": "number",
+              "example": 2.3
+            },
+            "unitPrice": {
+              "type": "number",
+              "example": 2.3
+            },
+            "pricingUnit": {
+              "type": "string",
+              "description": "Unit for the product price",
+              "enum": [
+                "kg",
+                "m",
+                "l",
+                "kpl",
+                "g",
+                "dl",
+                "cl",
+                "ml",
+                "tlk"
+              ],
+              "example": "kg"
+            },
+            "packageUnit": {
+              "type": "string",
+              "description": "Unit for packaging size",
+              "enum": [
+                "kg",
+                "m",
+                "l",
+                "kpl",
+                "g",
+                "dl",
+                "cl",
+                "ml",
+                "tlk"
+              ],
+              "example": "kg"
+            },
+            "packageSize": {
+              "type": "string",
+              "description": "Package size, numeric value returned as a string",
+              "example": "0.01"
+            },
+            "packageType": {
+              "type": "string",
+              "description": "Freeform field describing the package type",
+              "example": "kpl"
+            },
+            "costCenterId": {
+              "type": "string",
+              "description": "Cost center ID for the product",
+              "example": "TE01"
+            },
+            "discountLimited": {
+              "type": "boolean",
+              "description": "Is the product exempt from discounts",
+              "example": false
+            },
+            "plussaLimited": {
+              "type": "boolean",
+              "description": "Is the product exempt from Plussa discounts",
+              "example": true
+            },
+            "type": {
+              "type": "string",
+              "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+              "example": "CONSUMER_GOOD",
+              "enum": [
+                "CONSUMER_GOOD",
+                "UTILITY_GOOD"
+              ]
+            },
+            "vat": {
+              "type": "number",
+              "example": 24
+            },
+            "group": {
+              "type": "string",
+              "example": "14250"
+            },
+            "size": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "example": 0.312
+                },
+                "unit": {
+                  "type": "string",
+                  "example": "kg"
+                }
+              }
+            },
+            "texts": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "example": "SOME_CONSTANT"
+                  },
+                  "text": {
+                    "type": "string",
+                    "example": "Takuu 12kk"
+                  }
+                }
+              }
+            },
+            "restrictions": {
+              "type": "object",
+              "properties": {
+                "cashierVerifyRequired": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "multiplierImmutable": {
+                  "type": "boolean",
+                  "example": true
+                }
+              }
+            },
+            "components": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Pantti 0.5l"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 0.2
+                  },
+                  "multiplier": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "required": [
+            "baseEan"
+          ],
+          "properties": {
+            "baseEan": {
+              "type": "string",
+              "description": "EAN-13 code for the product. Padded to length with leading zeroes",
+              "example": "291828880199"
+            }
+          }
+        }
+      ]
+    },
+    "Product v4": {
+      "allOf": [
+        {
+          "allOf": [
+            {
+              "type": "object",
+              "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+              "required": [
+                "ean",
+                "name"
+              ],
+              "properties": {
+                "ean": {
+                  "type": "string",
+                  "example": "291828880199"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "HK Kabanossi"
+                },
+                "price": {
+                  "type": "number",
+                  "example": 2.3
+                },
+                "totalPrice": {
+                  "type": "number",
+                  "example": 2.3
+                },
+                "unitPrice": {
+                  "type": "number",
+                  "example": 2.3
+                },
+                "pricingUnit": {
+                  "type": "string",
+                  "description": "Unit for the product price",
+                  "enum": [
+                    "kg",
+                    "m",
+                    "l",
+                    "kpl",
+                    "g",
+                    "dl",
+                    "cl",
+                    "ml",
+                    "tlk"
+                  ],
+                  "example": "kg"
+                },
+                "packageUnit": {
+                  "type": "string",
+                  "description": "Unit for packaging size",
+                  "enum": [
+                    "kg",
+                    "m",
+                    "l",
+                    "kpl",
+                    "g",
+                    "dl",
+                    "cl",
+                    "ml",
+                    "tlk"
+                  ],
+                  "example": "kg"
+                },
+                "packageSize": {
+                  "type": "string",
+                  "description": "Package size, numeric value returned as a string",
+                  "example": "0.01"
+                },
+                "packageType": {
+                  "type": "string",
+                  "description": "Freeform field describing the package type",
+                  "example": "kpl"
+                },
+                "costCenterId": {
+                  "type": "string",
+                  "description": "Cost center ID for the product",
+                  "example": "TE01"
+                },
+                "discountLimited": {
+                  "type": "boolean",
+                  "description": "Is the product exempt from discounts",
+                  "example": false
+                },
+                "plussaLimited": {
+                  "type": "boolean",
+                  "description": "Is the product exempt from Plussa discounts",
+                  "example": true
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+                  "example": "CONSUMER_GOOD",
+                  "enum": [
+                    "CONSUMER_GOOD",
+                    "UTILITY_GOOD"
+                  ]
+                },
+                "vat": {
+                  "type": "number",
+                  "example": 24
+                },
+                "group": {
+                  "type": "string",
+                  "example": "14250"
+                },
+                "size": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "example": 0.312
+                    },
+                    "unit": {
+                      "type": "string",
+                      "example": "kg"
+                    }
+                  }
+                },
+                "texts": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "example": "SOME_CONSTANT"
+                      },
+                      "text": {
+                        "type": "string",
+                        "example": "Takuu 12kk"
+                      }
+                    }
+                  }
+                },
+                "restrictions": {
+                  "type": "object",
+                  "properties": {
+                    "cashierVerifyRequired": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "multiplierImmutable": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                },
+                "components": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Pantti 0.5l"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 0.2
+                      },
+                      "multiplier": {
+                        "type": "number",
+                        "example": 1
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "required": [
+                "baseEan"
+              ],
+              "properties": {
+                "baseEan": {
+                  "type": "string",
+                  "description": "EAN-13 code for the product. Padded to length with leading zeroes",
+                  "example": "291828880199"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "Store": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "S931",
+          "maxLength": 4
+        },
+        "name": {
+          "type": "string",
+          "example": "K-SUPERMARKET FORTUNA",
+          "maxLength": 80
+        },
+        "update": {
+          "type": "integer",
+          "example": 133
+        }
+      }
+    },
+    "AdminProductsPost200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "BasketsStoreIdPost200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "BasketsLongBasketIdGet200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "BasketsStoreStoreIdShortBasketIdGet200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Item": {
+      "type": "object",
+      "description": "Client should send the basket item object in the partial format to server.\n**Note:** in PATCH request, you can only modify the `multiplier` attribute.\n",
+      "properties": {
+        "multiplier": {
+          "type": "number",
+          "example": 1,
+          "minimum": 0
+        },
+        "item": {
+          "type": "string",
+          "example": "291828880199",
+          "minLength": 0
+        }
+      }
+    },
+    "BasketsLongBasketIdItemsItemIdPut200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "BasketsLongBasketIdItemsItemIdPatch200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "BasketsLongBasketIdItemsItemIdDelete200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Payload": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "Client should send the basket item object in the partial format to server.\n**Note:** in PATCH request, you can only modify the `multiplier` attribute.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1,
+                "minimum": 0
+              },
+              "item": {
+                "type": "string",
+                "example": "291828880199",
+                "minLength": 0
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 200
+        }
+      }
+    },
+    "BasketsLongBasketIdItemsPut200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "longId": {
+          "type": "string",
+          "description": "Long or global id of the shopping basket. Equal to `{longBasketId}`.\nThis is unique across the system.\n",
+          "example": "2921323"
+        },
+        "shortId": {
+          "type": "string",
+          "description": "Shorter id of the shopping basket which must be convenient for users.\n**Note:** This is unique **per shop**, not globally unique.\n",
+          "example": "2133"
+        },
+        "storeId": {
+          "type": "string",
+          "example": "C122"
+        },
+        "expires": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2015-11-16T22:23:48Z"
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 4.4
+        },
+        "token": {
+          "type": "string",
+          "example": "0b1cc05a91842b8613b24aa873c2f61808abffa6"
+        },
+        "checkoutDone": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "maxLength": 200,
+          "items": {
+            "type": "object",
+            "description": "The object is an \"envelope\" for e.g. product. Describes a full item object which backend will return on each GET. The client can't modify the actual item or generated attributes. That's why there's also a partial format of the basket item object, which client can use to create or modify a basket item object.\n",
+            "properties": {
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.1
+              },
+              "type": {
+                "type": "string",
+                "example": "product"
+              },
+              "item": {
+                "type": "object",
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Coca-Cola"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 1.9
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.1
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "CheckoutBasketsLongBasketIdGet200ApplicationXmlResponse": {
+      "type": "object",
+      "properties": {
+        "Basket": {
+          "type": "object",
+          "properties": {
+            "BasketId": {
+              "type": "string",
+              "example": "1234567890"
+            },
+            "BasketShortId": {
+              "type": "string",
+              "example": "1234"
+            },
+            "Date": {
+              "type": "string",
+              "example": "2015-09-29"
+            },
+            "Time": {
+              "type": "string",
+              "example": "12:34:56"
+            },
+            "Store": {
+              "type": "object",
+              "properties": {
+                "StoreCode": {
+                  "type": "string",
+                  "example": "C624"
+                },
+                "StoreName": {
+                  "type": "string",
+                  "example": "K-Market Näätämö"
+                }
+              }
+            },
+            "Items": {
+              "type": "object",
+              "properties": {
+                "Item": {
+                  "type": "object",
+                  "properties": {
+                    "SeqNbr": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "ScanCode": {
+                      "type": "string",
+                      "example": "2000988012345"
+                    },
+                    "Multiplier": {
+                      "type": "number",
+                      "example": 2
+                    },
+                    "Description": {
+                      "type": "string",
+                      "example": "Banaani"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "CheckoutBasketsStoresStoreIdShortBasketIdGet200ApplicationXmlResponse": {
+      "type": "object",
+      "properties": {
+        "Basket": {
+          "type": "object",
+          "properties": {
+            "BasketId": {
+              "type": "string",
+              "example": "1234567890"
+            },
+            "BasketShortId": {
+              "type": "string",
+              "example": "1234"
+            },
+            "Date": {
+              "type": "string",
+              "example": "2015-09-29"
+            },
+            "Time": {
+              "type": "string",
+              "example": "12:34:56"
+            },
+            "Store": {
+              "type": "object",
+              "properties": {
+                "StoreCode": {
+                  "type": "string",
+                  "example": "C624"
+                },
+                "StoreName": {
+                  "type": "string",
+                  "example": "K-Market Näätämö"
+                }
+              }
+            },
+            "Items": {
+              "type": "object",
+              "properties": {
+                "Item": {
+                  "type": "object",
+                  "properties": {
+                    "SeqNbr": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "ScanCode": {
+                      "type": "string",
+                      "example": "2000988012345"
+                    },
+                    "Multiplier": {
+                      "type": "number",
+                      "example": 2
+                    },
+                    "Description": {
+                      "type": "string",
+                      "example": "Banaani"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ExportsPost200ApplicationJsonResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "IN_QUEUE",
+            "PROCESSING",
+            "DONE",
+            "ERROR"
+          ],
+          "description": "Task status",
+          "example": "IN_QUEUE"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Updated at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        }
+      }
+    },
+    "ExportsPost201ApplicationJsonResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "IN_QUEUE",
+            "PROCESSING",
+            "DONE",
+            "ERROR"
+          ],
+          "description": "Task status",
+          "example": "IN_QUEUE"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Updated at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        }
+      }
+    },
+    "ExportsTaskIdGet200ApplicationJsonResponse": {
+      "type": "object",
+      "required": [
+        "id",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "IN_QUEUE",
+            "PROCESSING",
+            "DONE",
+            "ERROR"
+          ],
+          "description": "Task status",
+          "example": "IN_QUEUE"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Updated at timestamp",
+          "example": "2018-07-12T09:38:26.651Z"
+        }
+      }
+    },
+    "ExportsTaskIdDownloadPost200ApplicationJsonResponse": {
+      "type": "object",
+      "required": [
+        "downloadUrl"
+      ],
+      "properties": {
+        "downloadUrl": {
+          "type": "string",
+          "format": "uri",
+          "example": "https://bucket.s3.eu-west-1.amazonaws.com/export/2018-07-11T11%3A54%3A46.964Z.csv.gz?AWSAccessKeyId=ACCESSKEY&Expires=1531311047&Signature=SIGNATURE%3D"
+        }
+      }
+    },
+    "HealthGet200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "PricingStoreIdGet200ApplicationJsonResponse": {
+      "type": "string"
+    },
+    "ProductsStoreIdEanGet200ApplicationJsonResponse": {
+      "type": "object",
+      "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+      "required": [
+        "ean",
+        "name"
+      ],
+      "properties": {
+        "ean": {
+          "type": "string",
+          "example": "291828880199"
+        },
+        "name": {
+          "type": "string",
+          "example": "HK Kabanossi"
+        },
+        "price": {
+          "type": "number",
+          "example": 2.3
+        },
+        "totalPrice": {
+          "type": "number",
+          "example": 2.3
+        },
+        "unitPrice": {
+          "type": "number",
+          "example": 2.3
+        },
+        "pricingUnit": {
+          "type": "string",
+          "description": "Unit for the product price",
+          "enum": [
+            "kg",
+            "m",
+            "l",
+            "kpl",
+            "g",
+            "dl",
+            "cl",
+            "ml",
+            "tlk"
+          ],
+          "example": "kg"
+        },
+        "packageUnit": {
+          "type": "string",
+          "description": "Unit for packaging size",
+          "enum": [
+            "kg",
+            "m",
+            "l",
+            "kpl",
+            "g",
+            "dl",
+            "cl",
+            "ml",
+            "tlk"
+          ],
+          "example": "kg"
+        },
+        "packageSize": {
+          "type": "string",
+          "description": "Package size, numeric value returned as a string",
+          "example": "0.01"
+        },
+        "packageType": {
+          "type": "string",
+          "description": "Freeform field describing the package type",
+          "example": "kpl"
+        },
+        "costCenterId": {
+          "type": "string",
+          "description": "Cost center ID for the product",
+          "example": "TE01"
+        },
+        "discountLimited": {
+          "type": "boolean",
+          "description": "Is the product exempt from discounts",
+          "example": false
+        },
+        "plussaLimited": {
+          "type": "boolean",
+          "description": "Is the product exempt from Plussa discounts",
+          "example": true
+        },
+        "type": {
+          "type": "string",
+          "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+          "example": "CONSUMER_GOOD",
+          "enum": [
+            "CONSUMER_GOOD",
+            "UTILITY_GOOD"
+          ]
+        },
+        "vat": {
+          "type": "number",
+          "example": 24
+        },
+        "group": {
+          "type": "string",
+          "example": "14250"
+        },
+        "size": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "example": 0.312
+            },
+            "unit": {
+              "type": "string",
+              "example": "kg"
+            }
+          }
+        },
+        "texts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "SOME_CONSTANT"
+              },
+              "text": {
+                "type": "string",
+                "example": "Takuu 12kk"
+              }
+            }
+          }
+        },
+        "restrictions": {
+          "type": "object",
+          "properties": {
+            "cashierVerifyRequired": {
+              "type": "boolean",
+              "example": true
+            },
+            "multiplierImmutable": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "Pantti 0.5l"
+              },
+              "price": {
+                "type": "number",
+                "example": 0.2
+              },
+              "multiplier": {
+                "type": "number",
+                "example": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "Eans": {
+      "type": "object",
+      "required": [
+        "eans"
+      ],
+      "properties": {
+        "eans": {
+          "type": "array",
+          "maxLength": 1000,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ProductsStoreIdPost200ApplicationJsonResponse": {
+      "type": "object"
+    },
+    "StoresGet200ApplicationJsonResponse": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "S931"
+          }
+        }
+      }
+    },
+    "V2StoresGet200ApplicationJsonResponse": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "S931",
+            "maxLength": 4
+          },
+          "name": {
+            "type": "string",
+            "example": "K-SUPERMARKET FORTUNA",
+            "maxLength": 80
+          },
+          "update": {
+            "type": "integer",
+            "example": 133
+          }
+        }
+      }
+    },
+    "V2StoresStoreIdGet200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "S931",
+          "maxLength": 4
+        },
+        "name": {
+          "type": "string",
+          "example": "K-SUPERMARKET FORTUNA",
+          "maxLength": 80
+        },
+        "update": {
+          "type": "integer",
+          "example": 133
+        }
+      }
+    },
+    "V2StoresStoreIdProductsGet200ApplicationJsonResponse": {
+      "type": "object",
+      "additionalProperties": {
+        "allOf": [
+          {
+            "type": "object",
+            "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+            "required": [
+              "ean",
+              "name"
+            ],
+            "properties": {
+              "ean": {
+                "type": "string",
+                "example": "291828880199"
+              },
+              "name": {
+                "type": "string",
+                "example": "HK Kabanossi"
+              },
+              "price": {
+                "type": "number",
+                "example": 2.3
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.3
+              },
+              "unitPrice": {
+                "type": "number",
+                "example": 2.3
+              },
+              "pricingUnit": {
+                "type": "string",
+                "description": "Unit for the product price",
+                "enum": [
+                  "kg",
+                  "m",
+                  "l",
+                  "kpl",
+                  "g",
+                  "dl",
+                  "cl",
+                  "ml",
+                  "tlk"
+                ],
+                "example": "kg"
+              },
+              "packageUnit": {
+                "type": "string",
+                "description": "Unit for packaging size",
+                "enum": [
+                  "kg",
+                  "m",
+                  "l",
+                  "kpl",
+                  "g",
+                  "dl",
+                  "cl",
+                  "ml",
+                  "tlk"
+                ],
+                "example": "kg"
+              },
+              "packageSize": {
+                "type": "string",
+                "description": "Package size, numeric value returned as a string",
+                "example": "0.01"
+              },
+              "packageType": {
+                "type": "string",
+                "description": "Freeform field describing the package type",
+                "example": "kpl"
+              },
+              "costCenterId": {
+                "type": "string",
+                "description": "Cost center ID for the product",
+                "example": "TE01"
+              },
+              "discountLimited": {
+                "type": "boolean",
+                "description": "Is the product exempt from discounts",
+                "example": false
+              },
+              "plussaLimited": {
+                "type": "boolean",
+                "description": "Is the product exempt from Plussa discounts",
+                "example": true
+              },
+              "type": {
+                "type": "string",
+                "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+                "example": "CONSUMER_GOOD",
+                "enum": [
+                  "CONSUMER_GOOD",
+                  "UTILITY_GOOD"
+                ]
+              },
+              "vat": {
+                "type": "number",
+                "example": 24
+              },
+              "group": {
+                "type": "string",
+                "example": "14250"
+              },
+              "size": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "example": 0.312
+                  },
+                  "unit": {
+                    "type": "string",
+                    "example": "kg"
+                  }
+                }
+              },
+              "texts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "SOME_CONSTANT"
+                    },
+                    "text": {
+                      "type": "string",
+                      "example": "Takuu 12kk"
+                    }
+                  }
+                }
+              },
+              "restrictions": {
+                "type": "object",
+                "properties": {
+                  "cashierVerifyRequired": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "multiplierImmutable": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              },
+              "components": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Pantti 0.5l"
+                    },
+                    "price": {
+                      "type": "number",
+                      "example": 0.2
+                    },
+                    "multiplier": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "promotions": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type",
+                  "startDate",
+                  "endDate"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "0000040052441000000012100001"
+                  },
+                  "type": {
+                    "type": "integer",
+                    "example": 121
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-09-04T00:00:00Z"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-10-01T00:00:00Z"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 0.85
+                  },
+                  "max": {
+                    "type": "number"
+                  },
+                  "basket": {
+                    "type": "string"
+                  },
+                  "baskets": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "batchPrice": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "batchSize": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "discountPercentage": {
+                    "type": "number"
+                  }
+                }
+              },
+              "plussaPromotions": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type",
+                  "startDate",
+                  "endDate"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "0000040052441000000012100001"
+                  },
+                  "type": {
+                    "type": "integer",
+                    "example": 121
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-09-04T00:00:00Z"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-10-01T00:00:00Z"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 0.85
+                  },
+                  "max": {
+                    "type": "number"
+                  },
+                  "basket": {
+                    "type": "string"
+                  },
+                  "baskets": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "batchPrice": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "batchSize": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "discountPercentage": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "V2StoresStoreIdProductsPost200ApplicationJsonResponse": {
+      "type": "object",
+      "additionalProperties": {
+        "allOf": [
+          {
+            "type": "object",
+            "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+            "required": [
+              "ean",
+              "name"
+            ],
+            "properties": {
+              "ean": {
+                "type": "string",
+                "example": "291828880199"
+              },
+              "name": {
+                "type": "string",
+                "example": "HK Kabanossi"
+              },
+              "price": {
+                "type": "number",
+                "example": 2.3
+              },
+              "totalPrice": {
+                "type": "number",
+                "example": 2.3
+              },
+              "unitPrice": {
+                "type": "number",
+                "example": 2.3
+              },
+              "pricingUnit": {
+                "type": "string",
+                "description": "Unit for the product price",
+                "enum": [
+                  "kg",
+                  "m",
+                  "l",
+                  "kpl",
+                  "g",
+                  "dl",
+                  "cl",
+                  "ml",
+                  "tlk"
+                ],
+                "example": "kg"
+              },
+              "packageUnit": {
+                "type": "string",
+                "description": "Unit for packaging size",
+                "enum": [
+                  "kg",
+                  "m",
+                  "l",
+                  "kpl",
+                  "g",
+                  "dl",
+                  "cl",
+                  "ml",
+                  "tlk"
+                ],
+                "example": "kg"
+              },
+              "packageSize": {
+                "type": "string",
+                "description": "Package size, numeric value returned as a string",
+                "example": "0.01"
+              },
+              "packageType": {
+                "type": "string",
+                "description": "Freeform field describing the package type",
+                "example": "kpl"
+              },
+              "costCenterId": {
+                "type": "string",
+                "description": "Cost center ID for the product",
+                "example": "TE01"
+              },
+              "discountLimited": {
+                "type": "boolean",
+                "description": "Is the product exempt from discounts",
+                "example": false
+              },
+              "plussaLimited": {
+                "type": "boolean",
+                "description": "Is the product exempt from Plussa discounts",
+                "example": true
+              },
+              "type": {
+                "type": "string",
+                "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+                "example": "CONSUMER_GOOD",
+                "enum": [
+                  "CONSUMER_GOOD",
+                  "UTILITY_GOOD"
+                ]
+              },
+              "vat": {
+                "type": "number",
+                "example": 24
+              },
+              "group": {
+                "type": "string",
+                "example": "14250"
+              },
+              "size": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "example": 0.312
+                  },
+                  "unit": {
+                    "type": "string",
+                    "example": "kg"
+                  }
+                }
+              },
+              "texts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "SOME_CONSTANT"
+                    },
+                    "text": {
+                      "type": "string",
+                      "example": "Takuu 12kk"
+                    }
+                  }
+                }
+              },
+              "restrictions": {
+                "type": "object",
+                "properties": {
+                  "cashierVerifyRequired": {
+                    "type": "boolean",
+                    "example": true
+                  },
+                  "multiplierImmutable": {
+                    "type": "boolean",
+                    "example": true
+                  }
+                }
+              },
+              "components": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "Pantti 0.5l"
+                    },
+                    "price": {
+                      "type": "number",
+                      "example": 0.2
+                    },
+                    "multiplier": {
+                      "type": "number",
+                      "example": 1
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "properties": {
+              "promotions": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type",
+                  "startDate",
+                  "endDate"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "0000040052441000000012100001"
+                  },
+                  "type": {
+                    "type": "integer",
+                    "example": 121
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-09-04T00:00:00Z"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-10-01T00:00:00Z"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 0.85
+                  },
+                  "max": {
+                    "type": "number"
+                  },
+                  "basket": {
+                    "type": "string"
+                  },
+                  "baskets": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "batchPrice": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "batchSize": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "discountPercentage": {
+                    "type": "number"
+                  }
+                }
+              },
+              "plussaPromotions": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type",
+                  "startDate",
+                  "endDate"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "0000040052441000000012100001"
+                  },
+                  "type": {
+                    "type": "integer",
+                    "example": 121
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-09-04T00:00:00Z"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-10-01T00:00:00Z"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 0.85
+                  },
+                  "max": {
+                    "type": "number"
+                  },
+                  "basket": {
+                    "type": "string"
+                  },
+                  "baskets": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "batchPrice": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "batchSize": {
+                    "type": "number",
+                    "example": 3
+                  },
+                  "discountPercentage": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "V2StoresStoreIdProduct-pricingPost200ApplicationJsonResponse": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "simplePrice": {
+            "type": "object",
+            "properties": {
+              "vat": {
+                "type": "number",
+                "example": 24
+              },
+              "pricingUnit": {
+                "type": "string",
+                "example": "kg"
+              },
+              "price": {
+                "type": "number",
+                "example": 7.19
+              },
+              "promotion": {
+                "type": "object",
+                "properties": {
+                  "promotionId": {
+                    "type": "string",
+                    "example": "0000040052441000000012100001"
+                  },
+                  "originalPrice": {
+                    "type": "number",
+                    "example": 7.99
+                  },
+                  "priceDateInterval": {
+                    "type": "object",
+                    "properties": {
+                      "startDate": {
+                        "type": "string",
+                        "format": "dateTime",
+                        "example": "2017-09-04T00:00:00Z"
+                      },
+                      "endDate": {
+                        "type": "string",
+                        "format": "dateTime",
+                        "example": "2017-10-01T00:00:00Z"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Products": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "type": "object",
+          "maxLength": 1000,
+          "additionalProperties": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      }
+    },
+    "V2StoresStoreIdPricePost200ApplicationJsonResponse": {
+      "type": "object",
+      "properties": {
+        "totalPrice": {
+          "type": "string",
+          "example": "14.25"
+        },
+        "totalByEan": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "example": "4.75"
+          }
+        }
+      }
+    },
+    "V2ProductsGet200ApplicationJsonResponse": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ean": {
+            "type": "string",
+            "example": "291828880199"
+          },
+          "pricingUnit": {
+            "type": "string",
+            "example": "kg"
+          },
+          "stores": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "S560"
+                },
+                "web": {
+                  "type": "boolean"
+                },
+                "originCountry": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "V3StoresStoreIdProductsGet200ApplicationJsonResponse": {
+      "type": "object",
+      "additionalProperties": {
+        "allOf": [
+          {
+            "allOf": [
+              {
+                "type": "object",
+                "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+                "required": [
+                  "ean",
+                  "name"
+                ],
+                "properties": {
+                  "ean": {
+                    "type": "string",
+                    "example": "291828880199"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "HK Kabanossi"
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 2.3
+                  },
+                  "totalPrice": {
+                    "type": "number",
+                    "example": 2.3
+                  },
+                  "unitPrice": {
+                    "type": "number",
+                    "example": 2.3
+                  },
+                  "pricingUnit": {
+                    "type": "string",
+                    "description": "Unit for the product price",
+                    "enum": [
+                      "kg",
+                      "m",
+                      "l",
+                      "kpl",
+                      "g",
+                      "dl",
+                      "cl",
+                      "ml",
+                      "tlk"
+                    ],
+                    "example": "kg"
+                  },
+                  "packageUnit": {
+                    "type": "string",
+                    "description": "Unit for packaging size",
+                    "enum": [
+                      "kg",
+                      "m",
+                      "l",
+                      "kpl",
+                      "g",
+                      "dl",
+                      "cl",
+                      "ml",
+                      "tlk"
+                    ],
+                    "example": "kg"
+                  },
+                  "packageSize": {
+                    "type": "string",
+                    "description": "Package size, numeric value returned as a string",
+                    "example": "0.01"
+                  },
+                  "packageType": {
+                    "type": "string",
+                    "description": "Freeform field describing the package type",
+                    "example": "kpl"
+                  },
+                  "costCenterId": {
+                    "type": "string",
+                    "description": "Cost center ID for the product",
+                    "example": "TE01"
+                  },
+                  "discountLimited": {
+                    "type": "boolean",
+                    "description": "Is the product exempt from discounts",
+                    "example": false
+                  },
+                  "plussaLimited": {
+                    "type": "boolean",
+                    "description": "Is the product exempt from Plussa discounts",
+                    "example": true
+                  },
+                  "type": {
+                    "type": "string",
+                    "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+                    "example": "CONSUMER_GOOD",
+                    "enum": [
+                      "CONSUMER_GOOD",
+                      "UTILITY_GOOD"
+                    ]
+                  },
+                  "vat": {
+                    "type": "number",
+                    "example": 24
+                  },
+                  "group": {
+                    "type": "string",
+                    "example": "14250"
+                  },
+                  "size": {
+                    "type": "object",
+                    "properties": {
+                      "value": {
+                        "type": "number",
+                        "example": 0.312
+                      },
+                      "unit": {
+                        "type": "string",
+                        "example": "kg"
+                      }
+                    }
+                  },
+                  "texts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "SOME_CONSTANT"
+                        },
+                        "text": {
+                          "type": "string",
+                          "example": "Takuu 12kk"
+                        }
+                      }
+                    }
+                  },
+                  "restrictions": {
+                    "type": "object",
+                    "properties": {
+                      "cashierVerifyRequired": {
+                        "type": "boolean",
+                        "example": true
+                      },
+                      "multiplierImmutable": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  },
+                  "components": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Pantti 0.5l"
+                        },
+                        "price": {
+                          "type": "number",
+                          "example": 0.2
+                        },
+                        "multiplier": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "baseEan"
+                ],
+                "properties": {
+                  "baseEan": {
+                    "type": "string",
+                    "description": "EAN-13 code for the product. Padded to length with leading zeroes",
+                    "example": "291828880199"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "promotions": {
+                "type": "object",
+                "required": [
+                  "id",
+                  "type",
+                  "startDate",
+                  "endDate",
+                  "plussa"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "0000040052441000000012100001"
+                  },
+                  "type": {
+                    "type": "integer",
+                    "example": 121
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-09-04T00:00:00Z"
+                  },
+                  "endDate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2017-10-01T00:00:00Z"
+                  },
+                  "plussa": {
+                    "type": "boolean"
+                  },
+                  "pricingMethod": {
+                    "type": "string",
+                    "enum": [
+                      "percentage",
+                      "net"
+                    ]
+                  },
+                  "price": {
+                    "type": "number",
+                    "example": 0.85
+                  },
+                  "size": {
+                    "type": "number"
+                  },
+                  "rule": {
+                    "type": "string",
+                    "enum": [
+                      "min",
+                      "max",
+                      "simple",
+                      "batch",
+                      "set"
+                    ]
+                  },
+                  "basket": {
+                    "type": "string"
+                  },
+                  "baskets": {
+                    "type": "number",
+                    "example": 1,
+                    "description": "Basket count"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "V4StoresStoreIdProductsGet200ApplicationJsonResponse": {
+      "type": "object",
+      "additionalProperties": {
+        "allOf": [
+          {
+            "allOf": [
+              {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "description": "Contains a lot of optional attributes. [Examples of different types of products.](../docs/api#product-object-examples)\n",
+                    "required": [
+                      "ean",
+                      "name"
+                    ],
+                    "properties": {
+                      "ean": {
+                        "type": "string",
+                        "example": "291828880199"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "HK Kabanossi"
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 2.3
+                      },
+                      "totalPrice": {
+                        "type": "number",
+                        "example": 2.3
+                      },
+                      "unitPrice": {
+                        "type": "number",
+                        "example": 2.3
+                      },
+                      "pricingUnit": {
+                        "type": "string",
+                        "description": "Unit for the product price",
+                        "enum": [
+                          "kg",
+                          "m",
+                          "l",
+                          "kpl",
+                          "g",
+                          "dl",
+                          "cl",
+                          "ml",
+                          "tlk"
+                        ],
+                        "example": "kg"
+                      },
+                      "packageUnit": {
+                        "type": "string",
+                        "description": "Unit for packaging size",
+                        "enum": [
+                          "kg",
+                          "m",
+                          "l",
+                          "kpl",
+                          "g",
+                          "dl",
+                          "cl",
+                          "ml",
+                          "tlk"
+                        ],
+                        "example": "kg"
+                      },
+                      "packageSize": {
+                        "type": "string",
+                        "description": "Package size, numeric value returned as a string",
+                        "example": "0.01"
+                      },
+                      "packageType": {
+                        "type": "string",
+                        "description": "Freeform field describing the package type",
+                        "example": "kpl"
+                      },
+                      "costCenterId": {
+                        "type": "string",
+                        "description": "Cost center ID for the product",
+                        "example": "TE01"
+                      },
+                      "discountLimited": {
+                        "type": "boolean",
+                        "description": "Is the product exempt from discounts",
+                        "example": false
+                      },
+                      "plussaLimited": {
+                        "type": "boolean",
+                        "description": "Is the product exempt from Plussa discounts",
+                        "example": true
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "Product type. For Citymarket stores products vary between utility and consumer goods. For non-Citymarket stores, all products are considered consumer goods.\n",
+                        "example": "CONSUMER_GOOD",
+                        "enum": [
+                          "CONSUMER_GOOD",
+                          "UTILITY_GOOD"
+                        ]
+                      },
+                      "vat": {
+                        "type": "number",
+                        "example": 24
+                      },
+                      "group": {
+                        "type": "string",
+                        "example": "14250"
+                      },
+                      "size": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number",
+                            "example": 0.312
+                          },
+                          "unit": {
+                            "type": "string",
+                            "example": "kg"
+                          }
+                        }
+                      },
+                      "texts": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "SOME_CONSTANT"
+                            },
+                            "text": {
+                              "type": "string",
+                              "example": "Takuu 12kk"
+                            }
+                          }
+                        }
+                      },
+                      "restrictions": {
+                        "type": "object",
+                        "properties": {
+                          "cashierVerifyRequired": {
+                            "type": "boolean",
+                            "example": true
+                          },
+                          "multiplierImmutable": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        }
+                      },
+                      "components": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "Pantti 0.5l"
+                            },
+                            "price": {
+                              "type": "number",
+                              "example": 0.2
+                            },
+                            "multiplier": {
+                              "type": "number",
+                              "example": 1
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "required": [
+                      "baseEan"
+                    ],
+                    "properties": {
+                      "baseEan": {
+                        "type": "string",
+                        "description": "EAN-13 code for the product. Padded to length with leading zeroes",
+                        "example": "291828880199"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "promotions": {
+                "allOf": [
+                  {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "type",
+                      "startDate",
+                      "endDate",
+                      "plussa"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "0000040052441000000012100001"
+                      },
+                      "type": {
+                        "type": "integer",
+                        "example": 121
+                      },
+                      "startDate": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2017-09-04T00:00:00Z"
+                      },
+                      "endDate": {
+                        "type": "string",
+                        "format": "date",
+                        "example": "2017-10-01T00:00:00Z"
+                      },
+                      "plussa": {
+                        "type": "boolean"
+                      },
+                      "pricingMethod": {
+                        "type": "string",
+                        "enum": [
+                          "percentage",
+                          "net"
+                        ]
+                      },
+                      "price": {
+                        "type": "number",
+                        "example": 0.85
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "rule": {
+                        "type": "string",
+                        "enum": [
+                          "min",
+                          "max",
+                          "simple",
+                          "batch",
+                          "set"
+                        ]
+                      },
+                      "basket": {
+                        "type": "string"
+                      },
+                      "baskets": {
+                        "type": "number",
+                        "example": 1,
+                        "description": "Basket count"
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "baskets": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "Contains details on promotion baskets. Baskets have a size and either EAN-codes or product groups that they can contain.\n",
+                          "required": [
+                            "size"
+                          ],
+                          "properties": {
+                            "size": {
+                              "type": "number",
+                              "description": "Basket size ie. how many items from this basket should be bought for promotion to be valid.\n",
+                              "example": 2
+                            },
+                            "baseEans": {
+                              "type": "array",
+                              "description": "Array of base EAN codes included in the basket",
+                              "items": {
+                                "type": "string",
+                                "example": "4050795742742"
+                              }
+                            },
+                            "groups": {
+                              "type": "array",
+                              "description": "Array of product groups included in the basket",
+                              "items": {
+                                "type": "string",
+                                "example": "17110"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "checkout",
+      "description": "Checkout endpoints, used by the cash register to get and mark baskets as handled. These endpoints communicate only with XML."
+    },
+    {
+      "name": "export",
+      "description": "Data export endpoints, used by 3rd party services to get a CSV dump of the products"
+    },
+    {
+      "name": "health",
+      "description": "Health check."
+    },
+    {
+      "name": "mobile",
+      "description": "Mobile endpoints, used by mobile (or web) clients to create and manage shopping baskets."
+    },
+    {
+      "name": "pricing",
+      "description": "Pricing endpoints, used to import pricing data into Mobile Scan system. These data import endpoints are heavy operations and designed to be used ~once per day nightly. The data parsing might take hours in the system."
+    },
+    {
+      "name": "product",
+      "description": "Product endpoints, used by 3rd party services to fetch product information for stores. Information like availability, pricing and promotion information is served by these endpoints."
+    },
+    {
+      "name": "store",
+      "description": "Store endpoints, used to fetch store information."
+    }
+  ]
+}
