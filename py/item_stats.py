@@ -1,5 +1,7 @@
 import product_metadata
 import csv
+import co2
+import os
 
 print('Reading')
 data = {}
@@ -22,15 +24,18 @@ header += product_attrs
 print('Fetching')
 present = set()
 m = product_metadata.ProductMetadata()
-for i in range(0, len(ids), 100):
+co2s = {}
+for i in range(0, len(ids)//100, 100):
     batch = ids[i:i + 100]
     for info in m.Infos(batch):
         present.add(info.ean)
+        co2s[info.ean] = co2.emissions_g(info)
         data[info.ean] += ['' for _ in product_attrs]
         for attr in product_attrs:
             if hasattr(info, attr):
                 data[info.ean][attr_to_column[attr]] = str(getattr(info, attr))
-                
+
+
 print('Writing')
 with open('item_stats_smaller_filtered.csv', 'w') as outfile:    
     writer = csv.writer(outfile, delimiter=',', quotechar='"',

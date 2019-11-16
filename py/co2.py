@@ -23,9 +23,11 @@ def product_shipping_distance(p):
 
 def emissions_g(p):
   d = product_shipping_distance(p)
-  if d == 0:
+  if not d:
       d = 50  # in-land, truck skladiste
   if p.weight == 0:
      p.weight = 0.16  # 16 deka, MOZE
+  print("w=%s"%p.weight)
+  print("d=%s"%d)
   emit = p.weight * d * kg_co2_per_kg_km[mode_transport_heuristic(d)] * 1000 # gram
   return emit

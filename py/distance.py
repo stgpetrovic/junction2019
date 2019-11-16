@@ -271,7 +271,7 @@ def all_pairs_dist():
     if len(this.distances) > 0:
         return this.distances
     try:
-        with open('py/dist.krastavac', 'rb') as f:
+        with open('dist.krastavac', 'rb') as f:
             d = pickle.load(f)
             print("loaded cached distances:")
             this.distances = d
@@ -283,7 +283,7 @@ def all_pairs_dist():
     for src in ZEMLJE.values():
         d = dist("Finland", src)
         this.distances[src] = d
-    with open('py/dist.krastavac', 'wb') as fp:
+    with open('dist.krastavac', 'wb') as fp:
         pickle.dump(this.distances, fp, protocol=pickle.HIGHEST_PROTOCOL)
     return this.distances
 
