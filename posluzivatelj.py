@@ -20,7 +20,7 @@ class Product(Resource):
         }
 
 
-api.add_resource(Product, '/')
+api.add_resource(Product, '/goodness')
 
 if __name__ == '__main__':
     app.run(debug=True)
