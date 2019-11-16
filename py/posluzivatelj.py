@@ -2,12 +2,13 @@ import csv
 import json
 import math
 import random
+from io import StringIO
 
-from flask import Flask, request, send_from_directory
+from flask import Flask, request, send_from_directory, send_file, Response
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
-from gen_logo import logo
+from gen_logo import logo, logo_svg
 
 app = Flask(__name__, static_url_path='/images/')
 api = Api(app)
@@ -190,6 +191,14 @@ class StoreSid(Resource):
 @app.route('/images/<path:path>')
 def send_images(path):
     return send_from_directory('images', path)
+
+@app.route('/logo/ean/<ean>')
+def send_ean(ean):
+    goodness = inventory.goodness(ean)
+    sustain = inventory.sustain_score(ean)
+    content = logo_svg(goodness, sustain)
+    print(content)
+    return Response(content, mimetype='image/svg+xml')
 
 
 api.add_resource(Product, '/goodness')

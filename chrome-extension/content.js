@@ -399,8 +399,8 @@ function substituteSuggestion(source_ean, target_ean) {
     }
   }
   updateCart([{ean: source_ean, count: 0},
-              {ean: target_ean, count: source_count}]);
-  window.location.reload(false);
+              {ean: target_ean, count: source_count}])
+  .then(window.location.reload(false));
 }
 
 function main() {
