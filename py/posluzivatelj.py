@@ -166,15 +166,24 @@ class Product(Resource):
         return result
 
 
-CACHE = {}
+SID = ""
 
-def get_sustainability(eans):
-    key = ",".join(eans)
-    if key not in CACHE:
-        CACHE[key] = random.randint(0, 100)
-    return CACHE[key]
+class StoreSid(Resource):
+    def post(self):
+        parser.add_argument('sid', type=str)
+        sid = parser.parse_args()['sid']
+        if sid:
+            global SID
+            SID = sid
+            return True
+        return False
+
+    def get(self):
+        return SID
+
 
 api.add_resource(Product, '/goodness')
+api.add_resource(StoreSid, '/sid')
 
 if __name__ == '__main__':
     inventory = Inventory()
