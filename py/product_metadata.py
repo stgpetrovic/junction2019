@@ -10,6 +10,7 @@ PRETTY_MAP = {
     'ZZBRAND':'brand',
     'ZZSAISO':'saison',
     'ZZVENDOR':'manufacturer',
+    'WHERL': 'country',
     'NTGEW':'weight',
     'TXCONT':'ingredients',
     'TXCONT':'ingredients',
