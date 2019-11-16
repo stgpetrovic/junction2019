@@ -70,16 +70,20 @@ class Popup {
     constructor(name) {
         this.text = '';
         this.name = name;
+        this.popupDiv = document.createElement('div');
         this.popupText = document.createElement('p');
+        this.popupImage = document.createElement('img');
         this._init();
     }
 
     attach(heading) {
-        heading.appendChild(this.popupText);
+        heading.appendChild(this.popupDiv);
     }
 
     _init() {
         this._initPopupText();
+        this.popupDiv.appendChild(this.popupText);
+        this.popupDiv.appendChild(this.popupImage);
     }
 
     _initPopupText() {
@@ -104,12 +108,15 @@ class Popup {
         }
     }
 
-    decideDisplay(score) {
+    decideDisplay(score, suggest) {
         if(score >= 70) {
             this.setText('Good job!');
+            this.popupImage.style.display = "none";
             return;
         }
-        this.setText('Bad job!');
+        this.setText(suggest.target.name);
+        this.popupImage.style.display = "block";
+        this.popupImage.src = suggest.target.pic_url;
     }
 };
 
@@ -197,7 +204,7 @@ function main() {
         .then(response => response.json())
         .then(json => {
             widget.healthyBar.setFill(json.score);
-            widget.popup.decideDisplay(json.score);
+            widget.popup.decideDisplay(json.score, json.suggest);
             widget.greenBar.setFill(json.sustainable);
         })
         .catch(reason => console.log(reason));
