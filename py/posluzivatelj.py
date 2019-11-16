@@ -52,8 +52,6 @@ class Inventory():
                 total = GetFloat(row[total_index])
                 easy2 = GetFloat(row[easy2_index])
                 qual0 = GetFloat(row[qual0_index])
-                co2 = GetFloat(row[co2_index])
-                dist = GetFloat(row[dist_index])
 
                 goodness_score = 1.0 - (easy2 / total) * (qual0 / total)
                 self._goodness[ean] = 1.0 / (1.0 + math.exp(-(goodness_score - 0.75) * 25))
@@ -67,19 +65,24 @@ class Inventory():
                 if not row[column_index['kcal_per_100g']]:
                     self._ml_goodness[ean] = 1.0
 
+                co2 = GetFloat(row[co2_index])
                 self._sustain_score[ean] = 1.0 - 1.0 / (1.0 + math.exp(-(math.log(1 + co2)-2.5)*2.5))
+
+                dist = GetFloat(row[dist_index])
+                self._dist_data[ean] = dist
+
                 cat = row[cat_index]
                 self._cat[ean] = cat
                 if cat not in self._cat_list:
                     self._cat_list[cat] = []
                 cat_list = self._cat_list[cat]
                 cat_list.append(ean)
+
                 self._display_data[ean] = {
                     'ean': ean,
                     'pic_url': row[pic_url_index],
                     'name': row[name_index]
                 }
-                self._dist_data[ean] = dist
 
     def goodness(self, ean):
         return self._ml_goodness.get(ean, 1.0)
@@ -98,20 +101,22 @@ class Inventory():
         if cat is None:
             return None
         cat_list = self._cat_list.get(cat, [])
-        # Health
-        score = inventory.goodness(ean)
-        scored = [(inventory.goodness(i), i) for i in cat_list]
-        best = sorted(scored, key=lambda item: item[0])[-1]
-        if best[0] > score + 0.2:
-            return (best[1], 'health')
 
-        # Sustain
-        score = inventory.sustain_score(ean)
-        scored = [(inventory.sustain_score(i), i) for i in cat_list]
-        best = sorted(scored, key=lambda item: item[0])[-1]
-        if best[0] > score + 0.2:
-            return (best[1], 'sustain')
+        base_goodness = inventory.goodness(ean)
+        base_sustain = inventory.sustain_score(ean)
 
+        scored = [(inventory.goodness(i), inventory.sustain_score(i), i) for i in cat_list]
+        for item in sorted(scored, key=lambda item: -item[0] - item[1]):
+            expt_goodness = item[0]
+            expt_sustain = item[1]
+            if expt_goodness < 0.5: continue
+            if expt_sustain < 0.5: continue
+            if ((expt_goodness >= base_goodness + 0.3) and
+                (expt_sustain >= base_sustain - 0.15)):
+                return (item[2], 'health')
+            if ((expt_sustain >= base_sustain + 0.3) and
+                (expt_goodness >= base_goodness - 0.15)):
+                return (item[2], 'sustain')
         return None
 
 inventory = None
