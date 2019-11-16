@@ -1,5 +1,41 @@
 section.product-details {
-    margin-top: 25px;
+    /* margin-top: 25px; */
+}
+
+@keyframes logoGlow {
+    0% {
+        -webkit-filter: drop-shadow( -.75px 0px 5px #ff2222 );
+        filter: drop-shadow( -.75px 0px 5px #ff2222 ); stroke:#ff2222;
+    }
+    50% {
+       -webkit-filter: drop-shadow( -.75px 0px 1px #ff2222 );
+       filter: drop-shadow( -.75px 0px 1px #ff2222 ); stroke:#ff2222;
+    }
+    100% {
+      -webkit-filter: drop-shadow( -.75px 0px 5px #ff2222 );
+      filter: drop-shadow( -.75px 0px 5px #ff2222 ); stroke:#ff2222;
+    }
+}
+
+div.green-basket-logo span.green-basket-hidden-tooltip {
+    display: none;
+}
+
+.green-basket-tooltip {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 100;
+}
+
+.green-basket-logo:hover .green-basket-tooltip {
+    visibility: visible;
 }
 
 .green-basket-bars {

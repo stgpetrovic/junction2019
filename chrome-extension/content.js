@@ -142,11 +142,25 @@ class BasketLogo {
         this.container.className = "green-basket-logo";
         this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.container.appendChild(this.svg);
+        this.tooltip = document.createElement('span');
+        this.tooltip.className = "green-basket-hidden-tooltip";
+        this.container.appendChild(this.tooltip);
         this._init();
     }
 
     attach(div) {
         div.appendChild(this.container);
+    }
+
+    setTooltipText(tooltip) {
+        if (!tooltip) {
+            this.tooltip.className = "green-basket-hidden-tooltip"
+            this.svg.style.animation = "";
+        } else {
+            this.tooltip.className = "green-basket-tooltip";
+            this.tooltip.innerText = tooltip;
+            this.svg.style.animation = "logoGlow 4s infinite";
+        }
     }
 
     update(logo) {
@@ -390,6 +404,7 @@ function main() {
             widget.popup.decideDisplay(json.score, json.suggest);
             widget.greenBar.setFill(json.sustainable);
             widget.basketLogo.update(json.logo);
+            widget.basketLogo.setTooltipText(json.shipit);
         })
         .catch(reason => console.log(reason));
     }
