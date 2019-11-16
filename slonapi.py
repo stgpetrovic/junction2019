@@ -1,3 +1,5 @@
+import os
+
 import api.pricing.pricing as p
 import api.search.search as s
 import api.ingredients.ingredients as i
@@ -5,6 +7,7 @@ import api.rating.rating as r
 
 def make(mod, sig):
     configuration = mod.Configuration()
+    configuration.debug = os.getenv('DEBUG') == '1'
     configuration.api_key['Ocp-Apim-Subscription-Key'] = '0504f5f3c6674b46832d15ac67f283ce'
     configuration.host = "https://kesko.azure-api.net"
     return sig(mod.ApiClient(configuration))
