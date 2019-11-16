@@ -10,7 +10,6 @@ from flask_restful import Resource, Api, reqparse
 app = Flask(__name__)
 api = Api(app)
 
-
 class Inventory():
     def __init__(self):
         self._goodness = {}
@@ -18,6 +17,7 @@ class Inventory():
         self._cat = {}
         self._cat_list = {}
         self._display_data = {}
+        self._dist_data = {}
         with open('item_stats_smaller_filtered.csv') as infile:
             reader = csv.reader(infile, delimiter=',')
             header = next(reader, None)
@@ -32,12 +32,14 @@ class Inventory():
             pic_url_index = column_index['pic_url']
             cat_index = column_index['product_category']
             co2_index = column_index['co2']
+            dist_index = column_index['dist']
             for row in reader:
                 ean = row[ean_index]
                 total = float(row[total_index])
                 easy2 = float(row[easy2_index])
                 qual0 = float(row[qual0_index])
                 co2 = float(row[co2_index])
+                dist = float(row[dist_index] if row[dist_index] else 0)
                 self._goodness[ean] = 1.0 - (easy2 / total) * (qual0 / total)
                 self._sustain_score[ean] = 1.0 - 1.0 / (1.0 + math.exp(-(math.log(1 + co2)-2.5)*2.5))
                 cat = row[cat_index]
@@ -51,6 +53,7 @@ class Inventory():
                     'pic_url': row[pic_url_index],
                     'name': row[name_index]
                 }
+                self._dist_data[ean] = dist
 
     def goodness(self, ean):
         return self._goodness.get(ean, 1.0)
@@ -60,6 +63,9 @@ class Inventory():
 
     def display_data(self, ean):
         return self._display_data[ean]
+
+    def dist_data(self, ean):
+        return self._dist_data.get(ean, 0)
 
     def suggest(self, ean):
         cat = self._cat.get(ean, None)
@@ -112,6 +118,8 @@ class Product(Resource):
         hmean = len(bad) / sum(1.0 / item[0] for item in bad)
         result['sustainable'] = round(hmean * 100)
         suggest_candidates += [item[1] for item in bad]
+
+        result['shipit'] = any(inventory.dist_data(ean) > 5e3 for ean in eans)
 
         # Suggest.
         for candidate in suggest_candidates:
