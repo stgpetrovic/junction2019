@@ -86,6 +86,7 @@ class Product(Resource):
                 'source_ean': worst_item,
                 'target_ean': suggestion
             }
+        print(result)
         return result
 
 
