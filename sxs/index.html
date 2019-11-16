@@ -1,0 +1,89 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Welcome to Konzum SxS</h1>
+    <div id="tu_crta_slon"></div>
+    <h2>A &larr; &#8592; L</h2>
+    <form>
+      <input type="button" value="zdrav" onclick="valja()"/>
+      <input type="button" value="slatki greh" onclick="nevalja()"/>
+      <input type="button" value="necu kazem" onclick="necu_kazem()"/>
+    </form>
+    <pre id="tu_imas_datu"></pre>
+  </body>
+  <script type="text/javascript">
+    currentIndex = -1;
+
+    data = [
+      [6410520026611, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6410520026611', 'https://www.k-ruoka.fi/kauppa/tuote/6410520026611', -1],
+      [6416453028371, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6416453028371', 'https://www.k-ruoka.fi/kauppa/tuote/6416453028371', -1],
+      [7310618426479, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/7310618426479', 'https://www.k-ruoka.fi/kauppa/tuote/7310618426479', -1],
+      [6430043245078, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6430043245078', 'https://www.k-ruoka.fi/kauppa/tuote/6430043245078', -1],
+      [7300009011872, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/7300009011872', 'https://www.k-ruoka.fi/kauppa/tuote/7300009011872', -1],
+      [6408430005079, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6408430005079', 'https://www.k-ruoka.fi/kauppa/tuote/6408430005079', -1],
+      [5900852929281, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/5900852929281', 'https://www.k-ruoka.fi/kauppa/tuote/5900852929281', -1],
+      [7319470850026, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/7319470850026', 'https://www.k-ruoka.fi/kauppa/tuote/7319470850026', -1],
+      [8718166007758, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/8718166007758', 'https://www.k-ruoka.fi/kauppa/tuote/8718166007758', -1],
+      [6414504738118, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6414504738118', 'https://www.k-ruoka.fi/kauppa/tuote/6414504738118', -1]
+    ];
+
+    function msg(){
+      alert("Hello Javatpoint");
+    }
+
+    function valja() {
+      dome(0);
+    }
+
+    function nevalja() {
+      dome(1);
+    }
+
+    function necu_kazem() {
+      dome(2);
+    }
+
+    function dome(v) {
+      data[currentIndex][3] = v
+      console.log(v);
+      console.log(data[currentIndex]);
+      tick()
+    }
+
+    function make() {
+      d = '';
+      for (let i = 0; i < data.length; ++i) {
+        d += '[' + data[i][0] + ', ' + data[i][3] + ']\n';
+      }
+      return d;
+    }
+
+    function tick() {
+      if (currentIndex < data.length -1) {
+        currentIndex++;
+      }
+
+      const ean = data[currentIndex][0];
+      const imaz = data[currentIndex][1];
+      const url = data[currentIndex][2];
+
+      document.getElementById("tu_crta_slon").innerHTML = "<h3>ean: <a target='_blank' href='" + url  +  "'>" + ean + "</a></h3><div><img width='300px' src='" + imaz + "'></img>";
+      document.getElementById("tu_imas_datu").innerText = make();
+    }
+
+    function keyDownTextField(e) {
+      var keyCode = e.keyCode;
+      if(keyCode==65) {
+        valja();
+      } else if(keyCode==76) {
+        nevalja();
+      } else if(keyCode==70) {
+        necu_kazem();
+      }
+    }
+
+    document.addEventListener("keydown", keyDownTextField, false);
+    tick();
+  </script>
+</html>
