@@ -121,7 +121,8 @@ class Product(Resource):
         result['sustainable'] = round(hmean * 100)
         suggest_candidates += [item[1] for item in bad]
 
-        result['shipit'] = any(inventory.dist_data(ean) > 5e3 for ean in eans)
+        if any(inventory.dist_data(ean) > 5e3 for ean in eans):
+            result['shipit'] = "Did you known that buying locally produced food, you not only get the freshest produce but it's also good for the economy."
 
         # Suggest.
         for candidate in suggest_candidates:
