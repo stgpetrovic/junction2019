@@ -180,6 +180,57 @@ function getAmounts(item) {
     };
 }
 
+var session_id = '';
+var session_id_regex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g;
+
+function getSessionId() {
+  if(session_id.length != 0) {
+    return session_id;
+  }
+
+  requests = window.performance.getEntries().filter(e=>e.initiatorType==='xmlhttprequest');
+  for([index, request] of Object.entries(requests)){
+    matches = request.name.match(session_id_regex);
+    if(matches != null && matches.length >= 1) {
+      session_id = matches[0];
+      session_id_found = true;
+      console.log('Session id found!');
+      return session_id;
+    }
+  }
+  console.log('Session id not found!');
+  return '';
+}
+
+async function updateAmounts(ean, count) {
+  url = 'https://www.k-ruoka.fi/kr-api/order-drafts/' + getSessionId() + '/update?storeId=N106';
+  data = [{"type":"ITEM","id":ean,"ean":ean,"amountInfo":{"amount":count,"unit":"kpl"},"allowSubstitutes":true}];
+  try {
+    response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }});
+      json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+}
+
+function substituteSuggestion(source_ean, target_ean) {
+  cart = getCart();
+  var source_count = 0;
+  for([index, item] of Object.entries(cart)) {
+    if(item.ean == source_ean) {
+      source_count = item.amount;
+    }
+  }
+  updateAmounts(source_ean, 0);
+  updateAmounts(target_ean, source_count);
+}
+
 function main() {
     var widget;
     var jsInitChecktimer = setInterval(checkForJS_Finish, 111);
