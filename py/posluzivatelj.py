@@ -206,4 +206,4 @@ api.add_resource(StoreSid, '/sid')
 
 if __name__ == '__main__':
     inventory = Inventory()
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
