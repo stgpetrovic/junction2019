@@ -82,7 +82,6 @@ class Popup {
     }
 
     _init() {
-        this._initPopupContainer();
         this._initPopupText();
         this.popupDiv.appendChild(this.popupText);
         this.popupDiv.appendChild(this.popupImage);
@@ -111,15 +110,15 @@ class Popup {
     }
 
     decideDisplay(score, suggest) {
-        if(score >= 70) {
+        if(!suggest || !suggest.target) {
             this.setText('Good job!');
             this.popupImage.style.display = "none";
             return;
         }
-        this.setText(suggest.target.name);
+        this.setText("Choose " + suggest.reason + ": " + suggest.target.name);
         this.popupImage.style.display = "block";
-        this.popupImage.src = chrome.runtime.getURL("images/basket.png");
-        // this.popupImage.src = suggest.target.pic_url;
+        // this.popupImage.src = chrome.runtime.getURL("images/basket.png");
+        this.popupImage.src = suggest.target.pic_url;
     }
 };
 
