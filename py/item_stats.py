@@ -33,7 +33,7 @@ for attr in sorted(product_attrs):
 print('Fetching')
 present = set()
 m = product_metadata.ProductMetadata()
-for i in range(0, len(ids) // 100, 100):
+for i in range(0, len(ids), 100):
     batch = ids[i:i + 100]
     for info in m.Infos(batch):
         present.add(info.ean)
