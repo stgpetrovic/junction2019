@@ -9,5 +9,25 @@ section.product-details {
 }
 
 .recommendation-target-image {
-    width: 495px;
+    max-width: 40%;
+}
+
+.recommendation-target-arrow {
+    font-size: 40px;
+    margin: 0;
+    transform: translate(0, -20px);
+}
+
+.green-basket-popup-div {
+    position: relative;
+    padding: 15px;
+    border: 5px solid #5a8f00;
+    color: #333;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.green-basket-popup-text {
+    position: relative;
+    margin: 0;
 }

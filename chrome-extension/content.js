@@ -72,8 +72,13 @@ class Popup {
         this.name = name;
         this.popupDiv = document.createElement('div');
         this.popupText = document.createElement('p');
-        this.popupImage = document.createElement('img');
-        this.popupImage.className = "recommendation-target-image";
+        this.popupImageSrc = document.createElement('img');
+        this.popupImageSrc.className = "recommendation-target-image";
+        this.popupImageArrow = document.createElement('p');
+        this.popupImageArrow.className = "recommendation-target-arrow";
+        this.popupImageArrow.innerText = '🠆';
+        this.popupImageDst = document.createElement('img');
+        this.popupImageDst.className = "recommendation-target-image";
         this._init();
     }
 
@@ -82,21 +87,21 @@ class Popup {
     }
 
     _init() {
-        this._initPopupContainer();
         this._initPopupText();
+	this._initPopupDiv();
         this.popupDiv.appendChild(this.popupText);
-        this.popupDiv.appendChild(this.popupImage);
+        this.popupDiv.appendChild(this.popupImageSrc);
+        this.popupDiv.appendChild(this.popupImageArrow);
+        this.popupDiv.appendChild(this.popupImageDst);
     }
 
     _initPopupText() {
         this.popupText.className += " green-basket-popup-text";
-        this.popupText.style.position = "relative";
-        this.popupText.style.padding = "15px";
-        this.popupText.style.border = "5px solid #5a8f00";
-        this.popupText.style.color = "#333";
-        this.popupText.style.background = "#fff";
-        this.popupText.style.border_radius = "10px";
         this.setText('Test text');
+    }
+
+    _initPopupDiv() {
+        this.popupDiv.className += " green-basket-popup-div";
     }
 
     setText(txt) {
@@ -113,12 +118,17 @@ class Popup {
     decideDisplay(score, suggest) {
         if(score >= 70) {
             this.setText('Good job!');
-            this.popupImage.style.display = "none";
+            this.popupImageSrc.style.display = "none";
+            this.popupImageArrow.style.display = "none";
+            this.popupImageDst.style.display = "none";
             return;
         }
-        this.setText(suggest.target.name);
-        this.popupImage.style.display = "block";
-        this.popupImage.src = suggest.target.pic_url;
+        this.setText('Swap ' + suggest.source.name + ' for ' + suggest.target.name);
+        this.popupImageSrc.style.display = "inline-block";
+        this.popupImageSrc.src = suggest.source.pic_url;
+        this.popupImageArrow.style.display = "inline-block";
+        this.popupImageDst.style.display = "inline-block";
+        this.popupImageDst.src = suggest.target.pic_url;
     }
 };
 
