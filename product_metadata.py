@@ -19,7 +19,7 @@ class Product(object):
             'B12VIT':'vitamin_b12_ug',
             'B6VITA':'vitamin_b6_ug',
             'CVITAM':'vitamin_c_mg',
-            'ENER_KC':'kcal_per_100g',
+            'ENERKC':'kcal_per_100g',
             'HYHIDR':'carbs_per_100g',
             'KUITUA':'nutritional_fiber',
             'LAKTOO':'lactose_per_100g',
@@ -40,11 +40,22 @@ class Product(object):
             'TYYDRH':'saturated_fat_per_100g',
     }
 
+    def arg_parse(self, v):
+        if not v:
+            return ''
+        if not 'value' in v:
+            return ''
+        if v['value']['type'] == 'string':
+            return v['value']['value']
+        if v['value']['type'] == 'decimal':
+            return float(v['value']['value'])
+        return 'ISUS'
+
     def __init__(self, p):
         self.json = p
         self.ean = p['ean']
         for k, v in self.__SHITTY_SHIT_MAP.items():
-            setattr(self, v, p.get(k, ''))
+            setattr(self, v, self.arg_parse(p['attributes'].get(k, '')))
 
 
 class ProductMetadata(object):
