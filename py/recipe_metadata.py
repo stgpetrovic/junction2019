@@ -17,10 +17,9 @@ class Recipe(object):
 
         if 'EnergyAmounts' in r:
             isus = ['CarbohydratePerPortion', 'CarbohydratePerUnit', 'ProteinPerPortion', 'ProteinPerUnit', 'FatPerPortion', 'FatPerUnit', 'KcalPerPortion', 'KcalPerUnit']
-            self.nutrition = {}
             for desc in isus:
                 if desc in r['EnergyAmounts']:
-                    self.nutrition[desc] = r['EnergyAmounts'][desc]
+                    setattr(self, desc, r['EnergyAmounts'][desc])
 
             self.ingredients = {}
             for i in r['Ingredients']:

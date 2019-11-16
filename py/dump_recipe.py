@@ -24,7 +24,7 @@ if __name__ == '__main__':
     recipes = all_recipes()
     with open('recipes.csv', 'w') as f:
         writer = csv.DictWriter(f, fieldnames=['name', 'size', 'unit', 'portions',
-            'nutrition', 'ingredients'
+            'CarbohydratePerPortion', 'CarbohydratePerUnit', 'ProteinPerPortion', 'ProteinPerUnit', 'FatPerPortion', 'FatPerUnit', 'KcalPerPortion', 'KcalPerUnit', 'ingredients'
             ])
         writer.writeheader()
         for recipe in recipes:
