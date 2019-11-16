@@ -76,11 +76,8 @@ class Inventory():
         # Sustain
         score = inventory.sustain_score(ean)
         scored = [(inventory.sustain_score(i), i) for i in cat_list]
-        print('scored', scored)
         best = sorted(scored, key=lambda item: item[0])[-1]
-        print('scored best', best, score)
         if best[0] > score + 0.3:
-            print('oh yeah')
             return (best[1], 'sustain')
 
         return None
@@ -105,7 +102,6 @@ class Product(Resource):
         # Basket goodness.
         goodness = [(inventory.goodness(ean), ean) for ean in eans]
         bad = sorted(goodness, key=lambda item: item[0])[0:3]
-        print('health', bad)
         hmean = len(bad) / sum(1.0 / item[0] for item in bad)
         result['score'] = round(100.0 / (1.0 + math.exp(-(hmean - 0.75) * 25)))
         suggest_candidates = [item[1] for item in bad]
@@ -113,7 +109,6 @@ class Product(Resource):
         # Basket sustainability.
         goodness = [(inventory.sustain_score(ean), ean) for ean in eans]
         bad = sorted(goodness, key=lambda item: item[0])[0:3]
-        print('sustainability', bad)
         hmean = len(bad) / sum(1.0 / item[0] for item in bad)
         result['sustainable'] = round(hmean * 100)
         suggest_candidates += [item[1] for item in bad]
