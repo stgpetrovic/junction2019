@@ -3,6 +3,49 @@ import api.search.search as s
 
 import http.client, urllib.request, urllib.parse, urllib.error, base64, json
 
+class Product(object):
+    __SHITTY_SHIT_MAP = {
+            'MATKL':'product_category',
+            'MATXEN':'name',
+            'ZZBRAND':'brand',
+            'ZZSAISO':'saison',
+            'ZZVENDOR':'manufacturer',
+            'NTGEW':'weight',
+            'TXCONT':'ingredients',
+            'TXCONT':'ingredients',
+            'TXKIEOMI':'recycling_emblems',
+            'ALKPI':'alk_vol',
+            'AVITAM':'vitamin_a_ug',
+            'B12VIT':'vitamin_b12_ug',
+            'B6VITA':'vitamin_b6_ug',
+            'CVITAM':'vitamin_c_mg',
+            'ENER_KC':'kcal_per_100g',
+            'HYHIDR':'carbs_per_100g',
+            'KUITUA':'nutritional_fiber',
+            'LAKTOO':'lactose_per_100g',
+            'LIHAPI':'meat_fish_content_percent',
+            'MAITPI':'milk_fat_percent',
+            'MARJPI':'berry_fruit_content',
+            'PROTEG':'protein_per_100g',
+            'RAAPAI':'raw_per_100g',
+            'RASKTY':'monosaturated_fat_g',
+            'RASMTY':'polyunsaturated_fat_g',
+            'RASVAA':'fat_per_100g',
+            'RASVPI':'fat_percent',
+            'SOKERI':'sugar_per_100',
+            'SOKEPI':'sugar_percent',
+            'SUOLA':'salt_per_100',
+            'SOKLPI':'salt_percent',
+            'TYYDPI':'unsaturated_fat_percent',
+            'TYYDRH':'saturated_fat_per_100g',
+    }
+
+    def __init__(self, p):
+        self.json = p
+        self.ean = p['ean']
+        for k, v in self.__SHITTY_SHIT_MAP.items():
+            setattr(self, v, p.get(k, ''))
+
 class ProductMetadata(object):
   def __init__(self):
       self.search = slonapi.SlonApi().search
@@ -26,7 +69,7 @@ class ProductMetadata(object):
           conn.request("POST", "/v1/search/products", json.dumps(body), headers)
           response = conn.getresponse()
           data = response.read()
-          results = json.loads(data)['results']
+          results = [Product(x) for x in json.loads(data)['results']]
           conn.close()
       except Exception as e:
           print("[Errno {0}] {1}".format(e.errno, e.strerror))
