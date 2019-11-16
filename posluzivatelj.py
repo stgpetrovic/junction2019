@@ -14,9 +14,13 @@ CORS(app)
 
 class Product(Resource):
     def post(self):
-        #print(request.data)
+        print(request.data)
         parser.add_argument('eans', type=str, action='append')
         eans = parser.parse_args()['eans']
+        if not eans:
+            return {
+                'score': 100,
+            }
         good = []
         for ean in eans:
             if ean not in goodness:

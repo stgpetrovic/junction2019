@@ -49,6 +49,16 @@ class Bar {
     setFill(x) {
         console.log(`Setting the width to ${x}`);
         this.filledBar.style.width = `${x}%`;
+
+        if (x <= 33) {
+            this.filledBar.style.backgroundColor = "#DD7777";
+        }
+        else if (x <= 66) {
+            this.filledBar.style.backgroundColor = "#DDDD77";
+        }
+        else {
+            this.filledBar.style.backgroundColor = "#4CAF50";
+        }
     }
 };
 
@@ -109,8 +119,11 @@ function main() {
 
     function checkBasket() {
         var cart = getCart();
+        console.log(JSON.stringify({
+            "eans": cart.map(item => item.ean)
+        }));
         fetch(
-            "http://127.0.0.1:5000/goodness/",
+            "http://127.0.0.1:5000/goodness",
             {
                 headers: {
                     'Accept': 'application/json',
