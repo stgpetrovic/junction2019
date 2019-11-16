@@ -53,7 +53,7 @@ function insertElement() {
 
 window.addEventListener ("load", main, false);
 
-function getAllShoppingIds() {
+function getCart() {
     var items = document.getElementsByClassName("shopping-list-item");
     var shoppingIds = [];
     for (var i = 0; i < items.length; ++i) {
@@ -87,11 +87,24 @@ function main() {
         }
     }
 
-    var jsCheckBasket = setInterval(checkBasket, 222);
+    var jsCheckBasket = setInterval(checkBasket, 2000);
 
     function checkBasket() {
-        var ids = getAllShoppingIds();
-        console.log("Basket: ", ids);
-        widget.healthyBar.setFill(ids.length * 10);
+        var cart = getCart();
+        fetch(
+            "http://127.0.0.1:5000/",
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                  },
+                  method: "POST",
+                  body: JSON.stringify({
+                      "eans": cart.map(item => item.ean)
+                  }),
+            },
+        )
+        .then(response => console.log(response))
+        .catch(reason => console.log(reason));
     }
 }
