@@ -87,7 +87,6 @@ class Popup {
         this.popupText.className += " green-basket-popup-text";
         this.popupText.style.position = "relative";
         this.popupText.style.padding = "15px";
-        // this.popupText.style.margin = "1em 0 3em";
         this.popupText.style.border = "5px solid #5a8f00";
         this.popupText.style.color = "#333";
         this.popupText.style.background = "#fff";
@@ -96,8 +95,22 @@ class Popup {
     }
 
     setText(txt) {
-        console.log(`Setting the popup text to ${txt}`);
-        this.popupText.innerText = txt;
+        if(txt.length == 0) {
+            console.log('Removing popup text.');
+            this.popupText.style.display = "none";
+        } else {
+            console.log(`Setting the popup text to ${txt}`);
+            this.popupText.innerText = txt;
+            this.popupText.style.display = "block";
+        }
+    }
+
+    decideDisplay(score) {
+        if(score >= 70) {
+            this.setText('Good job!');
+            return;
+        }
+        this.setText('Bad job!');
     }
 };
 
@@ -188,6 +201,7 @@ function main() {
         .then(response => response.json())
         .then(json => {
             widget.healthyBar.setFill(json.score);
+            widget.popup.decideDisplay(json.score);
             widget.greenBar.setFill(json.sustainable);
         })
         .catch(reason => console.log(reason));
