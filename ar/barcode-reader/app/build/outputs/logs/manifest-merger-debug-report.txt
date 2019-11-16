@@ -1,0 +1,182 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+MERGED from [com.android.support:design:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/867e86ea908c9609b37b2760c65d561b/design-24.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-vision:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c658a748af10e57bc52a9b809c762672/play-services-vision-9.4.0/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.android.gms:play-services-tasks:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/93bbad7254f5939e2f024ea639249d9e/play-services-tasks-9.4.0/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ae415a0b292cb478ca245f0276c170a1/play-services-basement-9.4.0/AndroidManifest.xml:16:1-26:12
+MERGED from [com.android.support:appcompat-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/de12bfaefb455a72a95ee3e3d725f9a3/appcompat-v7-24.2.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-v4:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d2b0f832470ed23ca4f8459a021d129b/support-v4-24.2.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-fragment:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/64cc7775fcbd2c8fe15277d360fe622d/support-fragment-24.2.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-core-utils:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/0ef6cd5c04ff9b0fdf358c1d1cc95b94/support-core-utils-24.2.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:support-media-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ce3414cf72360e01e39eb05531e1a8de/support-media-compat-24.2.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:recyclerview-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d4740dadfc9b89fc334ec7b34d559497/recyclerview-v7-24.2.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/45d0117f66f49d4ec94d4075cb49f367/support-core-ui-24.2.0/AndroidManifest.xml:17:1-27:12
+MERGED from [com.android.support:animated-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/6fabbcfa88e5d6a6b5316a49b8155487/animated-vector-drawable-24.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:support-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/149326ba9f0943a02127c16657670866/support-vector-drawable-24.2.0/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:support-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/005c895fba0428b5a2df3d930956d146/support-compat-24.2.0/AndroidManifest.xml:17:1-27:12
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+	package
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:3:5-66
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:1-39:12
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:2:11-69
+	android:installLocation
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:4:5-35
+uses-feature#android.hardware.camera
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:6:5-60
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:6:19-57
+uses-permission#android.permission.CAMERA
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:8:5-65
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:8:22-62
+application
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:10:5-37:19
+MERGED from [com.android.support:design:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/867e86ea908c9609b37b2760c65d561b/design-24.2.0/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:design:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/867e86ea908c9609b37b2760c65d561b/design-24.2.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-vision:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c658a748af10e57bc52a9b809c762672/play-services-vision-9.4.0/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-vision:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c658a748af10e57bc52a9b809c762672/play-services-vision-9.4.0/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-tasks:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/93bbad7254f5939e2f024ea639249d9e/play-services-tasks-9.4.0/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tasks:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/93bbad7254f5939e2f024ea639249d9e/play-services-tasks-9.4.0/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ae415a0b292cb478ca245f0276c170a1/play-services-basement-9.4.0/AndroidManifest.xml:20:5-24:19
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ae415a0b292cb478ca245f0276c170a1/play-services-basement-9.4.0/AndroidManifest.xml:20:5-24:19
+MERGED from [com.android.support:appcompat-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/de12bfaefb455a72a95ee3e3d725f9a3/appcompat-v7-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:appcompat-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/de12bfaefb455a72a95ee3e3d725f9a3/appcompat-v7-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d2b0f832470ed23ca4f8459a021d129b/support-v4-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-v4:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d2b0f832470ed23ca4f8459a021d129b/support-v4-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/64cc7775fcbd2c8fe15277d360fe622d/support-fragment-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/64cc7775fcbd2c8fe15277d360fe622d/support-fragment-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/0ef6cd5c04ff9b0fdf358c1d1cc95b94/support-core-utils-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/0ef6cd5c04ff9b0fdf358c1d1cc95b94/support-core-utils-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ce3414cf72360e01e39eb05531e1a8de/support-media-compat-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ce3414cf72360e01e39eb05531e1a8de/support-media-compat-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/45d0117f66f49d4ec94d4075cb49f367/support-core-ui-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/45d0117f66f49d4ec94d4075cb49f367/support-core-ui-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/6fabbcfa88e5d6a6b5316a49b8155487/animated-vector-drawable-24.2.0/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:animated-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/6fabbcfa88e5d6a6b5316a49b8155487/animated-vector-drawable-24.2.0/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/149326ba9f0943a02127c16657670866/support-vector-drawable-24.2.0/AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/149326ba9f0943a02127c16657670866/support-vector-drawable-24.2.0/AndroidManifest.xml:23:5-20
+MERGED from [com.android.support:support-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/005c895fba0428b5a2df3d930956d146/support-compat-24.2.0/AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/005c895fba0428b5a2df3d930956d146/support-compat-24.2.0/AndroidManifest.xml:25:5-20
+	android:supportsRtl
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:16:9-37
+	android:label
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:15:9-40
+	android:hardwareAccelerated
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:13:9-43
+	android:fullBackupContent
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:12:9-42
+	android:icon
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:14:9-38
+	android:allowBackup
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:11:9-35
+	android:theme
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:17:9-47
+meta-data#com.google.android.gms.version
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:18:9-20:69
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ae415a0b292cb478ca245f0276c170a1/play-services-basement-9.4.0/AndroidManifest.xml:21:9-23:69
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ae415a0b292cb478ca245f0276c170a1/play-services-basement-9.4.0/AndroidManifest.xml:21:9-23:69
+	android:value
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:20:13-66
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:19:13-58
+meta-data#com.google.android.gms.vision.DEPENDENCIES
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:21:9-23:39
+	android:value
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:23:13-36
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:22:13-70
+activity#com.google.android.gms.samples.vision.barcodereader.MainActivity
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:25:9-33:20
+	android:label
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:27:13-56
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:26:13-41
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:28:13-32:29
+action#android.intent.action.MAIN
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:29:17-69
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:29:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:31:17-77
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:31:27-74
+activity#com.google.android.gms.samples.vision.barcodereader.BarcodeCaptureActivity
+ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:35:9-36:43
+	android:label
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:36:13-41
+	android:name
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml:35:19-57
+uses-sdk
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:design:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/867e86ea908c9609b37b2760c65d561b/design-24.2.0/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:design:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/867e86ea908c9609b37b2760c65d561b/design-24.2.0/AndroidManifest.xml:20:5-43
+MERGED from [com.google.android.gms:play-services-vision:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c658a748af10e57bc52a9b809c762672/play-services-vision-9.4.0/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-vision:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c658a748af10e57bc52a9b809c762672/play-services-vision-9.4.0/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-tasks:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/93bbad7254f5939e2f024ea639249d9e/play-services-tasks-9.4.0/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-tasks:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/93bbad7254f5939e2f024ea639249d9e/play-services-tasks-9.4.0/AndroidManifest.xml:4:5-43
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ae415a0b292cb478ca245f0276c170a1/play-services-basement-9.4.0/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-basement:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ae415a0b292cb478ca245f0276c170a1/play-services-basement-9.4.0/AndroidManifest.xml:18:5-42
+MERGED from [com.android.support:appcompat-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/de12bfaefb455a72a95ee3e3d725f9a3/appcompat-v7-24.2.0/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/de12bfaefb455a72a95ee3e3d725f9a3/appcompat-v7-24.2.0/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:support-v4:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d2b0f832470ed23ca4f8459a021d129b/support-v4-24.2.0/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d2b0f832470ed23ca4f8459a021d129b/support-v4-24.2.0/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/64cc7775fcbd2c8fe15277d360fe622d/support-fragment-24.2.0/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/64cc7775fcbd2c8fe15277d360fe622d/support-fragment-24.2.0/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-utils:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/0ef6cd5c04ff9b0fdf358c1d1cc95b94/support-core-utils-24.2.0/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/0ef6cd5c04ff9b0fdf358c1d1cc95b94/support-core-utils-24.2.0/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-media-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ce3414cf72360e01e39eb05531e1a8de/support-media-compat-24.2.0/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/ce3414cf72360e01e39eb05531e1a8de/support-media-compat-24.2.0/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:recyclerview-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d4740dadfc9b89fc334ec7b34d559497/recyclerview-v7-24.2.0/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/d4740dadfc9b89fc334ec7b34d559497/recyclerview-v7-24.2.0/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-core-ui:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/45d0117f66f49d4ec94d4075cb49f367/support-core-ui-24.2.0/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/45d0117f66f49d4ec94d4075cb49f367/support-core-ui-24.2.0/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:animated-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/6fabbcfa88e5d6a6b5316a49b8155487/animated-vector-drawable-24.2.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/6fabbcfa88e5d6a6b5316a49b8155487/animated-vector-drawable-24.2.0/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/149326ba9f0943a02127c16657670866/support-vector-drawable-24.2.0/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-vector-drawable:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/149326ba9f0943a02127c16657670866/support-vector-drawable-24.2.0/AndroidManifest.xml:21:5-43
+MERGED from [com.android.support:support-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/005c895fba0428b5a2df3d930956d146/support-compat-24.2.0/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/005c895fba0428b5a2df3d930956d146/support-compat-24.2.0/AndroidManifest.xml:21:5-23:58
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:appcompat-v7:24.2.0] /home/goran/.gradle/caches/transforms-2/files-2.1/de12bfaefb455a72a95ee3e3d725f9a3/appcompat-v7-24.2.0/AndroidManifest.xml:23:9-75
+	android:targetSdkVersion
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+		ADDED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+		INJECTED from /home/goran/junction/junction2019/ar/barcode-reader/app/src/main/AndroidManifest.xml
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:9.4.0] /home/goran/.gradle/caches/transforms-2/files-2.1/c564c08c8b207fe458f6aebbc169f183/play-services-base-9.4.0/AndroidManifest.xml:20:19-85
