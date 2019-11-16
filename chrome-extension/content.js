@@ -70,23 +70,22 @@ class Popup {
     constructor(name) {
         this.text = '';
         this.name = name;
-        this.popupContainer = document.createElement('div');
+        this.popupDiv = document.createElement('div');
         this.popupText = document.createElement('p');
+        this.popupImage = document.createElement('img');
+        this.popupImage.className = "recommendation-target-image";
         this._init();
     }
 
     attach(heading) {
-        heading.appendChild(this.popupContainer);
+        heading.appendChild(this.popupDiv);
     }
 
     _init() {
         this._initPopupContainer();
         this._initPopupText();
-        this.popupContainer.appendChild(this.popupText);
-    }
-
-    _initPopupContainer() {
-        this.popupContainer.className += " green-basket-popup-container";
+        this.popupDiv.appendChild(this.popupText);
+        this.popupDiv.appendChild(this.popupImage);
     }
 
     _initPopupText() {
@@ -114,9 +113,12 @@ class Popup {
     decideDisplay(score, suggest) {
         if(score >= 70) {
             this.setText('Good job!');
+            this.popupImage.style.display = "none";
             return;
         }
-        this.setText('Bad job! Suggestion: substitute ' + suggest.source_ean + ' with ' + suggest.target_ean + '!');
+        this.setText(suggest.target.name);
+        this.popupImage.style.display = "block";
+        this.popupImage.src = suggest.target.pic_url;
     }
 };
 

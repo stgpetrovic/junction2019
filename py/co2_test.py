@@ -8,10 +8,11 @@ class TestCo2(unittest.TestCase):
         self.assertEqual(0, co2.product_shipping_distance(products[0])) # FI
         self.assertEqual(2399, co2.product_shipping_distance(products[1]))  # IT
 
-    def test_co2(self):
+    def test_co2_comp(self):
         ean = '5010338015930'
-        japanska_kola = product_metadata.ProductMetadata().Infos([ean])[0]
-        self.assertGreater(co2.emissions_g(japanska_kola), 100)
+        japanska_sojsos = product_metadata.ProductMetadata().Infos([ean])[0]
+        engleska_sojsos = product_metadata.ProductMetadata().Infos(['5701095188448'])[0]
+        self.assertGreater(co2.emissions_g(japanska_sojsos), co2.emissions_g(engleska_sojsos))
 
 if __name__ == '__main__':
     unittest.main()

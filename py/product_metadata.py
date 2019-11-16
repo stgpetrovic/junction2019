@@ -6,7 +6,7 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64, json
 
 PRETTY_MAP = {
     'MATKL':'product_category',
-    'MATXEN':'name',
+    'MAKTE':'name',
     'ZZBRAND':'brand',
     'ZZSAISO':'saison',
     'ZZVENDOR':'manufacturer',
@@ -58,6 +58,11 @@ class Product(object):
     def __init__(self, p):
         self.json = p
         self.ean = p['ean']
+        urls = p['pictureUrls']
+        if urls:
+            self.picurl = urls[0]['original']
+        else:
+            self.picurl = None
         for k, v in PRETTY_MAP.items():
             setattr(self, v, self.arg_parse(p['attributes'].get(k, '')))
 

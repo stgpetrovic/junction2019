@@ -7,19 +7,25 @@ print('Reading')
 co2s = {}
 data = {}
 ids = []
+header = []
+attr_to_column = {}
 with open('item_stats_smaller.csv') as infile:
     reader = csv.reader(infile, delimiter=',')
     header = next(reader, None)
     for row in reader:
         data[row[0]] = row
         ids.append(row[0])
-
 next_column = len(header)
-def AddColumn(col): 
+
+def AddColumn(col):
+    global header
+    global attr_to_column
+    global next_column
     header += [col]
-    attr_to_column = {col: next_column}
+    attr_to_column[col] = next_column
     next_column += 1
 AddColumn('co2_rank')
+AddColumn('pic_url')
 product_attrs = sorted(product_metadata.PRETTY_MAP.values())
 for attr in sorted(product_attrs):
     AddColumn(attr)
@@ -32,7 +38,9 @@ for i in range(0, len(ids), 100):
     for info in m.Infos(batch):
         present.add(info.ean)
         co2s[info.ean] = co2.emissions_g(info)
-        data[info.ean] += [''] + ['' for _ in product_attrs]
+        data[info.ean] += ['', ''] + ['' for _ in product_attrs]
+        if info.picurl:
+            data[info.ean][attr_to_column['pic_url']] = info.picurl
         for attr in product_attrs:
             if hasattr(info, attr):
                 data[info.ean][attr_to_column[attr]] = str(getattr(info, attr))
