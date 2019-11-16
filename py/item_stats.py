@@ -30,7 +30,7 @@ for i in range(0, len(ids), 100):
         for attr in product_attrs:
             if hasattr(info, attr):
                 data[info.ean][attr_to_column[attr]] = str(getattr(info, attr))
-
+                
 print('Writing')
 with open('item_stats_smaller_filtered.csv', 'w') as outfile:    
     writer = csv.writer(outfile, delimiter=',', quotechar='"',
