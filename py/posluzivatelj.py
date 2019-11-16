@@ -51,10 +51,10 @@ class Inventory():
                     'pic_url': row[pic_url_index],
                     'name': row[name_index]
                 }
-                
+
     def goodness(self, ean):
         return self._goodness.get(ean, 1.0)
-                
+
     def sustain_score(self, ean):
         return self._sustain_score.get(ean, 1.0)
 
