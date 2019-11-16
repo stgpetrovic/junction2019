@@ -9,13 +9,13 @@ co2s = {}
 data = {}
 ids = []
 header = []
-attr_to_column = {}
 with open('item_stats_smaller.csv') as infile:
     reader = csv.reader(infile, delimiter=',')
     header = next(reader, None)
     for row in reader:
         data[row[0]] = row
         ids.append(row[0])
+attr_to_column = {s: i for i, s in enumerate(header)}
 next_column = len(header)
 extra_columns = 0
 
@@ -31,6 +31,14 @@ def AddColumn(col):
 
 def Store(ean, attr, value):
     data[ean][attr_to_column[attr]] = value
+
+def FetchFloat(ean, attr):
+    return float(data[ean][attr_to_column[attr]])
+    
+AddColumn('easy0_frac')
+AddColumn('easy2_frac')
+AddColumn('qual0_frac')
+AddColumn('qual2_frac')
 AddColumn('dist')
 AddColumn('co2')
 AddColumn('co2_rank')
@@ -50,6 +58,11 @@ for i in range(0, len(ids), 100):
         co2s[info.ean] = co2.emissions_g(info)
         Store(info.ean, 'dist', distance.finland_dist(info.country))
         Store(info.ean, 'co2', co2s[info.ean])
+        total = FetchFloat(info.ean, 'total')
+        Store(info.ean, 'easy0_frac', FetchFloat(info.ean, 'easy0') / total)
+        Store(info.ean, 'easy2_frac', FetchFloat(info.ean, 'easy2') / total)
+        Store(info.ean, 'qual0_frac', FetchFloat(info.ean, 'qual0') / total)
+        Store(info.ean, 'qual2_frac', FetchFloat(info.ean, 'qual2') / total)
         if info.picurl:
             Store(info.ean, 'pic_url', info.picurl)
         for attr in product_attrs:
