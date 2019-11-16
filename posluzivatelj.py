@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 import csv
 import json
@@ -9,6 +10,7 @@ api = Api(app)
 goodness = {}
 
 parser = reqparse.RequestParser()
+CORS(app)
 
 class Product(Resource):
     def post(self):
@@ -36,7 +38,7 @@ class Product(Resource):
         }
 
 
-api.add_resource(Product, '/')
+api.add_resource(Product, '/goodness')
 
 if __name__ == '__main__':
     with open('item_stats_smaller_filtered.csv') as infile:
