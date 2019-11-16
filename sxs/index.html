@@ -4,18 +4,23 @@
   <body>
     <h1>Welcome to Konzum SxS</h1>
     <div id="tu_crta_slon"></div>
-    <h2>A &larr; &#8592; L</h2>
+    <h2>A LEVO        F neutral       desno   L</h2>
     <form>
       <input type="button" value="zdrav" onclick="valja()"/>
       <input type="button" value="slatki greh" onclick="nevalja()"/>
       <input type="button" value="necu kazem" onclick="necu_kazem()"/>
     </form>
     <pre id="tu_imas_datu"></pre>
+    <div id="mustang"></div>
   </body>
   <script type="text/javascript">
     currentIndex = -1;
 
     data = [
+[6417803108019, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6417803108019', 'https://www.k-ruoka.fi/kauppa/tuote/6417803108019', -1], [4001724010753, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/4001724010753', 'https://www.k-ruoka.fi/kauppa/tuote/4001724010753', -1], [6438700415635, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6438700415635', 'https://www.k-ruoka.fi/kauppa/tuote/6438700415635', -1], [6412000083428,
+'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6412000083428', 'https://www.k-ruoka.fi/kauppa/tuote/6412000083428', -1], [6430025522197, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6430025522197', 'https://www.k-ruoka.fi/kauppa/tuote/6430025522197', -1], [6410405209900, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6410405209900', 'https://www.k-ruoka.fi/kauppa/tuote/6410405209900', -1], [6412000033041,
+'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6412000033041', 'https://www.k-ruoka.fi/kauppa/tuote/6412000033041', -1], [6412000032457, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6412000032457', 'https://www.k-ruoka.fi/kauppa/tuote/6412000032457', -1], [6410405164964, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6410405164964', 'https://www.k-ruoka.fi/kauppa/tuote/6410405164964', -1], [6419800080381,
+'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6419800080381', 'https://www.k-ruoka.fi/kauppa/tuote/6419800080381', -1],
       [6410520026611, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6410520026611', 'https://www.k-ruoka.fi/kauppa/tuote/6410520026611', -1],
       [6416453028371, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/6416453028371', 'https://www.k-ruoka.fi/kauppa/tuote/6416453028371', -1],
       [7310618426479, 'https://k-file-storage-qa.imgix.net/f/k-ruoka/product/7310618426479', 'https://www.k-ruoka.fi/kauppa/tuote/7310618426479', -1],
@@ -52,11 +57,11 @@
     }
 
     function make() {
-      d = '';
+      d = '[';
       for (let i = 0; i < data.length; ++i) {
-        d += '[' + data[i][0] + ', ' + data[i][3] + ']\n';
+        d += '[' + data[i][0] + ', ' + data[i][3] + '],\n';
       }
-      return d;
+      return d+']';
     }
 
     function tick() {
@@ -83,6 +88,14 @@
       }
     }
 
+    function prefetch() {
+      // Very efficient prefetch.
+      for (let i =0; i <data.length; ++i) {
+        document.getElementById("mustang").innerHTML += "<img width='10px' height='10px' src='" + data[i][1] + "'></img>";
+      }
+    }
+
+    prefetch();
     document.addEventListener("keydown", keyDownTextField, false);
     tick();
   </script>
