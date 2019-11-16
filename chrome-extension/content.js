@@ -62,6 +62,40 @@ class Bar {
     }
 };
 
+class Popup {
+    constructor(name) {
+        this.text = '';
+        this.name = name;
+        this.popupText = document.createElement('p');
+        this._init();
+    }
+
+    attach(heading) {
+        heading.appendChild(this.popupText);
+    }
+
+    _init() {
+        this._initPopupText();
+    }
+
+    _initPopupText() {
+        this.popupText.className += " green-basket-popup-text";
+        this.popupText.style.position = "relative";
+        this.popupText.style.padding = "15px";
+        // this.popupText.style.margin = "1em 0 3em";
+        this.popupText.style.border = "5px solid #5a8f00";
+        this.popupText.style.color = "#333";
+        this.popupText.style.background = "#fff";
+        this.popupText.style.border_radius = "10px";
+        this.setText('Test text');
+    }
+
+    setText(txt) {
+        console.log(`Setting the popup text to ${txt}`);
+        this.popupText.innerText = txt;
+    }
+};
+
 function insertElement() {
     var heading = document.getElementsByClassName("shopping-list-heading")[0];
     var div = document.createElement('div');
@@ -72,10 +106,15 @@ function insertElement() {
 
     var greenBar = new Bar("Green score");
     greenBar.attach(div);
+
+    var popup = new Popup("Substitute popup");
+    popup.attach(div);
+
     return {
         div,
         healthyBar,
-        greenBar
+        greenBar,
+        popup
     };
 }
 
