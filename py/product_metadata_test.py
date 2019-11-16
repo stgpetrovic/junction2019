@@ -15,5 +15,11 @@ class TestSlonApi(unittest.TestCase):
         self.assertEqual(357, lazanje.kcal_per_100g)
         self.assertEqual("Myllyn Paras lasagne 500g", lazanje.name)
 
+    def test_kinder(self):
+        m = product_metadata.ProductMetadata()
+        kinder = m.Infos(['8711327328099'])[0]
+        print(kinder.protein_per_100g)
+        print(kinder.json)
+
 if __name__ == '__main__':
     unittest.main()

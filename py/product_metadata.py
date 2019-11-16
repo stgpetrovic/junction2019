@@ -21,7 +21,7 @@ PRETTY_MAP = {
     'B6VITA':'vitamin_b6_ug',
     'CVITAM':'vitamin_c_mg',
     'ENERKC':'kcal_per_100g',
-    'HYHIDR':'carbs_per_100g',
+    'HIHYDR':'carbs_per_100g',
     'KUITUA':'nutritional_fiber',
     'LAKTOO':'lactose_per_100g',
     'LIHAPI':'meat_fish_content_percent',
