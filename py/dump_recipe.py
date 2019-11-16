@@ -2,7 +2,7 @@ import recipe_metadata
 from pprint import pprint
 import csv
 
-MAX_RECIPE_ID = 10556
+MAX_RECIPE_ID = 10689
 
 def batch(n, l):
     for i in range(0, len(l), n):
