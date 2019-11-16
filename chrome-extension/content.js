@@ -70,16 +70,23 @@ class Popup {
     constructor(name) {
         this.text = '';
         this.name = name;
+        this.popupContainer = document.createElement('div');
         this.popupText = document.createElement('p');
         this._init();
     }
 
     attach(heading) {
-        heading.appendChild(this.popupText);
+        heading.appendChild(this.popupContainer);
     }
 
     _init() {
+        this._initPopupContainer();
         this._initPopupText();
+        this.popupContainer.appendChild(this.popupText);
+    }
+
+    _initPopupContainer() {
+        this.popupContainer.className += " green-basket-popup-container";
     }
 
     _initPopupText() {
@@ -104,12 +111,12 @@ class Popup {
         }
     }
 
-    decideDisplay(score) {
+    decideDisplay(score, suggest) {
         if(score >= 70) {
             this.setText('Good job!');
             return;
         }
-        this.setText('Bad job!');
+        this.setText('Bad job! Suggestion: substitute ' + suggest.source_ean + ' with ' + suggest.target_ean + '!');
     }
 };
 
@@ -172,7 +179,7 @@ function main() {
         }
     }
 
-    var jsCheckBasket = setInterval(checkBasket, 1031);
+    var jsCheckBasket = setInterval(checkBasket, 1033);
 
     function checkBasket() {
         var cart = getCart();
@@ -197,7 +204,7 @@ function main() {
         .then(response => response.json())
         .then(json => {
             widget.healthyBar.setFill(json.score);
-            widget.popup.decideDisplay(json.score);
+            widget.popup.decideDisplay(json.score, json.suggest);
             widget.greenBar.setFill(json.sustainable);
         })
         .catch(reason => console.log(reason));
