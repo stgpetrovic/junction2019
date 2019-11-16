@@ -118,15 +118,19 @@ class Popup {
     decideDisplay(score, suggest) {
         if(!suggest || !suggest.target) {
             this.setText('Good job!');
+            this.popupDiv.style.display = "none";
             this.popupImageSrc.style.display = "none";
             this.popupImageArrow.style.display = "none";
+            this.popupImageArrow.style.onclick = "";
             this.popupImageDst.style.display = "none";
             return;
         }
         this.setText('Swap ' + suggest.source.name + ' for ' + suggest.target.name);
+        this.popupDiv.style.display = "block";
         this.popupImageSrc.style.display = "inline-block";
         this.popupImageSrc.src = suggest.source.pic_url;
         this.popupImageArrow.style.display = "inline-block";
+        this.popupImageArrow.onclick = function() {substituteSuggestion(suggest.source.ean, suggest.target.ean);};
         this.popupImageDst.style.display = "inline-block";
         this.popupImageDst.src = suggest.target.pic_url;
     }
@@ -274,8 +278,64 @@ function getSessionId() {
 }
 
 async function updateAmounts(ean, count) {
-  url = 'https://www.k-ruoka.fi/kr-api/order-drafts/' + getSessionId() + '/update?storeId=N106';
+  session_id = getSessionId();
+  if(session_id.length == 0) {
+    console.log('Cuould not update an item due to a missing session id.');
+    return;
+  }
+  url = 'https://www.k-ruoka.fi/kr-api/order-drafts/' + session_id + '/update?storeId=N106';
   data = [{"type":"ITEM","id":ean,"ean":ean,"amountInfo":{"amount":count,"unit":"kpl"},"allowSubstitutes":true}];
+  try {
+    response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }});
+      json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+}
+
+async function removeItem(ean) {
+  session_id = getSessionId();
+  if(session_id.length == 0) {
+    console.log('Cuould not remove an item due to a missing session id.');
+    return;
+  }
+  url = 'https://www.k-ruoka.fi/kr-api/order-drafts/' + session_id + '/update?storeId=N106';
+  data = [{"type":"REMOVE","itemId":ean}];
+  try {
+    response = await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      }});
+      json = await response.json();
+        console.log('Success:', JSON.stringify(json));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+}
+
+async function updateCart(eans_counts) {
+  session_id = getSessionId();
+  if(session_id.length == 0) {
+    console.log('Cuould not update cart due to a missing session id.');
+    return;
+  }
+  url = 'https://www.k-ruoka.fi/kr-api/order-drafts/' + session_id + '/update?storeId=N106';
+  data = [];
+  for([index, ean_count] of Object.entries(eans_counts)){
+    if(ean_count.count == 0) {
+      data.push({"type":"REMOVE","itemId":ean_count.ean});
+    } else {
+      data.push({"type":"ITEM","id":ean_count.ean,"ean":ean_count.ean,"amountInfo":{"amount":ean_count.count,"unit":"kpl"},"allowSubstitutes":true});
+    }
+  }
   try {
     response = await fetch(url, {
       method: 'PUT',
@@ -292,14 +352,17 @@ async function updateAmounts(ean, count) {
 
 function substituteSuggestion(source_ean, target_ean) {
   cart = getCart();
-  var source_count = 0;
+  var source_count = 1;
   for([index, item] of Object.entries(cart)) {
     if(item.ean == source_ean) {
-      source_count = item.amount;
+      source_count = item.amount.amount;
     }
   }
-  updateAmounts(source_ean, 0);
-  updateAmounts(target_ean, source_count);
+  updateCart([{ean: source_ean, count: 0},
+              {ean: target_ean, count: source_count}]);
+  window.location.reload(false); 
+  // removeItem(source_ean);
+  // updateAmounts(target_ean, source_count);
 }
 
 function main() {
