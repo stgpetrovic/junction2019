@@ -1,9 +1,11 @@
-from flask import Flask, request
-from flask_cors import CORS
-from flask_restful import Resource, Api, reqparse
 import csv
 import json
 import math
+import random
+
+from flask import Flask, request
+from flask_cors import CORS
+from flask_restful import Resource, Api, reqparse
 
 app = Flask(__name__)
 api = Api(app)
@@ -19,7 +21,8 @@ class Product(Resource):
         eans = parser.parse_args()['eans']
         if not eans:
             return {
-                'score': 100,
+                'score': 0,
+                'sustainable': 0,
             }
         good = []
         for ean in eans:
@@ -38,9 +41,18 @@ class Product(Resource):
             'ean': {
                 'is_healthy': {x:False for x in eans}
             },
-            'score': round(100.0 / (1.0 + math.exp(-(hmean - 0.75) * 20)))
+            'score': round(100.0 / (1.0 + math.exp(-(hmean - 0.75) * 20))),
+            'sustainable': get_sustainability(eans),
         }
 
+
+CACHE = {}
+
+def get_sustainability(eans):
+    key = ",".join(eans)
+    if key not in CACHE:
+        CACHE[key] = random.randint(0, 100)
+    return CACHE[key]
 
 api.add_resource(Product, '/goodness')
 

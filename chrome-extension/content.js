@@ -1,3 +1,17 @@
+function perc2color(perc) {
+	var r, g, b = 0;
+	if(perc < 50) {
+		r = 255;
+		g = Math.round(5.1 * perc);
+	}
+	else {
+		g = 255;
+		r = Math.round(510 - 5.10 * perc);
+	}
+	var h = r * 0x10000 + g * 0x100 + b * 0x1;
+	return '#' + ('000000' + h.toString(16)).slice(-6);
+}
+
 class Bar {
     constructor(name) {
         this.filled_percent = 0;
@@ -49,16 +63,7 @@ class Bar {
     setFill(x) {
         console.log(`Setting the width to ${x}`);
         this.filledBar.style.width = `${x}%`;
-
-        if (x <= 33) {
-            this.filledBar.style.backgroundColor = "#DD7777";
-        }
-        else if (x <= 66) {
-            this.filledBar.style.backgroundColor = "#DDDD77";
-        }
-        else {
-            this.filledBar.style.backgroundColor = "#4CAF50";
-        }
+        this.filledBar.style.backgroundColor = perc2color(x);
     }
 };
 
@@ -112,6 +117,7 @@ class Popup {
 function insertElement() {
     var heading = document.getElementsByClassName("shopping-list-heading")[0];
     var div = document.createElement('div');
+    div.style.display = "none";
     heading.appendChild(div);
 
     var healthyBar = new Bar("Health score");
@@ -171,6 +177,11 @@ function main() {
 
     function checkBasket() {
         var cart = getCart();
+        if (cart.length === 0) {
+            hideBars();
+        } else {
+            showBars();
+        }
         console.log(JSON.stringify({
             "eans": cart.map(item => item.ean)
         }));
@@ -191,7 +202,18 @@ function main() {
         .then(json => {
             widget.healthyBar.setFill(json.score);
             widget.popup.decideDisplay(json.score);
+            widget.greenBar.setFill(json.sustainable);
         })
         .catch(reason => console.log(reason));
+    }
+
+    function hideBars() {
+        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "70px";
+        widget.div.style.display = "none";
+    }
+
+    function showBars() {
+        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "272px";
+        widget.div.style.display = "block";
     }
 }
