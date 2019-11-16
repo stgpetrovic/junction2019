@@ -46,6 +46,7 @@ class Product(object):
         for k, v in self.__SHITTY_SHIT_MAP.items():
             setattr(self, v, p.get(k, ''))
 
+
 class ProductMetadata(object):
   def __init__(self):
       self.search = slonapi.SlonApi().search
