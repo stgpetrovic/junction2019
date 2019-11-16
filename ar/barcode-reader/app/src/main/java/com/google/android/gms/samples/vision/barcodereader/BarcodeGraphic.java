@@ -131,6 +131,8 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
 
         // Draws a label at the bottom of the barcode indicate the barcode value that was detected.
         canvas.drawText(barcode.rawValue, rect.left, rect.bottom, mTextPaint);
+        String url = "https://public.keskofiles.com/f/k-ruoka/product/5706779062243?w=400&h=250&auto=format&fm=jpg&fit=fillmax&fill=solid&fill-color=ffffff&cs=srgb";
+
 
         if (PRODUCTS.containsKey(barcode.rawValue)) {
             canvas.drawText(PRODUCTS.get(barcode.rawValue).toString(), rect.left-20, rect.top-50, mProductPaint);

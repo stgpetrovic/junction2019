@@ -3,13 +3,13 @@ import json
 import math
 import random
 
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
 from gen_logo import logo
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/images/')
 api = Api(app)
 
 
@@ -146,7 +146,7 @@ class Product(Resource):
         suggest_candidates += [item[1] for item in bad]
 
         if any(inventory.dist_data(ean) > 5e3 for ean in eans):
-            result['shipit'] = "Did you known that buying locally produced food, you not only get the freshest produce but it's also good for the economy."
+            result['shipit'] = "Did you known that buying locally produced food, you not only get the freshest produce but it's also good for the economy?"
 
         # Suggest.
         for candidate in suggest_candidates:
@@ -180,6 +180,11 @@ class StoreSid(Resource):
 
     def get(self):
         return SID
+
+
+@app.route('/images/<path:path>')
+def send_images(path):
+    return send_from_directory('images', path)
 
 
 api.add_resource(Product, '/goodness')
