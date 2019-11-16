@@ -116,7 +116,7 @@ class Popup {
     }
 
     decideDisplay(score, suggest) {
-        if(score >= 70) {
+        if(!suggest || !suggest.target) {
             this.setText('Good job!');
             this.popupImageSrc.style.display = "none";
             this.popupImageArrow.style.display = "none";
