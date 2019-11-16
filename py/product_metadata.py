@@ -6,7 +6,7 @@ import http.client, urllib.request, urllib.parse, urllib.error, base64, json
 
 PRETTY_MAP = {
     'MATKL':'product_category',
-    'MATXEN':'name',
+    'MAKTE':'name',
     'ZZBRAND':'brand',
     'ZZSAISO':'saison',
     'ZZVENDOR':'manufacturer',

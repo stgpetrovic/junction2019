@@ -11,7 +11,9 @@ class TestSlonApi(unittest.TestCase):
         lazanje = products[1]
         self.assertEqual(10.6, kola.sugar_per_100)
         self.assertEqual(42, kola.kcal_per_100g)
+        self.assertEqual("Coca-Cola 1,5l 2-pack", kola.name)
         self.assertEqual(357, lazanje.kcal_per_100g)
+        self.assertEqual("Myllyn Paras lasagne 500g", lazanje.name)
 
 if __name__ == '__main__':
     unittest.main()
