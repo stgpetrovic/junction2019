@@ -61,7 +61,6 @@ class Bar {
     }
 
     setFill(x) {
-        console.log(`Setting the width to ${x}`);
         this.filledBar.style.width = `${x}%`;
         this.filledBar.style.backgroundColor = perc2color(x);
     }
@@ -173,7 +172,7 @@ function main() {
         }
     }
 
-    var jsCheckBasket = setInterval(checkBasket, 2000);
+    var jsCheckBasket = setInterval(checkBasket, 113);
 
     function checkBasket() {
         var cart = getCart();
@@ -182,9 +181,6 @@ function main() {
         } else {
             showBars();
         }
-        console.log(JSON.stringify({
-            "eans": cart.map(item => item.ean)
-        }));
         fetch(
             "http://127.0.0.1:5000/goodness",
             {
