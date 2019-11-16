@@ -125,7 +125,7 @@ class Popup {
             this.popupImageDst.style.display = "none";
             return;
         }
-        this.setText('Swap ' + suggest.source.name + ' for ' + suggest.target.name);
+        this.setText('For ' + suggest.reason + ' reasons, swap ' + suggest.source.name + ' for ' + suggest.target.name);
         this.popupDiv.style.display = "block";
         this.popupImageSrc.style.display = "inline-block";
         this.popupImageSrc.src = suggest.source.pic_url;
@@ -401,8 +401,6 @@ function substituteSuggestion(source_ean, target_ean) {
   updateCart([{ean: source_ean, count: 0},
               {ean: target_ean, count: source_count}]);
   window.location.reload(false);
-  // removeItem(source_ean);
-  // updateAmounts(target_ean, source_count);
 }
 
 function main() {
