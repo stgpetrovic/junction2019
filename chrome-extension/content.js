@@ -82,6 +82,7 @@ class Popup {
     }
 
     _init() {
+        this._initPopupContainer();
         this._initPopupText();
         this.popupDiv.appendChild(this.popupText);
         this.popupDiv.appendChild(this.popupImage);
@@ -180,7 +181,7 @@ function main() {
         }
     }
 
-    var jsCheckBasket = setInterval(checkBasket, 1031);
+    var jsCheckBasket = setInterval(checkBasket, 1033);
 
     function checkBasket() {
         var cart = getCart();
