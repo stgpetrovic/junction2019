@@ -1,4 +1,5 @@
 import product_metadata
+import distance
 import csv
 import co2
 import os
@@ -30,7 +31,7 @@ def AddColumn(col):
 
 def Store(ean, attr, value):
     data[ean][attr_to_column[attr]] = value
-    
+AddColumn('dist')
 AddColumn('co2')
 AddColumn('co2_rank')
 AddColumn('pic_url')
@@ -47,6 +48,7 @@ for i in range(0, len(ids), 100):
         present.add(info.ean)
         data[info.ean] += ['' for _ in range(extra_columns)]
         co2s[info.ean] = co2.emissions_g(info)
+        Store(info.ean, 'dist', distance.finland_dist(info.country))
         Store(info.ean, 'co2', co2s[info.ean])
         if info.picurl:
             Store(info.ean, 'pic_url', info.picurl)

@@ -1,6 +1,7 @@
 import http.client, urllib.request, urllib.parse, urllib.error, base64, json
 from itertools import islice, chain
 import json
+import csv
 
 import slonapi
 
@@ -17,10 +18,9 @@ class Recipe(object):
 
         if 'EnergyAmounts' in r:
             isus = ['CarbohydratePerPortion', 'CarbohydratePerUnit', 'ProteinPerPortion', 'ProteinPerUnit', 'FatPerPortion', 'FatPerUnit', 'KcalPerPortion', 'KcalPerUnit']
-            self.nutrition = {}
             for desc in isus:
                 if desc in r['EnergyAmounts']:
-                    self.nutrition[desc] = r['EnergyAmounts'][desc]
+                    setattr(self, desc, r['EnergyAmounts'][desc])
 
             self.ingredients = {}
             for i in r['Ingredients']:
@@ -64,3 +64,11 @@ class RecipeMetadata(object):
       except Exception as e:
           print("[Errno {0}] {1}".format(e.errno, e.strerror))
       return results
+
+def all_recipes():
+    recipes = []
+    with open('recipes.csv', 'r') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            recipes.append(row)
+    return recipes

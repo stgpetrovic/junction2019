@@ -2,7 +2,7 @@ import recipe_metadata
 from pprint import pprint
 import csv
 
-MAX_RECIPE_ID = 10556
+MAX_RECIPE_ID = 10689
 
 def batch(n, l):
     for i in range(0, len(l), n):
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     recipes = all_recipes()
     with open('recipes.csv', 'w') as f:
         writer = csv.DictWriter(f, fieldnames=['name', 'size', 'unit', 'portions',
-            'nutrition', 'ingredients'
+            'CarbohydratePerPortion', 'CarbohydratePerUnit', 'ProteinPerPortion', 'ProteinPerUnit', 'FatPerPortion', 'FatPerUnit', 'KcalPerPortion', 'KcalPerUnit', 'ingredients'
             ])
         writer.writeheader()
         for recipe in recipes:

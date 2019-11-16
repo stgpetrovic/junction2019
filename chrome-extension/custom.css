@@ -2,6 +2,18 @@ section.product-details {
     margin-top: 25px;
 }
 
+.green-basket-bars {
+    display: inline-block;
+    width: 390px;
+    vertical-align: top;
+}
+
+.green-basket-logo {
+    display: inline-block;
+    padding-top: 10px;
+    vertical-align: top;
+}
+
 .green-basket-bar-container {
 }
 
@@ -9,6 +21,7 @@ section.product-details {
 }
 
 .recommendation-target-image {
+    max-height: 75px;
     max-width: 40%;
 }
 
@@ -20,12 +33,12 @@ section.product-details {
 
 .green-basket-popup-div {
     position: relative;
-    padding: 15px;
-    border: 5px solid #5a8f00;
+    padding: 5px;
+    border: 2px solid #5a8f00;
     color: #333;
     background: #fff;
     border-radius: 10px;
-    margin-top: 10px;
+    margin: 5px 0px;
 }
 
 .green-basket-popup-text {

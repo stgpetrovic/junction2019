@@ -106,10 +106,10 @@ class Popup {
 
     setText(txt) {
         if(txt.length == 0) {
-            console.log('Removing popup text.');
+            // console.log('Removing popup text.');
             this.popupText.style.display = "none";
         } else {
-            console.log(`Setting the popup text to ${txt}`);
+            // console.log(`Setting the popup text to ${txt}`);
             this.popupText.innerText = txt;
             this.popupText.style.display = "block";
         }
@@ -132,17 +132,73 @@ class Popup {
     }
 };
 
+class BasketLogo {
+    constructor() {
+        this.container = document.createElement('div');
+        this.container.className = "green-basket-logo";
+        this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        this.container.appendChild(this.svg);
+        this._init();
+    }
+
+    attach(div) {
+        div.appendChild(this.container);
+    }
+
+    update(logo) {
+        this._updatePart(this.basket, logo.basket);
+        this._updatePart(this.eyes, logo.eyes);
+        this._updatePart(this.mouth, logo.mouth);
+    }
+
+    _init() {
+        var ns = 'http://www.w3.org/2000/svg'
+        this.svg.setAttributeNS(null, 'width', '100');
+        this.svg.setAttributeNS(null, 'height', '100');
+        this.svg.setAttributeNS(null, 'viewBox', '0 0 300 300');
+        this.svg.setAttribute(null, 'xmlns', "http://www.w3.org/2000/svg");
+        this.svg.setAttributeNS("http://www.w3.org/2000/svg", 'xlink', "http://www.w3.org/1999/xlink");
+
+        this.basket = this._createPart(this.svg);
+        this.eyes = this._createPart(this.svg);
+        this.mouth = this._createPart(this.svg);
+    }
+
+    _createPart() {
+        var ns = 'http://www.w3.org/2000/svg'
+        var image = document.createElementNS(ns, "image");
+        this.svg.appendChild(image);
+        return image;
+    }
+
+    _updatePart(image, part) {
+        image.setAttributeNS(null, "height", part["height"]);
+        image.setAttributeNS(null, "width", part["width"]);
+        image.setAttributeNS(null, "x", part["x"]);
+        image.setAttributeNS(null, "y", part["y"]);
+        image.setAttributeNS("http://www.w3.org/1999/xlink", "href", chrome.runtime.getURL(part["href"]));
+    }
+};
+
 function insertElement() {
-    var heading = document.getElementsByClassName("shopping-list-heading")[0];
+    var content = document.getElementsByClassName("shopping-list-content")[0];
+    var child = content.getElementsByClassName("shopping-list-shopping-content")[0];
     var div = document.createElement('div');
     div.style.display = "none";
-    heading.appendChild(div);
+    content.insertBefore(div, child);
+
+    var basketLogo = new BasketLogo();
+    basketLogo.attach(div);
+
+    var bars = document.createElement('div');
+    bars.className = "green-basket-bars";
+    div.appendChild(bars);
 
     var healthyBar = new Bar("Health score");
-    healthyBar.attach(div);
+    healthyBar.attach(bars);
 
     var greenBar = new Bar("Green score");
-    greenBar.attach(div);
+    greenBar.attach(bars);
 
     var popup = new Popup("Substitute popup");
     popup.attach(div);
@@ -151,7 +207,8 @@ function insertElement() {
         div,
         healthyBar,
         greenBar,
-        popup
+        popup,
+        basketLogo,
     };
 }
 
@@ -269,17 +326,16 @@ function main() {
             widget.healthyBar.setFill(json.score);
             widget.popup.decideDisplay(json.score, json.suggest);
             widget.greenBar.setFill(json.sustainable);
+            widget.basketLogo.update(json.logo);
         })
         .catch(reason => console.log(reason));
     }
 
     function hideBars() {
-        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "70px";
         widget.div.style.display = "none";
     }
 
     function showBars() {
-        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "272px";
         widget.div.style.display = "block";
     }
 }
