@@ -16,6 +16,7 @@ class Inventory():
         self._goodness = {}
         self._cat = {}
         self._cat_list = {}
+        self._display_data = {}
         with open('item_stats_smaller_filtered.csv') as infile:
             reader = csv.reader(infile, delimiter=',')
             header = next(reader, None)
@@ -26,6 +27,8 @@ class Inventory():
             total_index = column_index['total']
             easy2_index = column_index['easy2']
             qual0_index = column_index['qual0']
+            name_index = column_index['name']
+            pic_url_index = column_index['pic_url']
             cat_index = column_index['product_category']
             for row in reader:
                 ean = row[ean_index]
@@ -39,10 +42,17 @@ class Inventory():
                     self._cat_list[cat] = []
                 cat_list = self._cat_list[cat]
                 cat_list.append(ean)
+                self._display_data[ean] = {
+                    'ean': ean,
+                    'pic_url': row[pic_url_index],
+                    'name': row[name_index]
+                }
 
     def goodness(self, ean):
         return self._goodness.get(ean, 1.0)
 
+    def display_data(self, ean):
+        return self._display_data[ean]
 
     def suggest(self, ean):
         cat = self._cat.get(ean, None)
@@ -68,7 +78,6 @@ class Product(Resource):
             'score': 0,
             'sustainable': 0,
         }
-
         print(request.data)
         parser.add_argument('eans', type=str, action='append')
         eans = parser.parse_args()['eans']
@@ -78,13 +87,15 @@ class Product(Resource):
         bad = sorted(goodness, key=lambda item: item[0])[0:3]
         hmean = len(bad) / sum(1.0 / item[0] for item in bad)
         result['score'] = round(100.0 / (1.0 + math.exp(-(hmean - 0.75) * 25)))
+        print(bad)
 
         worst_item = bad[0][1]
+        print(worst_item)
         suggestion = inventory.suggest(worst_item)
         if suggestion is not None:
             result['suggest'] = {
-                'source_ean': worst_item,
-                'target_ean': suggestion
+                'source': inventory.display_data(worst_item),
+                'target': inventory.display_data(suggestion)
             }
         print(result)
         return result
