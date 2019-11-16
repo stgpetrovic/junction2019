@@ -32,5 +32,19 @@
         "matches": ["https://www.k-ruoka.fi/*"],
         "run_at": "document_end",
         "css": ["custom.css"]
-    }]
+    }],
+    "web_accessible_resources": [
+        "images/alcohol-eyes.png",
+        "images/angry-eyes.png",
+        "images/basket.png",
+        "images/concerened-eyes.png",
+        "images/get_started128.png",
+        "images/get_started16.png",
+        "images/get_started32.png",
+        "images/get_started48.png",
+        "images/happy-eyes.png",
+        "images/happy-mouth.png",
+        "images/shocked-mouth.png",
+        "images/tasty-mouth.png"
+    ]
 }

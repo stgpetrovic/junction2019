@@ -118,7 +118,8 @@ class Popup {
         }
         this.setText(suggest.target.name);
         this.popupImage.style.display = "block";
-        this.popupImage.src = suggest.target.pic_url;
+        this.popupImage.src = chrome.runtime.getURL("images/basket.png");
+        // this.popupImage.src = suggest.target.pic_url;
     }
 };
 
