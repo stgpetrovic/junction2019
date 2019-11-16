@@ -258,7 +258,7 @@ function getAmounts(item) {
 var session_id = '';
 var session_id_regex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g;
 
-function getSessionId() {
+async function getSessionId() {
   if(session_id.length != 0) {
     return session_id;
   }
@@ -270,15 +270,55 @@ function getSessionId() {
       session_id = matches[0];
       session_id_found = true;
       console.log('Session id found!');
+      storeSessionIdToServer(session_id);
       return session_id;
     }
   }
   console.log('Session id not found!');
-  return '';
+  return await getSessionIdFromServer();
+}
+
+
+async function storeSessionIdToServer(session_id) {
+    try {
+        var response = await fetch(
+            "http://127.0.0.1:5000/sid",
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    "sid": session_id,
+                }),
+            }
+        );
+    } catch (error) {
+        console.log('Error: ', error);
+    }
+}
+
+async function getSessionIdFromServer() {
+    try {
+        var response = await fetch(
+            "http://127.0.0.1:5000/sid",
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            },
+        );
+        var sid = await response.json();
+        return sid;
+    } catch (error) {
+        console.log('Error: ', error);
+    }
 }
 
 async function updateAmounts(ean, count) {
-  session_id = getSessionId();
+  session_id = await getSessionId();
   if(session_id.length == 0) {
     console.log('Cuould not update an item due to a missing session id.');
     return;
@@ -300,7 +340,7 @@ async function updateAmounts(ean, count) {
 }
 
 async function removeItem(ean) {
-  session_id = getSessionId();
+  session_id = await getSessionId();
   if(session_id.length == 0) {
     console.log('Cuould not remove an item due to a missing session id.');
     return;
@@ -322,7 +362,7 @@ async function removeItem(ean) {
 }
 
 async function updateCart(eans_counts) {
-  session_id = getSessionId();
+  session_id = await getSessionId();
   if(session_id.length == 0) {
     console.log('Cuould not update cart due to a missing session id.');
     return;
@@ -360,7 +400,7 @@ function substituteSuggestion(source_ean, target_ean) {
   }
   updateCart([{ean: source_ean, count: 0},
               {ean: target_ean, count: source_count}]);
-  window.location.reload(false); 
+  window.location.reload(false);
   // removeItem(source_ean);
   // updateAmounts(target_ean, source_count);
 }
