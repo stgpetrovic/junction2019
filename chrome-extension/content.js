@@ -73,6 +73,7 @@ class Popup {
         this.popupDiv = document.createElement('div');
         this.popupText = document.createElement('p');
         this.popupImage = document.createElement('img');
+        this.popupImage.className = "recommendation-target-image";
         this._init();
     }
 
