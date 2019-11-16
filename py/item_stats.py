@@ -16,14 +16,22 @@ with open('item_stats_smaller.csv') as infile:
         data[row[0]] = row
         ids.append(row[0])
 next_column = len(header)
+extra_columns = 0
 
 def AddColumn(col):
     global header
     global attr_to_column
     global next_column
+    global extra_columns
     header += [col]
     attr_to_column[col] = next_column
     next_column += 1
+    extra_columns += 1
+
+def Store(ean, attr, value):
+    data[ean][attr_to_column[attr]] = value
+    
+AddColumn('co2')
 AddColumn('co2_rank')
 AddColumn('pic_url')
 product_attrs = sorted(product_metadata.PRETTY_MAP.values())
@@ -37,18 +45,19 @@ for i in range(0, len(ids), 100):
     batch = ids[i:i + 100]
     for info in m.Infos(batch):
         present.add(info.ean)
+        data[info.ean] += ['' for _ in range(extra_columns)]
         co2s[info.ean] = co2.emissions_g(info)
-        data[info.ean] += ['', ''] + ['' for _ in product_attrs]
+        Store(info.ean, 'co2', co2s[info.ean])
         if info.picurl:
-            data[info.ean][attr_to_column['pic_url']] = info.picurl
+            Store(info.ean, 'pic_url', info.picurl)
         for attr in product_attrs:
             if hasattr(info, attr):
-                data[info.ean][attr_to_column[attr]] = str(getattr(info, attr))
+                Store(info.ean, attr, str(getattr(info, attr)))
 
 co2_list = sorted(list(co2s.items()), key=lambda item: item[1])
 for i, item in enumerate(co2_list):
     ean = item[0]
-    data[ean][attr_to_column['co2_rank']] = i / len(present)
+    Store(ean, 'co2_rank', i / len(present))
 
 print('Writing')
 with open('item_stats_smaller_filtered.csv', 'w') as outfile:    
