@@ -33,8 +33,11 @@ for i in range(0, len(ids), 100):
 
 print('Writing')
 with open('item_stats_smaller_filtered.csv', 'w') as outfile:    
-    outfile.write(','.join(header) + '\n')
+    writer = csv.writer(outfile, delimiter=',', quotechar='"',
+                        quoting=csv.QUOTE_MINIMAL)
+    writer.writerow(header)
     for ean in sorted(data.keys()):
         row = data[ean]
         if row[0] not in present: continue
-        outfile.write(','.join(row) + '\n')
+        writer.writerow(row)
+
