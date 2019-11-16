@@ -12,9 +12,11 @@ from gen_logo import logo
 app = Flask(__name__)
 api = Api(app)
 
+
 class Inventory():
     def __init__(self):
         self._goodness = {}
+        self._ml_goodness = {}
         self._sustain_score = {}
         self._cat = {}
         self._cat_list = {}
@@ -26,6 +28,12 @@ class Inventory():
             column_index = {}
             for i, name in enumerate(header):
                 column_index[name] = i
+
+            ml_f = ['carbs_per_100g', 'fat_per_100g', 'kcal_per_100g', 'protein_per_100g', 'saturated_fat_per_100g',
+                    'salt_per_100', 'sugar_per_100', 'easy0_frac', 'easy2_frac', 'qual0_frac', 'qual2_frac']
+            ml_f_indices = [column_index[f] for f in ml_f]
+            coefs = [0.031521, 0.001535, -0.0005, -0.105696, -0.046039, -0.026835, 0.002993, -1.293861, 1.542561, 1.354323, -1.106816]
+            intercept = 0.587063
             ean_index = column_index['ean']
             total_index = column_index['total']
             easy2_index = column_index['easy2']
@@ -37,12 +45,28 @@ class Inventory():
             dist_index = column_index['dist']
             for row in reader:
                 ean = row[ean_index]
-                total = float(row[total_index])
-                easy2 = float(row[easy2_index])
-                qual0 = float(row[qual0_index])
-                co2 = float(row[co2_index])
-                dist = float(row[dist_index] if row[dist_index] else 0)
-                self._goodness[ean] = 1.0 - (easy2 / total) * (qual0 / total)
+
+                def GetFloat(s):
+                    return float(s) if s else 0
+
+                total = GetFloat(row[total_index])
+                easy2 = GetFloat(row[easy2_index])
+                qual0 = GetFloat(row[qual0_index])
+                co2 = GetFloat(row[co2_index])
+                dist = GetFloat(row[dist_index])
+
+                goodness_score = 1.0 - (easy2 / total) * (qual0 / total)
+                self._goodness[ean] = 1.0 / (1.0 + math.exp(-(goodness_score - 0.75) * 25))
+
+                have_all = all(row[col] for col in ml_f_indices)
+                logodds = sum((coef * GetFloat(row[col]) for coef, col in zip(coefs, ml_f_indices)), intercept)
+                prob_bad = 1.0 / (1.0 + math.exp(-logodds))
+                self._ml_goodness[ean] = 1.0 - 1.0 / (1.0 + math.exp(-(prob_bad - 0.65) * 10))
+                if not have_all:
+                    self._ml_goodness[ean] = self._goodness[ean]
+                if not row[column_index['kcal_per_100g']]:
+                    self._ml_goodness[ean] = 1.0
+
                 self._sustain_score[ean] = 1.0 - 1.0 / (1.0 + math.exp(-(math.log(1 + co2)-2.5)*2.5))
                 cat = row[cat_index]
                 self._cat[ean] = cat
@@ -58,7 +82,7 @@ class Inventory():
                 self._dist_data[ean] = dist
 
     def goodness(self, ean):
-        return self._goodness.get(ean, 1.0)
+        return self._ml_goodness.get(ean, 1.0)
 
     def sustain_score(self, ean):
         return self._sustain_score.get(ean, 1.0)
@@ -78,14 +102,14 @@ class Inventory():
         score = inventory.goodness(ean)
         scored = [(inventory.goodness(i), i) for i in cat_list]
         best = sorted(scored, key=lambda item: item[0])[-1]
-        if best[0] > score + 0.2:
+        if best[0] > score + 0.15:
             return (best[1], 'health')
 
         # Sustain
         score = inventory.sustain_score(ean)
         scored = [(inventory.sustain_score(i), i) for i in cat_list]
         best = sorted(scored, key=lambda item: item[0])[-1]
-        if best[0] > score + 0.3:
+        if best[0] > score + 0.15:
             return (best[1], 'sustainability')
 
         return None
@@ -111,7 +135,7 @@ class Product(Resource):
         goodness = [(inventory.goodness(ean), ean) for ean in eans]
         bad = sorted(goodness, key=lambda item: item[0])[0:3]
         hmean = len(bad) / sum(1.0 / item[0] for item in bad)
-        result['score'] = round(100.0 / (1.0 + math.exp(-(hmean - 0.75) * 25)))
+        result['score'] = round(hmean * 100)
         suggest_candidates = [item[1] for item in bad]
 
         # Basket sustainability.
