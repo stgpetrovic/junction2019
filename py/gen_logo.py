@@ -47,10 +47,18 @@ def logo(health: float, sustinable: float) -> Dict[str, Dict[str, str]]:
     }
 
 def basket(health:float, sustinable: float) -> IncludeImage:
-    return IncludeImage("images/basket.png", 0, 0, 250, 250)
+    return IncludeImage("images/basket.png", 0, 0, 300, 300)
 
 def eyes(health:float, sustinable: float) -> IncludeImage:
-    return IncludeImage("images/happy-eyes.png", 0, 0, 250, 250)
+    if health < 33:
+        return IncludeImage("images/angry-eyes.png", 100, 150, 75, 125)
+    if health < 66:
+        return IncludeImage("images/concerened-eyes.png", 100, 155, 75, 125)
+    return IncludeImage("images/happy-eyes.png", 100, 150, 75, 125)
 
 def mouth(health:float, sustinable: float) -> IncludeImage:
-    return IncludeImage("images/happy-mouth.png", 0, 0, 250, 250)
+    if sustinable < 33:
+        return IncludeImage("images/shocked-mouth.png", 38, 225, 60, 250)
+    if sustinable < 66:
+        return IncludeImage("images/happy-mouth.png", 75, 225, 50, 175)
+    return IncludeImage("images/tasty-mouth.png", 35, 225, 60, 250)

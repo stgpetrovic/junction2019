@@ -7,6 +7,8 @@ from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
+from gen_logo import logo
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -133,6 +135,8 @@ class Product(Resource):
                     'reason': reason,
                 }
                 break
+
+        result['logo'] = logo(result['score'], result['sustainable'])
         print(result)
         return result
 

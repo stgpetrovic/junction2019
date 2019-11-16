@@ -1,0 +1,5 @@
+<svg width="500" height="500">
+  <image height="250" width="250" x="0" y="0" xlink:href="chrome-extension://mnkmkmdjdognhbhooifhfckgmengkgbm/images/basket.png"></image>
+  <image height="75" width="125" x="30" y="100" xlink:href="chrome-extension://mnkmkmdjdognhbhooifhfckgmengkgbm/images/happy-eyes.png"></image>
+  <image height="50" width="175" x="50" y="150" xlink:href="chrome-extension://mnkmkmdjdognhbhooifhfckgmengkgbm/images/happy-mouth.png"></image>
+</svg>

@@ -2,6 +2,18 @@ section.product-details {
     margin-top: 25px;
 }
 
+.green-basket-bars {
+    display: inline-block;
+    width: 390px;
+    vertical-align: top;
+}
+
+.green-basket-logo {
+    display: inline-block;
+    padding-top: 10px;
+    vertical-align: top;
+}
+
 .green-basket-bar-container {
 }
 
