@@ -14,6 +14,7 @@ api = Api(app)
 class Inventory():
     def __init__(self):
         self._goodness = {}
+        self._sustain_score = {}
         self._cat = {}
         self._cat_list = {}
         self._display_data = {}
@@ -30,12 +31,15 @@ class Inventory():
             name_index = column_index['name']
             pic_url_index = column_index['pic_url']
             cat_index = column_index['product_category']
+            co2_index = column_index['co2']
             for row in reader:
                 ean = row[ean_index]
                 total = float(row[total_index])
                 easy2 = float(row[easy2_index])
                 qual0 = float(row[qual0_index])
+                co2 = float(row[co2_index])
                 self._goodness[ean] = 1.0 - (easy2 / total) * (qual0 / total)
+                self._sustain_score[ean] = 1.0 - 1.0 / (1.0 + math.exp(-(math.log(1 + co2)-2.5)*2.5))
                 cat = row[cat_index]
                 self._cat[ean] = cat
                 if cat not in self._cat_list:
@@ -47,9 +51,12 @@ class Inventory():
                     'pic_url': row[pic_url_index],
                     'name': row[name_index]
                 }
-
+                
     def goodness(self, ean):
         return self._goodness.get(ean, 1.0)
+                
+    def sustain_score(self, ean):
+        return self._sustain_score.get(ean, 1.0)
 
     def display_data(self, ean):
         return self._display_data[ean]
@@ -59,13 +66,24 @@ class Inventory():
         if cat is None:
             return None
         cat_list = self._cat_list.get(cat, [])
+        # Health
         score = inventory.goodness(ean)
         scored = [(inventory.goodness(i), i) for i in cat_list]
         best = sorted(scored, key=lambda item: item[0])[-1]
         if best[0] > score + 0.2:
-            return best[1]
-        else:
-            return None
+            return (best[1], 'health')
+
+        # Sustain
+        score = inventory.sustain_score(ean)
+        scored = [(inventory.sustain_score(i), i) for i in cat_list]
+        print('scored', scored)
+        best = sorted(scored, key=lambda item: item[0])[-1]
+        print('scored best', best, score)
+        if best[0] > score + 0.3:
+            print('oh yeah')
+            return (best[1], 'sustain')
+
+        return None
 
 inventory = None
 
@@ -83,20 +101,35 @@ class Product(Resource):
         eans = parser.parse_args()['eans']
         if not eans:
             return result
+
+        # Basket goodness.
         goodness = [(inventory.goodness(ean), ean) for ean in eans]
         bad = sorted(goodness, key=lambda item: item[0])[0:3]
+        print('health', bad)
         hmean = len(bad) / sum(1.0 / item[0] for item in bad)
         result['score'] = round(100.0 / (1.0 + math.exp(-(hmean - 0.75) * 25)))
-        print(bad)
+        suggest_candidates = [item[1] for item in bad]
 
-        worst_item = bad[0][1]
-        print(worst_item)
-        suggestion = inventory.suggest(worst_item)
-        if suggestion is not None:
-            result['suggest'] = {
-                'source': inventory.display_data(worst_item),
-                'target': inventory.display_data(suggestion)
-            }
+        # Basket sustainability.
+        goodness = [(inventory.sustain_score(ean), ean) for ean in eans]
+        bad = sorted(goodness, key=lambda item: item[0])[0:3]
+        print('sustainability', bad)
+        hmean = len(bad) / sum(1.0 / item[0] for item in bad)
+        result['sustainable'] = round(hmean * 100)
+        suggest_candidates += [item[1] for item in bad]
+
+        # Suggest.
+        for candidate in suggest_candidates:
+            suggestion = inventory.suggest(candidate)
+            if suggestion is not None:
+                target = suggestion[0]
+                reason = suggestion[1]
+                result['suggest'] = {
+                    'source': inventory.display_data(candidate),
+                    'target': inventory.display_data(target),
+                    'reason': reason,
+                }
+                break
         print(result)
         return result
 
