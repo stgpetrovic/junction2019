@@ -133,10 +133,11 @@ class Popup {
 };
 
 function insertElement() {
-    var heading = document.getElementsByClassName("shopping-list-heading")[0];
+    var content = document.getElementsByClassName("shopping-list-content")[0];
+    var child = content.getElementsByClassName("shopping-list-shopping-content")[0];
     var div = document.createElement('div');
     div.style.display = "none";
-    heading.appendChild(div);
+    content.insertBefore(div, child);
 
     var basketLogo = new BasketLogo();
     basketLogo.attach(div);
@@ -280,12 +281,10 @@ function main() {
     }
 
     function hideBars() {
-        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "70px";
         widget.div.style.display = "none";
     }
 
     function showBars() {
-        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "272px";
         widget.div.style.display = "block";
     }
 }
