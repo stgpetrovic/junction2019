@@ -151,9 +151,11 @@ class BasketLogo {
     setTooltipText(tooltip) {
         if (!tooltip) {
             this.tooltip.className = "green-basket-hidden-tooltip"
+            this.svg.style.animation = "";
         } else {
             this.tooltip.className = "green-basket-tooltip";
             this.tooltip.innerText = tooltip;
+            this.svg.style.animation = "logoGlow 4s infinite";
         }
     }
 
@@ -339,6 +341,7 @@ function main() {
             widget.popup.decideDisplay(json.score, json.suggest);
             widget.greenBar.setFill(json.sustainable);
             widget.basketLogo.update(json.logo);
+            widget.basketLogo.setTooltipText(json.shipit);
         })
         .catch(reason => console.log(reason));
     }

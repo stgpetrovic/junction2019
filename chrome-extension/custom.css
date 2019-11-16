@@ -2,10 +2,6 @@ section.product-details {
     /* margin-top: 25px; */
 }
 
-.glow {
-    animation: logoGlow 4s infinite;
-}
-
 @keyframes logoGlow {
     0% {
         -webkit-filter: drop-shadow( -.75px 0px 5px #ff2222 );

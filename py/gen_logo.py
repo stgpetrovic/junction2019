@@ -51,14 +51,14 @@ def basket(health:float, sustinable: float) -> IncludeImage:
 
 def eyes(health:float, sustinable: float) -> IncludeImage:
     if health < 33:
-        return IncludeImage("images/angry-eyes.png", 100, 150, 75, 125)
+        return IncludeImage("images/angry-eyes.png", 95, 150, 75, 125)
     if health < 66:
-        return IncludeImage("images/concerened-eyes.png", 100, 155, 75, 125)
-    return IncludeImage("images/happy-eyes.png", 100, 150, 75, 125)
+        return IncludeImage("images/concerened-eyes.png", 95, 155, 75, 125)
+    return IncludeImage("images/happy-eyes.png", 95, 150, 75, 125)
 
 def mouth(health:float, sustinable: float) -> IncludeImage:
     if sustinable < 33:
-        return IncludeImage("images/shocked-mouth.png", 38, 225, 60, 250)
+        return IncludeImage("images/shocked-mouth.png", 33, 225, 60, 250)
     if sustinable < 66:
-        return IncludeImage("images/happy-mouth.png", 75, 225, 50, 175)
-    return IncludeImage("images/tasty-mouth.png", 35, 225, 60, 250)
+        return IncludeImage("images/happy-mouth.png", 70, 225, 50, 175)
+    return IncludeImage("images/tasty-mouth.png", 30, 225, 60, 250)
