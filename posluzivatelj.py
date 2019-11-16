@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 import json
 
@@ -6,6 +7,7 @@ app = Flask(__name__)
 api = Api(app)
 
 parser = reqparse.RequestParser()
+CORS(app)
 
 class Product(Resource):
     def post(self):
@@ -16,7 +18,6 @@ class Product(Resource):
             'ean': {
                 'is_healthy': {x:False for x in eans}
             }
-
         }
 
 
