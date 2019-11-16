@@ -23,5 +23,9 @@ def all_recipes():
 if __name__ == '__main__':
     recipes = all_recipes()
     with open('recipes.csv', 'w') as f:
-        for key in recipes.keys():
-            f.write("%s,%s\n"%(key,recipes[key]))
+        writer = csv.DictWriter(f, fieldnames=['name', 'size', 'unit', 'portions',
+            'nutrition', 'ingredients'
+            ])
+        writer.writeheader()
+        for recipe in recipes:
+            writer.writerow(recipe.__dict__)
