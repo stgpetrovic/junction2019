@@ -57,9 +57,23 @@ function getAllShoppingIds() {
     var items = document.getElementsByClassName("shopping-list-item");
     var shoppingIds = [];
     for (var i = 0; i < items.length; ++i) {
-        shoppingIds.push(items[i].id.split("-").slice(-1)[0]);
+        var item = items[i];
+        shoppingIds.push({
+            "ean": item.id.split("-").slice(-1)[0],
+            "amount": getAmounts(item),
+        });
     }
     return shoppingIds;
+}
+
+function getAmounts(item) {
+    var container = item.getElementsByClassName("product-shopping-list-amount-container")[0];
+    var amount = container.getElementsByClassName("amount")[0].innerText.trim();
+    var pricingUnit = container.getElementsByClassName("pricing-unit")[0].innerText.trim();
+    return {
+        amount,
+        pricingUnit,
+    };
 }
 
 function main() {
@@ -77,7 +91,7 @@ function main() {
 
     function checkBasket() {
         var ids = getAllShoppingIds();
-        console.log("Basket: ", getAllShoppingIds());
+        console.log("Basket: ", ids);
         widget.healthyBar.setFill(ids.length * 10);
     }
 }
