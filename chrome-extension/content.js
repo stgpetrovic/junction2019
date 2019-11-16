@@ -172,7 +172,7 @@ function main() {
         }
     }
 
-    var jsCheckBasket = setInterval(checkBasket, 113);
+    var jsCheckBasket = setInterval(checkBasket, 1031);
 
     function checkBasket() {
         var cart = getCart();
