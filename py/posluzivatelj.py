@@ -102,14 +102,14 @@ class Inventory():
         score = inventory.goodness(ean)
         scored = [(inventory.goodness(i), i) for i in cat_list]
         best = sorted(scored, key=lambda item: item[0])[-1]
-        if best[0] > score + 0.15:
+        if best[0] > score + 0.2:
             return (best[1], 'health')
 
         # Sustain
         score = inventory.sustain_score(ean)
         scored = [(inventory.sustain_score(i), i) for i in cat_list]
         best = sorted(scored, key=lambda item: item[0])[-1]
-        if best[0] > score + 0.15:
+        if best[0] > score + 0.2:
             return (best[1], 'sustain')
 
         return None
