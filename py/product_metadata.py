@@ -3,42 +3,45 @@ import api.search.search as s
 
 import http.client, urllib.request, urllib.parse, urllib.error, base64, json
 
+
+PRETTY_MAP = {
+    'MATKL':'product_category',
+    'MATXEN':'name',
+    'ZZBRAND':'brand',
+    'ZZSAISO':'saison',
+    'ZZVENDOR':'manufacturer',
+    'NTGEW':'weight',
+    'TXCONT':'ingredients',
+    'TXCONT':'ingredients',
+    'TXKIEOMI':'recycling_emblems',
+    'ALKPI':'alk_vol',
+    'AVITAM':'vitamin_a_ug',
+    'B12VIT':'vitamin_b12_ug',
+    'B6VITA':'vitamin_b6_ug',
+    'CVITAM':'vitamin_c_mg',
+    'ENERKC':'kcal_per_100g',
+    'HYHIDR':'carbs_per_100g',
+    'KUITUA':'nutritional_fiber',
+    'LAKTOO':'lactose_per_100g',
+    'LIHAPI':'meat_fish_content_percent',
+    'MAITPI':'milk_fat_percent',
+    'MARJPI':'berry_fruit_content',
+    'PROTEG':'protein_per_100g',
+    'RAAPAI':'raw_per_100g',
+    'RASKTY':'monosaturated_fat_g',
+    'RASMTY':'polyunsaturated_fat_g',
+    'RASVAA':'fat_per_100g',
+    'RASVPI':'fat_percent',
+    'SOKERI':'sugar_per_100',
+    'SOKEPI':'sugar_percent',
+    'SUOLA':'salt_per_100',
+    'SOKLPI':'salt_percent',
+    'TYYDPI':'unsaturated_fat_percent',
+    'TYYDRH':'saturated_fat_per_100g',
+}
+
+
 class Product(object):
-    __SHITTY_SHIT_MAP = {
-            'MATKL':'product_category',
-            'MATXEN':'name',
-            'ZZBRAND':'brand',
-            'ZZSAISO':'saison',
-            'ZZVENDOR':'manufacturer',
-            'NTGEW':'weight',
-            'TXCONT':'ingredients',
-            'TXCONT':'ingredients',
-            'TXKIEOMI':'recycling_emblems',
-            'ALKPI':'alk_vol',
-            'AVITAM':'vitamin_a_ug',
-            'B12VIT':'vitamin_b12_ug',
-            'B6VITA':'vitamin_b6_ug',
-            'CVITAM':'vitamin_c_mg',
-            'ENERKC':'kcal_per_100g',
-            'HYHIDR':'carbs_per_100g',
-            'KUITUA':'nutritional_fiber',
-            'LAKTOO':'lactose_per_100g',
-            'LIHAPI':'meat_fish_content_percent',
-            'MAITPI':'milk_fat_percent',
-            'MARJPI':'berry_fruit_content',
-            'PROTEG':'protein_per_100g',
-            'RAAPAI':'raw_per_100g',
-            'RASKTY':'monosaturated_fat_g',
-            'RASMTY':'polyunsaturated_fat_g',
-            'RASVAA':'fat_per_100g',
-            'RASVPI':'fat_percent',
-            'SOKERI':'sugar_per_100',
-            'SOKEPI':'sugar_percent',
-            'SUOLA':'salt_per_100',
-            'SOKLPI':'salt_percent',
-            'TYYDPI':'unsaturated_fat_percent',
-            'TYYDRH':'saturated_fat_per_100g',
-    }
 
     def arg_parse(self, v):
         if not v:
@@ -54,7 +57,7 @@ class Product(object):
     def __init__(self, p):
         self.json = p
         self.ean = p['ean']
-        for k, v in self.__SHITTY_SHIT_MAP.items():
+        for k, v in PRETTY_MAP.items():
             setattr(self, v, self.arg_parse(p['attributes'].get(k, '')))
 
 
