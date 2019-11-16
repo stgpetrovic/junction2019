@@ -19,7 +19,7 @@ class Product(Resource):
         eans = parser.parse_args()['eans']
         if not eans:
             return {
-                'score': 100,
+                'score': 0,
             }
         good = []
         for ean in eans:

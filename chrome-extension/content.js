@@ -1,3 +1,17 @@
+function perc2color(perc) {
+	var r, g, b = 0;
+	if(perc < 50) {
+		r = 255;
+		g = Math.round(5.1 * perc);
+	}
+	else {
+		g = 255;
+		r = Math.round(510 - 5.10 * perc);
+	}
+	var h = r * 0x10000 + g * 0x100 + b * 0x1;
+	return '#' + ('000000' + h.toString(16)).slice(-6);
+}
+
 class Bar {
     constructor(name) {
         this.filled_percent = 0;
@@ -49,16 +63,7 @@ class Bar {
     setFill(x) {
         console.log(`Setting the width to ${x}`);
         this.filledBar.style.width = `${x}%`;
-
-        if (x <= 33) {
-            this.filledBar.style.backgroundColor = "#DD7777";
-        }
-        else if (x <= 66) {
-            this.filledBar.style.backgroundColor = "#DDDD77";
-        }
-        else {
-            this.filledBar.style.backgroundColor = "#4CAF50";
-        }
+        this.filledBar.style.backgroundColor = perc2color(x);
     }
 };
 
@@ -119,6 +124,12 @@ function main() {
 
     function checkBasket() {
         var cart = getCart();
+        if (cart.length === 0) {
+            widget.div.style.display = "none";
+            return;
+        } else {
+            widget.div.style.display = "block";
+        }
         console.log(JSON.stringify({
             "eans": cart.map(item => item.ean)
         }));
