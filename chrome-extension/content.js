@@ -110,7 +110,7 @@ function main() {
     function checkBasket() {
         var cart = getCart();
         fetch(
-            "http://127.0.0.1:5000/",
+            "http://127.0.0.1:5000/goodness/",
             {
                 headers: {
                     'Accept': 'application/json',
@@ -122,7 +122,8 @@ function main() {
                   }),
             },
         )
-        .then(response => console.log(response))
+        .then(response => response.json())
+        .then(json => widget.healthyBar.setFill(json.score))
         .catch(reason => console.log(reason));
     }
 }
