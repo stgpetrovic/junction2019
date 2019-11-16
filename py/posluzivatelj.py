@@ -3,13 +3,13 @@ import json
 import math
 import random
 
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
 from gen_logo import logo
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/images/')
 api = Api(app)
 
 
@@ -180,6 +180,11 @@ class StoreSid(Resource):
 
     def get(self):
         return SID
+
+
+@app.route('/images/<path:path>')
+def send_images(path):
+    return send_from_directory('images', path)
 
 
 api.add_resource(Product, '/goodness')

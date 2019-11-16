@@ -5,9 +5,6 @@ SVG = """
   {BASKET}
   {EYES}
   {MOUTH}
-  <image xlink:href="basket.png" x="0" y="0" height="250" width="250"/>
-  <image xlink:href="happy-eyes.png" width="100" x="75" y="125"/>
-  <image xlink:href="happy-mouth.png" width="150" x="50" y="175"/>
 </svg>
 """
 
