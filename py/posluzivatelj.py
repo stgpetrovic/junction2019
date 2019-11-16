@@ -45,6 +45,10 @@ class Inventory():
 
 
     def suggest(self, ean):
+        cat = self._cat.get(ean, None)
+        if cat is None:
+            return None
+        cat_list = self._cat_list.get(cat, [])
         print(len(self._cat_list[self._cat[ean]]))
 
 
@@ -69,6 +73,7 @@ class Product(Resource):
         good = sorted(good)[0:3]
         hmean = len(good) / sum(1.0 / g for g in good)
         result['score'] = round(100.0 / (1.0 + math.exp(-(hmean - 0.75) * 25)))
+        print 
         return result
 
 
