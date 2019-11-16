@@ -1,7 +1,9 @@
-class GreenBar {
-    constructor() {
+class Bar {
+    constructor(name) {
         this.filled_percent = 0;
+        this.name = name;
         this.barContainer = document.createElement('div');
+        this.barName = document.createElement('div');
         this.fullBar = document.createElement('div');
         this.filledBar = document.createElement('div');
         this._init();
@@ -12,10 +14,22 @@ class GreenBar {
     }
 
     _init() {
+        this._initBarContainer();
+        this._initBarName();
         this._initFullBar();
         this._initFilledBar();
+        this.barContainer.appendChild(this.barName);
         this.barContainer.appendChild(this.fullBar);
         this.fullBar.appendChild(this.filledBar);
+    }
+
+    _initBarContainer() {
+        this.barContainer.className += " green-basket-bar-container";
+    }
+
+    _initBarName() {
+        this.barName.innerText = this.name;
+        this.barName.className += " green-basket-bar-name";
     }
 
     _initFullBar() {
@@ -43,11 +57,15 @@ function insertElement() {
     var div = document.createElement('div');
     heading.appendChild(div);
 
-    var healthyBar = new GreenBar();
+    var healthyBar = new Bar("Health score");
     healthyBar.attach(div);
+
+    var greenBar = new Bar("Green score");
+    greenBar.attach(div);
     return {
         div,
-        healthyBar
+        healthyBar,
+        greenBar
     };
 }
 
@@ -77,10 +95,10 @@ function getAmounts(item) {
 }
 
 function main() {
-    var jsInitChecktimer = setInterval(checkForJS_Finish, 111);
     var widget;
+    var jsInitChecktimer = setInterval(checkForJS_Finish, 111);
 
-    function checkForJS_Finish () {
+    function checkForJS_Finish() {
         if (document.getElementsByClassName("shopping-list-heading")) {
             clearInterval(jsInitChecktimer);
             widget = insertElement();
