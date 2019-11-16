@@ -104,6 +104,7 @@ class Popup {
 function insertElement() {
     var heading = document.getElementsByClassName("shopping-list-heading")[0];
     var div = document.createElement('div');
+    div.style.display = "none";
     heading.appendChild(div);
 
     var healthyBar = new Bar("Health score");
@@ -164,10 +165,9 @@ function main() {
     function checkBasket() {
         var cart = getCart();
         if (cart.length === 0) {
-            widget.div.style.display = "none";
-            return;
+            hideBars();
         } else {
-            widget.div.style.display = "block";
+            showBars();
         }
         console.log(JSON.stringify({
             "eans": cart.map(item => item.ean)
@@ -186,7 +186,20 @@ function main() {
             },
         )
         .then(response => response.json())
-        .then(json => widget.healthyBar.setFill(json.score))
+        .then(json => {
+            widget.healthyBar.setFill(json.score);
+            widget.greenBar.setFill(json.sustainable);
+        })
         .catch(reason => console.log(reason));
+    }
+
+    function hideBars() {
+        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "70px";
+        widget.div.style.display = "none";
+    }
+
+    function showBars() {
+        document.getElementsByClassName("shopping-list-content")[0].style.paddingTop = "272px";
+        widget.div.style.display = "block";
     }
 }
