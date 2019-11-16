@@ -45,14 +45,10 @@ class Inventory():
 
 
     def suggest(self, ean):
-        print(ean)
         cat = self._cat.get(ean, None)
-        print(cat)
         if cat is None:
             return None
         cat_list = self._cat_list.get(cat, [])
-        print(len(self._cat_list[self._cat[ean]]))
-
         score = inventory.goodness(ean)
         scored = [(inventory.goodness(i), i) for i in cat_list]
         best = sorted(scored, key=lambda item: item[0])[-1]
@@ -85,9 +81,11 @@ class Product(Resource):
 
         worst_item = bad[0][1]
         suggestion = inventory.suggest(worst_item)
-        print(worst_item, suggestion)
-        result['suggest'] = {'source_ean': worst_item, 'target_ean': suggestion}
-        print(result)
+        if suggestion is not None:
+            result['suggest'] = {
+                'source_ean': worst_item,
+                'target_ean': suggestion
+            }
         return result
 
 
