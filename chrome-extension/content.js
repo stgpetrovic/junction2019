@@ -251,6 +251,9 @@ function getCart() {
 
 function getAmounts(item) {
     var container = item.getElementsByClassName("product-shopping-list-amount-container")[0];
+    if (container == null) {
+      return {amount: '0', pricingUnit: ''};
+    }
     var amount = container.getElementsByClassName("amount")[0].innerText.trim();
     var pricingUnit = container.getElementsByClassName("pricing-unit")[0].innerText.trim();
     return {
@@ -430,10 +433,16 @@ function main() {
         if (document.getElementsByClassName("shopping-list-heading")) {
             clearInterval(jsInitChecktimer);
             widget = insertElement();
+            checkBasket();
         }
     }
 
-    var jsCheckBasket = setInterval(checkBasket, 1033);
+    observer = new MutationObserver(checkBasket);
+    observer_config = {childList: true, subtree: true, attributes: true, characterData: true};
+    amount_elements = document.getElementsByClassName('shopping-list-departments');
+    for(i = 0; i < amount_elements.length; i++){
+        observer.observe(amount_elements[i], observer_config);
+    }
 
     function checkBasket() {
         var cart = getCart();
