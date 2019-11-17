@@ -163,7 +163,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         if (nameC.containsKey(barcode.rawValue)) {
             mOverlay.getIv().setImageResource(drawC.get(barcode.rawValue));
 
-            mOverlay.getIv().layout((int)rect.left-450, (int)rect.top-450, (int)rect.top, (int) rect.bottom);
+            mOverlay.getIv().layout((int)rect.left-500, (int)rect.top-550, (int)rect.top, (int) rect.bottom);
 
             canvas.drawText(nameC.get(barcode.rawValue), rect.left-50, rect.top-50, mProductPaint);
         }
