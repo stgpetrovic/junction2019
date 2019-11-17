@@ -15,14 +15,30 @@
  */
 package com.google.android.gms.samples.vision.barcodereader;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.PorterDuff;
 import android.graphics.RectF;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.samples.vision.barcodereader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +47,8 @@ import java.util.Map;
  * overlay view.
  */
 public class BarcodeGraphic extends GraphicOverlay.Graphic {
+
+    private long lastEvent;
 
     class Product {
         public String ean;
@@ -118,6 +136,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
     public void draw(Canvas canvas) {
         Barcode barcode = mBarcode;
         if (barcode == null) {
+            mOverlay.getIv().setImageDrawable(null);
             return;
         }
 
@@ -131,11 +150,16 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
 
         // Draws a label at the bottom of the barcode indicate the barcode value that was detected.
         canvas.drawText(barcode.rawValue, rect.left, rect.bottom, mTextPaint);
-        String url = "https://public.keskofiles.com/f/k-ruoka/product/5706779062243?w=400&h=250&auto=format&fm=jpg&fit=fillmax&fill=solid&fill-color=ffffff&cs=srgb";
-
 
         if (PRODUCTS.containsKey(barcode.rawValue)) {
             canvas.drawText(PRODUCTS.get(barcode.rawValue).toString(), rect.left-20, rect.top-50, mProductPaint);
+            mOverlay.getIv().setImageResource(R.drawable.icon);
+            mOverlay.getIv().setTop(0);
+            mOverlay.getIv().setLeft(0);
+            ViewGroup.LayoutParams p = mOverlay.getIv().getLayoutParams();
+            p.width  = p.width /2;
+            p.height = p.height /2;
+            mOverlay.setLayoutParams(p);
         }
     }
 }

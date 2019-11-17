@@ -17,6 +17,7 @@ package com.google.android.gms.samples.vision.barcodereader;
 
 import android.content.Context;
 import android.support.annotation.UiThread;
+import android.util.Log;
 
 import com.google.android.gms.samples.vision.barcodereader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.Detector;
@@ -34,6 +35,7 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
     private BarcodeGraphic mGraphic;
 
     private BarcodeUpdateListener mBarcodeUpdateListener;
+    private long lastEvent = 0;
 
     /**
      * Consume the item instance detected from an Activity or Fragment level by implementing the
@@ -80,6 +82,9 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
      */
     @Override
     public void onMissing(Detector.Detections<Barcode> detectionResults) {
+        try {
+            mOverlay.getIv().setImageDrawable(null);
+        } catch (Exception e) {}
         mOverlay.remove(mGraphic);
     }
 

@@ -19,6 +19,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.vision.CameraSource;
 
@@ -54,13 +55,23 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
     private int mFacing = CameraSource.CAMERA_FACING_BACK;
     private Set<T> mGraphics = new HashSet<>();
 
+    private ImageView iv;
+
+    public void setIv(ImageView iv) {
+        this.iv = iv;
+    }
+
+    public ImageView getIv() {
+        return iv;
+    }
+
     /**
      * Base class for a custom graphics object to be rendered within the graphic overlay.  Subclass
      * this and implement the {@link Graphic#draw(Canvas)} method to define the
      * graphics element.  Add instances to the overlay using {@link GraphicOverlay#add(Graphic)}.
      */
     public static abstract class Graphic {
-        private GraphicOverlay mOverlay;
+        public GraphicOverlay mOverlay;
 
         public Graphic(GraphicOverlay overlay) {
             mOverlay = overlay;
