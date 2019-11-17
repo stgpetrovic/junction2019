@@ -84,7 +84,8 @@ public class BarcodeGraphicTracker extends Tracker<Barcode> {
     public void onMissing(Detector.Detections<Barcode> detectionResults) {
         try {
             mOverlay.getIv().setImageDrawable(null);
-        } catch (Exception e) {}
+        } catch (Exception e) {Log.d("SRaNJE", "",e);}
+        mGraphic.hide();
         mOverlay.remove(mGraphic);
     }
 

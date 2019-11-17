@@ -129,6 +129,8 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
         public void postInvalidate() {
             mOverlay.postInvalidate();
         }
+
+        public void hide() {};
     }
 
     public GraphicOverlay(Context context, AttributeSet attrs) {

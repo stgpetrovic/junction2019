@@ -108,7 +108,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         mRectPaint.setStrokeWidth(4.0f);
 
         mProductPaint = new Paint();
-        mProductPaint.setColor(Color.RED);
+        mProductPaint.setColor(Color.WHITE);
         mProductPaint.setTextSize(50.0f);
     }
 
@@ -152,21 +152,38 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         rect.bottom = translateY(rect.bottom);
         canvas.drawRect(rect, mRectPaint);
 
-        new CallAPI(canvas, rect.left-50, rect.top-50).execute("http://brahle.com:5000/goodness?ean=" + barcode.rawValue);
-        if (PRODUCTS.containsKey(barcode.rawValue)) {
+        if (java.lang.System.currentTimeMillis() - lastEvent > 200) {
+            lastEvent = java.lang.System.currentTimeMillis();
+            if (!nameC.containsKey(barcode.rawValue)) {
+                new CallAPI(canvas, barcode.rawValue, rect.left - 50, rect.top - 50).execute("http://brahle.com:5000/ean/" + barcode.rawValue);
+            }
+        }
 
+        if (nameC.containsKey(barcode.rawValue)) {
+            mOverlay.getIv().setImageResource(drawC.get(barcode.rawValue));
+            canvas.drawText(nameC.get(barcode.rawValue), rect.left-50, rect.top-50, mProductPaint);
         }
     }
+
+    @Override
+    public void hide() {
+        mOverlay.getIv().setImageDrawable(null);
+    }
+
+    HashMap<String, String> nameC = new HashMap<>();
+    HashMap<String, Integer> drawC= new HashMap<>();
 
     public class CallAPI extends AsyncTask<String, String, String> {
 
         private final Canvas canvas;
         private final float top;
         private final float left;
+        private final String barcode;
 
-        public CallAPI(Canvas canvas, float left, float top){
+        public CallAPI(Canvas canvas, String barcode, float left, float top){
             //set context variables if required
         this.canvas = canvas;
+        this.barcode=barcode;
         this.left=left;
         this.top=top;
         }
@@ -201,6 +218,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
                 BufferedReader reader = new BufferedReader(streamReader);
                 StringBuilder stringBuilder = new StringBuilder();
                 //Check if the line we are reading is not null
+                String inputLine;
                 while((inputLine = reader.readLine()) != null){
                     stringBuilder.append(inputLine);
                 }
@@ -209,11 +227,58 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
                 streamReader.close();
                 //Set our result equal to our stringBuilder
                 Log.d("Aaaa", stringBuilder.toString());
+                return stringBuilder.toString();
             }
             catch(IOException e){
                 e.printStackTrace();
             }
             return "";
         }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            String[] parts = s.toString().split("\\|");
+                    if (parts.length != 4) {
+                        return;
+                    }
+            int drawing = kosara(parts[2]);
+            String name = parts[3];
+            nameC.put(barcode, name);
+            drawC.put(barcode, drawing);
+        }
+
+        int kosara(String kosara) {
+            if (kosara.equals("0_0.png")) {
+                return R.drawable.kosara0_0;
+            }
+            if (kosara.equals("0_1.png")) {
+                return R.drawable.kosara0_1;
+            }
+            if (kosara.equals("0_2.png")) {
+                return R.drawable.kosara0_2;
+            }
+            if (kosara.equals("1_0.png")) {
+                return R.drawable.kosara1_0;
+            }
+            if (kosara.equals("1_1.png")) {
+                return R.drawable.kosara1_1;
+            }
+            if (kosara.equals("1_2.png")) {
+                return R.drawable.kosara1_2;
+            }
+            if (kosara.equals("2_0.png")) {
+                return R.drawable.kosara2_0;
+            }
+            if (kosara.equals("2_1.png")) {
+                return R.drawable.kosara2_1;
+            }
+            if (kosara.equals("2_2.png")) {
+                return R.drawable.kosara2_2;
+            }
+            return R.drawable.kosara0_0;
+        }
     }
+
 }
