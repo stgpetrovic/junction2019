@@ -8,7 +8,7 @@ from flask import Flask, request, send_from_directory, send_file, Response
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
-from gen_logo import logo, logo_svg
+from gen_logo import logo, logo_svg, logo_name as _logo_name
 
 app = Flask(__name__)
 api = Api(app)
@@ -197,8 +197,18 @@ def send_ean(ean):
     goodness = inventory.goodness(ean)
     sustain = inventory.sustain_score(ean)
     content = logo_svg(goodness, sustain)
-    print(content)
     return Response(content, mimetype='image/svg+xml')
+
+
+@app.route('/logo/raw/<health>/<sustain>')
+def logo_raw(health, sustain):
+    content = logo_svg(int(health), int(sustain))
+    return Response(content, mimetype='image/svg+xml')
+
+
+@app.route('/logo/name/<health>/<sustain>')
+def logo_name(health, sustain):
+    return _logo_name(health, sustain)
 
 
 api.add_resource(Product, '/goodness')

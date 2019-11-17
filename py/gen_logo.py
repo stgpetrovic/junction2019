@@ -52,6 +52,18 @@ def logo_svg(health: float, sustainable: float) -> str:
         mouth=mouth(health, sustainable).format(),
     )
 
+def logo_name(health: float, sustainable: float) -> str:
+    return "{}_{}.png".format(
+        get_one_dimmension(float(health)),
+        get_one_dimmension(float(sustainable)),
+    )
+
+def get_one_dimmension(x: float) -> str:
+    if x < 33:
+        return "0"
+    if x < 66:
+        return "1"
+    return "2"
 
 def basket(health:float, sustinable: float) -> IncludeImage:
     return IncludeImage("images/basket.png", 0, 0, 300, 300)

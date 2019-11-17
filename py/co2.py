@@ -10,11 +10,11 @@ kg_co2_per_kg_km = { # mile to km, tonne to kg
 
 def mode_transport_heuristic(dist):
     if dist < 350:
-        return 'road';
+        return 'road'
     elif dist < 800:
-        return 'rail';
+        return 'rail'
     elif dist < 1500:
-        return 'road';
+        return 'road'
     else:
         return 'maritime'
 
@@ -22,12 +22,13 @@ def product_shipping_distance(p):
     return distance.finland_dist(p.country)
 
 def emissions_g(p):
+#   print(p.country)
   d = product_shipping_distance(p)
   if not d:
       d = 50  # in-land, truck skladiste
   if p.weight == 0:
      p.weight = 0.16  # 16 deka, MOZE
-  #print("w=%s"%p.weight)
-  #print("d=%s"%d)
+#   print("w=%s"%p.weight)
+#   print("d=%s"%d)
   emit = p.weight * d * kg_co2_per_kg_km[mode_transport_heuristic(d)] * 1000 # gram
   return emit

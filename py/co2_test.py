@@ -14,5 +14,12 @@ class TestCo2(unittest.TestCase):
         engleska_sojsos = product_metadata.ProductMetadata().Infos(['5701095188448'])[0]
         self.assertGreater(co2.emissions_g(japanska_sojsos), co2.emissions_g(engleska_sojsos))
 
+    def test_co2_comp_2(self):
+        ean = '8722800987481'
+        mango_600g = product_metadata.ProductMetadata().Infos([ean])[0]
+        mango_1kg = product_metadata.ProductMetadata().Infos(['2000326600005'])[0]
+        print(co2.emissions_g(mango_600g), co2.emissions_g(mango_1kg))
+        self.assertGreater(co2.emissions_g(mango_1kg), co2.emissions_g(mango_600g))
+
 if __name__ == '__main__':
     unittest.main()
