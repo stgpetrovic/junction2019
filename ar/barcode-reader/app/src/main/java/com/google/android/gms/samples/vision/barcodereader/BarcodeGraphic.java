@@ -35,9 +35,18 @@ import com.caverock.androidsvg.SVGParseException;
 import com.google.android.gms.samples.vision.barcodereader.ui.camera.GraphicOverlay;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,8 +95,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
     private static int mCurrentColorIndex = 0;
 
     private Paint mRectPaint;
-    private Paint mTextPaint;
-    private Paint mProductPaint;
+    public Paint mProductPaint;
     private volatile Barcode mBarcode;
 
     BarcodeGraphic(GraphicOverlay overlay) {
@@ -95,16 +103,12 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         init();
 
         mRectPaint = new Paint();
-        mRectPaint.setColor(Color.CYAN);
+        mRectPaint.setColor(Color.YELLOW);
         mRectPaint.setStyle(Paint.Style.STROKE);
         mRectPaint.setStrokeWidth(4.0f);
 
-        mTextPaint = new Paint();
-        mTextPaint.setColor(Color.CYAN);
-        mTextPaint.setTextSize(36.0f);
-
         mProductPaint = new Paint();
-        mProductPaint.setColor(Color.YELLOW);
+        mProductPaint.setColor(Color.RED);
         mProductPaint.setTextSize(50.0f);
     }
 
@@ -148,18 +152,68 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         rect.bottom = translateY(rect.bottom);
         canvas.drawRect(rect, mRectPaint);
 
-        // Draws a label at the bottom of the barcode indicate the barcode value that was detected.
-        canvas.drawText(barcode.rawValue, rect.left, rect.bottom, mTextPaint);
-
+        new CallAPI(canvas, rect.left-50, rect.top-50).execute("http://brahle.com:5000/goodness?ean=" + barcode.rawValue);
         if (PRODUCTS.containsKey(barcode.rawValue)) {
-            canvas.drawText(PRODUCTS.get(barcode.rawValue).toString(), rect.left-20, rect.top-50, mProductPaint);
-            mOverlay.getIv().setImageResource(R.drawable.icon);
-            mOverlay.getIv().setTop(0);
-            mOverlay.getIv().setLeft(0);
-            ViewGroup.LayoutParams p = mOverlay.getIv().getLayoutParams();
-            p.width  = p.width /2;
-            p.height = p.height /2;
-            mOverlay.setLayoutParams(p);
+
+        }
+    }
+
+    public class CallAPI extends AsyncTask<String, String, String> {
+
+        private final Canvas canvas;
+        private final float top;
+        private final float left;
+
+        public CallAPI(Canvas canvas, float left, float top){
+            //set context variables if required
+        this.canvas = canvas;
+        this.left=left;
+        this.top=top;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String urlString = params[0]; // URL to call
+            OutputStream out = null;
+
+            try {
+                //Create a URL object holding our url
+                URL myUrl = new URL(urlString);
+                //Create a connection
+                HttpURLConnection connection =(HttpURLConnection)
+                        myUrl.openConnection();
+                //Set methods and timeouts
+                connection.setRequestMethod("GET");
+                connection.setReadTimeout(15000);
+                connection.setConnectTimeout(15000);
+
+                //Connect to our url
+                connection.connect();
+                //Create a new InputStreamReader
+                InputStreamReader streamReader = new
+                        InputStreamReader(connection.getInputStream());
+                //Create a new buffered reader and String Builder
+                BufferedReader reader = new BufferedReader(streamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+                //Check if the line we are reading is not null
+                while((inputLine = reader.readLine()) != null){
+                    stringBuilder.append(inputLine);
+                }
+                //Close our InputStream and Buffered reader
+                reader.close();
+                streamReader.close();
+                //Set our result equal to our stringBuilder
+                Log.d("Aaaa", stringBuilder.toString());
+            }
+            catch(IOException e){
+                e.printStackTrace();
+            }
+            return "";
         }
     }
 }
