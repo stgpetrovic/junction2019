@@ -27,6 +27,7 @@ import android.graphics.RectF;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -108,7 +109,7 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
         mRectPaint.setStrokeWidth(4.0f);
 
         mProductPaint = new Paint();
-        mProductPaint.setColor(Color.WHITE);
+        mProductPaint.setColor(Color.GREEN);
         mProductPaint.setTextSize(50.0f);
     }
 
@@ -161,6 +162,9 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
 
         if (nameC.containsKey(barcode.rawValue)) {
             mOverlay.getIv().setImageResource(drawC.get(barcode.rawValue));
+
+            mOverlay.getIv().layout((int)rect.left-450, (int)rect.top-450, (int)rect.top, (int) rect.bottom);
+
             canvas.drawText(nameC.get(barcode.rawValue), rect.left-50, rect.top-50, mProductPaint);
         }
     }
@@ -251,30 +255,39 @@ public class BarcodeGraphic extends GraphicOverlay.Graphic {
 
         int kosara(String kosara) {
             if (kosara.equals("0_0.png")) {
+                mProductPaint.setColor(Color.RED);
                 return R.drawable.kosara0_0;
             }
             if (kosara.equals("0_1.png")) {
+                mProductPaint.setColor(Color.RED);
                 return R.drawable.kosara0_1;
             }
             if (kosara.equals("0_2.png")) {
+                mProductPaint.setColor(Color.YELLOW);
                 return R.drawable.kosara0_2;
             }
             if (kosara.equals("1_0.png")) {
+                mProductPaint.setColor(Color.RED);
                 return R.drawable.kosara1_0;
             }
             if (kosara.equals("1_1.png")) {
+                mProductPaint.setColor(Color.YELLOW);
                 return R.drawable.kosara1_1;
             }
             if (kosara.equals("1_2.png")) {
+                mProductPaint.setColor(Color.GREEN);
                 return R.drawable.kosara1_2;
             }
             if (kosara.equals("2_0.png")) {
+                mProductPaint.setColor(Color.YELLOW);
                 return R.drawable.kosara2_0;
             }
             if (kosara.equals("2_1.png")) {
+                mProductPaint.setColor(Color.GREEN);
                 return R.drawable.kosara2_1;
             }
             if (kosara.equals("2_2.png")) {
+                mProductPaint.setColor(Color.GREEN);
                 return R.drawable.kosara2_2;
             }
             return R.drawable.kosara0_0;
