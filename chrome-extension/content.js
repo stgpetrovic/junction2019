@@ -438,13 +438,14 @@ function main() {
     }
 
     observer = new MutationObserver(checkBasket);
-    observer_config = {childList: true, subtree: true, attributes: true, characterData: true};
+    observer_config = {childList: true, subtree: true, characterData: true};
     amount_elements = document.getElementsByClassName('shopping-list-departments');
     for(i = 0; i < amount_elements.length; i++){
         observer.observe(amount_elements[i], observer_config);
     }
 
     function checkBasket() {
+        console.log('Checking basket!');
         var cart = getCart();
         if (cart.length === 0) {
             hideBars();
