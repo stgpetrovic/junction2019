@@ -1,0 +1,5 @@
+<svg width="500" height="500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <image xlink:href="https://green-basket.xyz/images/basket.png" x="0" y="0" height="300" width="300"/>
+  <image xlink:href="https://green-basket.xyz/images/angry-eyes.png" x="90" y="150" height="75" width="125"/>
+  <image xlink:href="https://green-basket.xyz/images/happy-mouth.png" x="65" y="225" height="50" width="175"/>
+</svg>
