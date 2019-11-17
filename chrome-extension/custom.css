@@ -65,12 +65,13 @@ div.green-basket-logo span.green-basket-hidden-tooltip {
     font-size: 40px;
     margin: 0;
     transform: translate(0, -20px);
+    cursor: pointer;
 }
 
 .green-basket-popup-div {
     position: relative;
     padding: 5px;
-    border: 2px solid #5a8f00;
+    /* border: 2px solid #5a8f00; */
     color: #333;
     background: #fff;
     border-radius: 10px;
@@ -80,4 +81,8 @@ div.green-basket-logo span.green-basket-hidden-tooltip {
 .green-basket-popup-text {
     position: relative;
     margin: 0;
+}
+
+.recommendation-target-action-div {
+    text-align: center;
 }

@@ -72,6 +72,9 @@ class Popup {
         this.name = name;
         this.popupDiv = document.createElement('div');
         this.popupText = document.createElement('p');
+        this.actionDiv = document.createElement('div');
+        this.actionDiv.className = "recommendation-target-action-div";
+
         this.popupImageSrc = document.createElement('img');
         this.popupImageSrc.className = "recommendation-target-image";
         this.popupImageArrow = document.createElement('p');
@@ -90,9 +93,10 @@ class Popup {
         this._initPopupText();
     this._initPopupDiv();
         this.popupDiv.appendChild(this.popupText);
-        this.popupDiv.appendChild(this.popupImageSrc);
-        this.popupDiv.appendChild(this.popupImageArrow);
-        this.popupDiv.appendChild(this.popupImageDst);
+        this.popupDiv.appendChild(this.actionDiv);
+        this.actionDiv.appendChild(this.popupImageSrc);
+        this.actionDiv.appendChild(this.popupImageArrow);
+        this.actionDiv.appendChild(this.popupImageDst);
     }
 
     _initPopupText() {
