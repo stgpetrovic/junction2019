@@ -27,6 +27,9 @@ Demo flow:
 
 1. Open the web page.
 2. Add a good item to the basket.
-3. Add a bad, far away item to the basket.
-4. Show the suggestion.
+3. Add a bad, far away item to the basket. It should trigger ship it.
+4. Show the ship it suggestion.
 5. Click swap to execute the swap.
+
+Izlike:
+- Lose je osvjetljenje pa citac barkoda nije stabilan.

@@ -194,8 +194,8 @@ def send_images(path):
 
 @app.route('/logo/ean/<ean>')
 def send_ean(ean):
-    goodness = inventory.goodness(ean)
-    sustain = inventory.sustain_score(ean)
+    goodness = inventory.goodness(ean) * 100.0
+    sustain = inventory.sustain_score(ean) * 100.0
     content = logo_svg(goodness, sustain)
     return Response(content, mimetype='image/svg+xml')
 
@@ -213,8 +213,8 @@ def logo_name(health, sustain):
 
 @app.route("/ean/<ean>")
 def get_item(ean):
-    health = inventory.goodness(ean)
-    sustain = inventory.sustain_score(ean)
+    health = inventory.goodness(ean) * 100.0
+    sustain = inventory.sustain_score(ean) * 100.0
     name = inventory.display_data(ean)["name"]
     return "{}|{}|{}|{}".format(health, sustain, _logo_name(health, sustain), name)
 
