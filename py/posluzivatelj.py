@@ -216,7 +216,7 @@ def get_item(ean):
     health = inventory.goodness(ean)
     sustain = inventory.sustain_score(ean)
     name = inventory.display_data(ean)["name"]
-    return "{},{},{},{}".format(health, sustain, _logo_name(health, sustain), name)
+    return "{}|{}|{}|{}".format(health, sustain, _logo_name(health, sustain), name)
 
 
 api.add_resource(Product, '/goodness')
