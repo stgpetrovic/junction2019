@@ -36,3 +36,5 @@ __pycache__/
 
 # Android mierder
 build/
+.gradle/
+.idea/
