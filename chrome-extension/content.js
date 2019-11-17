@@ -439,7 +439,7 @@ function main() {
 
     observer = new MutationObserver(checkBasket);
     observer_config = {childList: true, subtree: true, characterData: true};
-    amount_elements = document.getElementsByClassName('shopping-list-departments');
+    amount_elements = document.getElementsByClassName('shopping-list-shopping-content');
     for(i = 0; i < amount_elements.length; i++){
         observer.observe(amount_elements[i], observer_config);
     }
