@@ -1,6 +1,54 @@
 Hello!
 
-We are team green basket and we have created a smart shopping assistant that gives you instant
+[Load the page]
+
+We are team green basket and we have created a socially responsible... artificial intelligence...
+smart shoppig assistent. A socially responisble, artificial intelligence smart shopping assistant.
+
+[Add a good item to the cart].
+
+Meet Baskey the Green Basket. [Mouse pointer circles Baskey]. Baskey tells you how healthy and
+sustainble your current basket selection is.
+
+[Add a bad item for sustainability to the cart]
+
+When you make a bad choice, Baskey's personality shines through, and hus avatar provides immediate
+feedback about how he feels about your choice.
+
+[Hover over Baskey]
+
+Baskey is also a teacher - he glows when he has something to say that explains how you can make
+better choices in the future.
+
+[Click the swap button]
+
+Not only that, he allows you to easily make a better choice by providing you with better
+alternatives.
+
+[Keep running the demo at your leisure - add the second bad item, this time health, focused.
+Replace it when ready.]
+
+We have used machine learning algorithms to train Baskey on the receipt data provided to us by
+Kesko. We started with a multivariate linear regression model that we used to bootstrap early
+iterations of Baskeys brains, and that we used to find tricky cases. We improved our machine
+learning algoirthm's quality by building a simple app that allowed a human operator to pick the
+better of the two choices and used that to build a high signal, robust training set.
+
+[Go on stage with the app]
+
+But wait, that's not all. We also built an artificial reality Android app that brings Baskey into
+your pocket.
+
+[Scan a barcode]
+
+The app allows you to scan any barcode and Baskeys familar face will immediately tell you how he
+feels about your choice.
+
+
+OLD:
+
+
+smart shopping assistant that gives you instant
 feedback about the items that you're adding to your shopping cart. As you keep placing more and
 more items into the cart, Baskey the Green Basket immediately tells you how healthy and sustainable
 your basket is. What's more, he helps you learn what you can do to improve both the healtiness and
